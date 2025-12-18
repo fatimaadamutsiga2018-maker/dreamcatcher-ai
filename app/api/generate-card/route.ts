@@ -1,5 +1,3 @@
-import { generateText } from "ai"
-
 export const runtime = "nodejs"
 
 interface GenerateCardRequest {
@@ -8,6 +6,44 @@ interface GenerateCardRequest {
   relationship: string
   tone: string
   additionalContext?: string
+}
+
+function getStatusCode(error: unknown): number | undefined {
+  if (typeof error !== "object" || error === null) return undefined
+  const anyError = error as any
+  const status = anyError.status ?? anyError.statusCode ?? anyError.response?.status
+  return typeof status === "number" ? status : undefined
+}
+
+function isRetryableError(error: unknown) {
+  const status = getStatusCode(error)
+  if (status === 408 || status === 409 || status === 425 || status === 429) return true
+  if (typeof status === "number" && status >= 500) return true
+
+  const message = error instanceof Error ? error.message : String(error)
+  return (
+    /timeout/i.test(message) ||
+    /ECONNRESET/i.test(message) ||
+    /ETIMEDOUT/i.test(message) ||
+    /EAI_AGAIN/i.test(message) ||
+    /fetch failed/i.test(message)
+  )
+}
+
+async function sleep(ms: number) {
+  await new Promise<void>((resolve) => setTimeout(resolve, ms))
+}
+
+async function callGenerateTextWithOneRetry(options: Parameters<typeof import("ai").generateText>[0]) {
+  const { generateText } = await import("ai")
+
+  try {
+    return await generateText({ ...options, maxRetries: 0 })
+  } catch (error) {
+    if (!isRetryableError(error)) throw error
+    await sleep(300)
+    return await generateText({ ...options, maxRetries: 0 })
+  }
 }
 
 export async function POST(request: Request) {
@@ -41,30 +77,57 @@ Instructions:
 
 Generate ONLY the card message text, starting with the greeting.`
 
-    // Generate the card content using AI
-    const { text } = await generateText({
-      model: "openai/gpt-4o-mini",
-      prompt,
-      temperature: 0.8,
-      maxTokens: 500,
-    })
+    const {
+      fallbackTextModel,
+      fallbackTextModelId,
+      primaryTextModel,
+      primaryTextModelId,
+    } = await import("@/lib/ai/openrouter")
+
+    const abortSignal = AbortSignal.timeout(12_000)
+
+    // 1) Try primary model (one quick retry on retryable errors)
+    let usedModelId = primaryTextModelId
+    let textResult: { text: string }
+    try {
+      textResult = await callGenerateTextWithOneRetry({
+        model: primaryTextModel,
+        prompt,
+        temperature: 0.8,
+        maxOutputTokens: 500,
+        abortSignal,
+      })
+    } catch (primaryError) {
+      // 2) Fallback to backup model (also one quick retry)
+      usedModelId = fallbackTextModelId
+      textResult = await callGenerateTextWithOneRetry({
+        model: fallbackTextModel,
+        prompt,
+        temperature: 0.8,
+        maxOutputTokens: 500,
+        abortSignal,
+      })
+    }
 
     // Generate a title based on the occasion
     const titlePrompt = `Create a short, warm greeting card title for a ${occasion} card for ${recipientName}. 
 Examples: "Happy Birthday!", "Congratulations!", "With Love and Thanks"
 Generate ONLY the title, nothing else.`
 
-    const { text: title } = await generateText({
-      model: "openai/gpt-4o-mini",
+    const titleModel = usedModelId === primaryTextModelId ? primaryTextModel : fallbackTextModel
+    const titleResult = await callGenerateTextWithOneRetry({
+      model: titleModel,
       prompt: titlePrompt,
       temperature: 0.7,
-      maxTokens: 20,
+      maxOutputTokens: 40,
+      abortSignal,
     })
 
     return Response.json({
-      title: title.trim(),
-      message: text.trim(),
+      title: titleResult.text.trim(),
+      message: textResult.text.trim(),
       design: "gradient-purple",
+      model: usedModelId,
     })
   } catch (error) {
     console.error("[v0] Error generating card:", error)

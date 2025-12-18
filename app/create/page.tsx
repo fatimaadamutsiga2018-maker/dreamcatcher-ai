@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Sparkles, ArrowRight, ArrowLeft, Download, Share2, User, Users, AlertCircle } from "lucide-react"
@@ -42,6 +41,38 @@ const relationships = [
 ]
 
 const tones = ["Warm & Personal", "Professional", "Humorous", "Sincere & Heartfelt", "Casual & Friendly"]
+
+function NativeSelect({
+  id,
+  value,
+  onChange,
+  placeholder,
+  options,
+}: {
+  id: string
+  value: string
+  onChange: (value: string) => void
+  placeholder: string
+  options: string[]
+}) {
+  return (
+    <select
+      id={id}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="border-input bg-transparent focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full rounded-md border px-3 py-2 text-sm shadow-xs outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      <option value="" disabled>
+        {placeholder}
+      </option>
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  )
+}
 
 export default function CreatePage() {
   const [creationMode, setCreationMode] = useState<"quick_blessing" | "personal_moment" | null>(null)
@@ -271,35 +302,19 @@ export default function CreatePage() {
               {creationMode === "quick_blessing" && (
                 <div className="space-y-2">
                   <Label htmlFor="relationship">Relationship</Label>
-                  <Select value={relationship} onValueChange={setRelationship}>
-                    <SelectTrigger id="relationship">
-                      <SelectValue placeholder="Select relationship" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {relationships.map((rel) => (
-                        <SelectItem key={rel} value={rel}>
-                          {rel}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <NativeSelect
+                    id="relationship"
+                    value={relationship}
+                    onChange={setRelationship}
+                    placeholder="Select relationship"
+                    options={relationships}
+                  />
                 </div>
               )}
 
               <div className="space-y-2">
                 <Label htmlFor="tone">Tone</Label>
-                <Select value={tone} onValueChange={setTone}>
-                  <SelectTrigger id="tone">
-                    <SelectValue placeholder="Select tone" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {tones.map((t) => (
-                      <SelectItem key={t} value={t}>
-                        {t}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <NativeSelect id="tone" value={tone} onChange={setTone} placeholder="Select tone" options={tones} />
               </div>
 
               <div className="space-y-2">
