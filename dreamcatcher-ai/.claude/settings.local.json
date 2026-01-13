@@ -30,7 +30,11 @@
       "Bash(npm uninstall:*)",
       "Bash(del \"C:\\\\Users\\\\yyzz\\\\Documents\\\\GitHub\\\\dreamcatcher-ai\\\\prisma.config.ts\")",
       "Bash(rd:*)",
-      "Bash(npx prisma generate:*)"
+      "Bash(npx prisma generate:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)"
     ]
   }
 }
