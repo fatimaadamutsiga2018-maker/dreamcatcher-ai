@@ -1,0 +1,23 @@
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3d3JvZXZrZnF5cXZ1ZGFmdGtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3NzQ3MzUsImV4cCI6MjA4MTM1MDczNX0.u0lAKrQgcW-Lj6Sz_IlE4l-HuJD038gNN4CRfPNvBwQ"
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="sb_publishable_hbztQqwCJE-EPdM8mrjvXQ_Zk8oqshi"
+NEXT_PUBLIC_SUPABASE_URL="https://gwwroevkfqyqvudaftki.supabase.co"
+POSTGRES_DATABASE="postgres"
+POSTGRES_HOST="db.gwwroevkfqyqvudaftki.supabase.co"
+POSTGRES_PASSWORD="nGXvqz323nfDrw6M"
+POSTGRES_PRISMA_URL="postgres://postgres.gwwroevkfqyqvudaftki:nGXvqz323nfDrw6M@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true"
+POSTGRES_URL="postgres://postgres.gwwroevkfqyqvudaftki:nGXvqz323nfDrw6M@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x"
+POSTGRES_URL_NON_POOLING="postgres://postgres.gwwroevkfqyqvudaftki:nGXvqz323nfDrw6M@aws-1-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require"
+POSTGRES_USER="postgres"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3d3JvZXZrZnF5cXZ1ZGFmdGtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3NzQ3MzUsImV4cCI6MjA4MTM1MDczNX0.u0lAKrQgcW-Lj6Sz_IlE4l-HuJD038gNN4CRfPNvBwQ"
+SUPABASE_JWT_SECRET="UzgbE17dZvhCIQDLXC0LmehCR/4Vs0N1VCrMsI2CP9ZvZBEWp7xbux+nCZJ/yAp2efNP1l3WZ7DSZhZbDvXKQg=="
+SUPABASE_PUBLISHABLE_KEY="sb_publishable_hbztQqwCJE-EPdM8mrjvXQ_Zk8oqshi"
+SUPABASE_SECRET_KEY="sb_secret_p61WvCYWl0cgG9w-qPe2Cw_ZbuWwcpc"
+SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3d3JvZXZrZnF5cXZ1ZGFmdGtpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NTc3NDczNSwiZXhwIjoyMDgxMzUwNzM1fQ.Xmuov9a8WpUBWJ3R77nG3twCKrW6gyyLyvM56K57CmQ"
+SUPABASE_URL="https://gwwroevkfqyqvudaftki.supabase.co"
+
+
+NEXT_PUBLIC_GA_ID - Google Analytics ID
+OPENAI_API_KEY - OpenAI API Key（用于 GPT-4）
+ELEVENLABS_API_KEY - ElevenLabs API Key（用于 TTS）
+SENDGRID_API_KEY - SendGrid API Key（用于邮件）
+SENDGRID_FROM_EMAIL - 发件人邮箱
