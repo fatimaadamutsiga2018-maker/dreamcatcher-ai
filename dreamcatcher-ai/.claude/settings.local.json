@@ -28,7 +28,9 @@
       "Bash(copy:*)",
       "Bash(npx prisma migrate dev:*)",
       "Bash(npm uninstall:*)",
-      "Bash(del \"C:\\\\Users\\\\yyzz\\\\Documents\\\\GitHub\\\\dreamcatcher-ai\\\\prisma.config.ts\")"
+      "Bash(del \"C:\\\\Users\\\\yyzz\\\\Documents\\\\GitHub\\\\dreamcatcher-ai\\\\prisma.config.ts\")",
+      "Bash(rd:*)",
+      "Bash(npx prisma generate:*)"
     ]
   }
 }
