@@ -34,7 +34,10 @@
       "Bash(git rev-parse:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(xargs git rm:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nClean repository: remove unrelated project files\n\n- Remove REST for live project\n- Remove shipany-template-two-dev project\n- Keep only dreamcatcher-ai project files\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
