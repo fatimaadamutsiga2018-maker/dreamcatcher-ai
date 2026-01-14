@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd dreamcatcher-ai && npm install && npm run build",
+  "outputDirectory": "dreamcatcher-ai/.next",
+  "installCommand": "cd dreamcatcher-ai && npm install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/dreamcatcher-ai/$1" }
+  ]
+}

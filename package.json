@@ -1,0 +1,14 @@
+{
+  "name": "dreamcatcher-ai-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd dreamcatcher-ai && npm run dev",
+    "build": "cd dreamcatcher-ai && npm run build",
+    "start": "cd dreamcatcher-ai && npm run start",
+    "postinstall": "cd dreamcatcher-ai && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
