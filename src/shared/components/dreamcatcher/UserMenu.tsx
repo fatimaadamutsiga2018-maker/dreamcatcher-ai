@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 
 type UserMenuProps = {
@@ -10,6 +10,12 @@ type UserMenuProps = {
 export default function UserMenu({ onLoginClick }: UserMenuProps) {
   const { data: session, status } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Debug logging
+  useEffect(() => {
+    console.log("UserMenu - status:", status);
+    console.log("UserMenu - session:", session);
+  }, [status, session]);
 
   // Get user initials for avatar
   const getInitials = (name?: string | null, email?: string | null) => {
