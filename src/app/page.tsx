@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import EnergyTuner from "@/shared/components/dreamcatcher/EnergyTuner";
 import AtomicCard from "@/shared/components/dreamcatcher/AtomicCard";
 import NebulaBackground from "@/shared/components/dreamcatcher/NebulaBackground";
@@ -121,6 +122,7 @@ const SIMPLE_STATE_COPY: Record<TodayState, StateCopy> = {
 };
 
 export default function Home() {
+  const { data: session, status } = useSession();
   const [cardOpen, setCardOpen] = useState(false);
   const [personalModalOpen, setPersonalModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -129,6 +131,13 @@ export default function Home() {
   const toggleCardFlip = (cardKey: string) => {
     setFlippedCards(prev => ({ ...prev, [cardKey]: !prev[cardKey] }));
   };
+
+  // Debug session
+  useEffect(() => {
+    console.log("=== PAGE SESSION DEBUG ===");
+    console.log("Status:", status);
+    console.log("Session:", session);
+  }, [status, session]);
 
   // Random wisdom quotes (client-side only to avoid hydration mismatch)
   const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([]);
