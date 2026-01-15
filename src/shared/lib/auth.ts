@@ -57,6 +57,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: process.env.NODE_ENV === "production" ? ".dreamcatcherai.us" : undefined,
+      },
+    },
+  },
   callbacks: {
     async session({ session, token }) {
       if (session.user) {
