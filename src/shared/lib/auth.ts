@@ -8,9 +8,9 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import type { NextAuthConfig } from "next-auth";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const config = {
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" as const },
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID!,
@@ -75,4 +75,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
   },
-} satisfies NextAuthConfig);
+} satisfies NextAuthConfig;
+
+export const { handlers, signIn, signOut, auth } = NextAuth(config);
