@@ -6,6 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/shared/lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
+import type { NextAuthConfig } from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -57,18 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
-  cookies: {
-    sessionToken: {
-      name: `next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        domain: process.env.NODE_ENV === "production" ? ".dreamcatcherai.us" : undefined,
-      },
-    },
-  },
   callbacks: {
     async session({ session, token }) {
       if (session.user) {
@@ -89,4 +78,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
   },
-});
+} satisfies NextAuthConfig);
