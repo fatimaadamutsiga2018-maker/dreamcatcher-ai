@@ -7,6 +7,7 @@ import AtomicCard from "@/shared/components/dreamcatcher/AtomicCard";
 import NebulaBackground from "@/shared/components/dreamcatcher/NebulaBackground";
 import PersonalModal from "@/shared/components/dreamcatcher/PersonalModal";
 import AuthModal from "@/shared/components/dreamcatcher/AuthModal";
+import UserMenu from "@/shared/components/dreamcatcher/UserMenu";
 import { calculateGuestMode, calculateAnonymousMode, calculateMemberMode, calculateSeedSum, calculateBirthdaySum } from "@/shared/lib/dreamcatcher/engine-v3";
 import { USER_MODES, TWELVE_OFFICERS, calculateTwelveOfficer } from "@/shared/lib/dreamcatcher/constants";
 import { generateAmbientEnergyField } from "@/shared/lib/dreamcatcher/ambient-energy";
@@ -510,15 +511,7 @@ export default function Home() {
             </svg>
             <span className="text-xs tracking-wider text-white/70 group-hover:text-white/90 transition-colors">BLOG</span>
           </Link>
-          <button
-            onClick={() => setAuthModalOpen(true)}
-            className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
-          >
-            <svg className="w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span className="text-xs tracking-wider text-white/70 group-hover:text-white/90 transition-colors">LOGIN</span>
-          </button>
+          <UserMenu onLoginClick={() => setAuthModalOpen(true)} />
         </div>
       </nav>
 

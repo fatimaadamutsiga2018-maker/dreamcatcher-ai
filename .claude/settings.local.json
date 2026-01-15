@@ -50,7 +50,8 @@
       "Bash(npx next build)",
       "Bash(git init:*)",
       "Bash(git branch:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "Bash(openssl rand:*)"
     ]
   }
 }
