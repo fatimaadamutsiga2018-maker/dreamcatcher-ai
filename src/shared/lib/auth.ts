@@ -11,6 +11,7 @@ import type { NextAuthConfig } from "next-auth";
 const config = {
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" as const },
+  trustHost: true,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID!,
