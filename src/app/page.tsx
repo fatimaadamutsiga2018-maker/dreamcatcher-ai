@@ -141,6 +141,7 @@ export default function Home() {
 
   // Random wisdom quotes (client-side only to avoid hydration mismatch)
   const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   const [cardData, setCardData] = useState<CardData>({
     mode: "GUEST",
@@ -155,6 +156,7 @@ export default function Home() {
 
   // Generate random quotes on client side
   useEffect(() => {
+    setMounted(true);
     setDailyQuotes(getRandomQuotes(2));
   }, []);
 
@@ -529,7 +531,7 @@ export default function Home() {
         {/* TOP: Date - Anchored at Top */}
         <div className="text-center mb-4">
           <h1 className="text-xl md:text-2xl font-medium tracking-[0.2em] text-white/90">
-            {currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase()}
+            {mounted ? currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase() : ''}
           </h1>
         </div>
 
@@ -911,18 +913,13 @@ export default function Home() {
 
           {/* Random Wisdom Quotes */}
           <div className="mt-6 pt-4 border-t border-white/5">
-            {dailyQuotes.length > 0 ? (
+            {mounted && dailyQuotes.length > 0 && (
               <div className="space-y-2">
                 {dailyQuotes.map((quote, index) => (
                   <p key={index} className="text-xs text-white/25 italic leading-relaxed">
                     "{quote.text}"
                   </p>
                 ))}
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-xs text-white/25 italic leading-relaxed">"</p>
-                <p className="text-xs text-white/25 italic leading-relaxed">"</p>
               </div>
             )}
           </div>
