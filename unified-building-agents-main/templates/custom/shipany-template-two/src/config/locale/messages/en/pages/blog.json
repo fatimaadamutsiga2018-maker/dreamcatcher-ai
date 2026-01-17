@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "title": "Dreamcatcher Blog",
+    "description": "Learn how to align your actions with natural timing. Discover insights on energy management, productivity cycles, and when to push forward or pull back."
+  },
+  "page": {
+    "title": "Dreamcatcher Blog",
+    "sections": {
+      "blog": {
+        "id": "blog",
+        "title": "Blog",
+        "description": "Learn how to align your actions with natural timing."
+      }
+    }
+  },
+  "messages": {
+    "all": "All",
+    "no_content": "No Content",
+    "crumb": "Blog",
+    "toc": "Table of Contents"
+  }
+}

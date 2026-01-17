@@ -1,0 +1,417 @@
+{
+  "page": {
+    "show_sections": [
+      "hero",
+      "logos",
+      "introduce",
+      "benefits",
+      "usage",
+      "features",
+      "stats",
+      "testimonials",
+      "faq",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "Align Your Effort with the Right Timing",
+        "highlight_text": "Right Timing",
+        "description": "Dreamcatcher helps you understand when to act, when to rest, and when to consolidate.<br/>Stop grinding at the wrong time and start multiplying your impact.",
+        "announcement": {
+          "badge": "New",
+          "title": "Free Early Access Available",
+          "url": "/pricing"
+        },
+        "tip": "Join 2,000+ people mastering their energy cycles",
+        "buttons": [
+          {
+            "title": "Get Your Guide",
+            "icon": "Zap",
+            "url": "/pricing",
+            "target": "_self",
+            "variant": "default"
+          },
+          {
+            "title": "Read the Blog",
+            "icon": "BookOpenText",
+            "url": "/blog",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "show_avatars": true,
+        "avatars_tip": "2,000+ people are using Dreamcatcher",
+        "show_award": false,
+        "image": {
+          "src": "/imgs/features/admin.png",
+          "alt": "hero",
+          "width": 1200,
+          "height": 800
+        },
+        "image_invert": {
+          "src": "/imgs/features/admin-dark.png",
+          "alt": "hero",
+          "width": 1200,
+          "height": 800
+        },
+        "background_image": {
+          "src": "/imgs/bg/tree.jpg",
+          "alt": "hero"
+        }
+      },
+      "logos": {
+        "id": "logos",
+        "title": "Built on science, not hustle culture",
+        "items": [
+          {
+            "title": "Circadian Science",
+            "image": {
+              "src": "/imgs/logos/nextjs.svg",
+              "alt": "Circadian Science"
+            }
+          },
+          {
+            "title": "Chronobiology",
+            "image": {
+              "src": "/imgs/logos/react.svg",
+              "alt": "Chronobiology"
+            }
+          },
+          {
+            "title": "Energy Management",
+            "image": {
+              "src": "/imgs/logos/tailwindcss.svg",
+              "alt": "Energy Management"
+            }
+          },
+          {
+            "title": "Productivity Research",
+            "image": {
+              "src": "/imgs/logos/shadcn.svg",
+              "alt": "Productivity Research"
+            }
+          }
+        ]
+      },
+      "introduce": {
+        "block": "features-list",
+        "id": "introduce",
+        "title": "What is Dreamcatcher",
+        "label": "Introduce",
+        "description": "Dreamcatcher is your personal timing coach — helping you understand your natural energy cycles so you can make every effort count.",
+        "image": {
+          "src": "/imgs/features/landing-page.png",
+          "alt": "introduce"
+        },
+        "items": [
+          {
+            "title": "Know Your Energy Type",
+            "description": "Discover whether you're a morning lark, night owl, or somewhere in between — and work with your biology, not against it.",
+            "icon": "RiNextjsFill",
+            "image": {
+              "src": "/imgs/features/1.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "Timing Predictions",
+            "description": "Get personalized recommendations on the best times for focused work, creative thinking, meetings, and rest.",
+            "icon": "RiDatabase2Line",
+            "image": {
+              "src": "/imgs/features/2.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "Energy Tracking",
+            "description": "Track your energy levels throughout the day and discover patterns you never noticed before.",
+            "icon": "RiCloudyFill",
+            "image": {
+              "src": "/imgs/features/3.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "Action Guidance",
+            "description": "Receive daily guidance on when to push forward, when to pause, and when to consolidate your gains.",
+            "icon": "RiRobot2Line",
+            "image": {
+              "src": "/imgs/features/4.png",
+              "alt": "introduce"
+            }
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "benefits": {
+        "block": "features-accordion",
+        "id": "benefits",
+        "title": "Why Timing Matters More Than Effort",
+        "label": "Benefits",
+        "description": "You've been told to work harder. What if the secret is working at the right time?",
+        "items": [
+          {
+            "title": "It's Not You — It's Your Timing",
+            "description": "That afternoon slump isn't laziness. It's biology. Learn to work with your ultradian rhythms instead of fighting them.",
+            "icon": "RiNextjsFill",
+            "image": {
+              "src": "/imgs/features/user-billing.png",
+              "alt": "benefits"
+            }
+          },
+          {
+            "title": "Effort × Timing = Impact",
+            "description": "The same effort produces dramatically different results depending on when you apply it. Stop multiplying by zero.",
+            "icon": "RiClapperboardAiLine",
+            "image": {
+              "src": "/imgs/features/admin-settings.png",
+              "alt": "benefits"
+            }
+          },
+          {
+            "title": "Recover Like an Athlete",
+            "description": "Elite athletes know that recovery is when improvement happens. Apply sports science to your cognitive performance.",
+            "icon": "RiCodeFill",
+            "image": {
+              "src": "/imgs/features/landing-page.png",
+              "alt": "benefits"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "block": "features-step",
+        "id": "usage",
+        "title": "How Dreamcatcher Works",
+        "description": "Start aligning your effort with optimal timing in three simple steps:",
+        "image": {
+          "src": "/imgs/features/1.png",
+          "alt": "usage"
+        },
+        "image_position": "left",
+        "text_align": "center",
+        "items": [
+          {
+            "title": "Connect Your Data",
+            "description": "Sync your calendar, fitness tracker, or simply log your energy levels manually.",
+            "image": {
+              "src": "/imgs/features/5.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "Discover Your Patterns",
+            "description": "Our AI analyzes your rhythms to identify your peak performance windows and recharge periods.",
+            "image": {
+              "src": "/imgs/features/6.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "Get Daily Guidance",
+            "description": "Receive personalized recommendations on what to focus on and when — delivered exactly when you need them.",
+            "image": {
+              "src": "/imgs/features/7.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "Multiply Your Impact",
+            "description": "Watch your productivity soar as you stop fighting against your natural cycles and start working with them.",
+            "image": {
+              "src": "/imgs/features/8.png",
+              "alt": "usage"
+            }
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "features": {
+        "id": "features",
+        "title": "Everything You Need to Master Your Timing",
+        "description": "Tools designed to help you work smarter, not harder.",
+        "items": [
+          {
+            "title": "Personal Energy Dashboard",
+            "description": "Visualize your daily energy patterns and see your optimal performance windows at a glance.",
+            "icon": "RiNextjsFill"
+          },
+          {
+            "title": "Smart Calendar Integration",
+            "description": "Your schedule automatically optimized for your personal rhythm — no more meetings during your slump.",
+            "icon": "RiKey2Fill"
+          },
+          {
+            "title": "Habit Timing Analysis",
+            "description": "Learn which habits amplify your energy and which drain it — and when to practice each.",
+            "icon": "RiDatabase2Line"
+          },
+          {
+            "title": "Weekly Energy Reports",
+            "description": "See how your energy changed over the week and understand what influenced it.",
+            "icon": "RiCloudy2Fill"
+          },
+          {
+            "title": "Rest Optimization",
+            "description": "Get reminded to rest before you burn out — and learn what type of rest you actually need.",
+            "icon": "RiBarChart2Line"
+          },
+          {
+            "title": "Community Insights",
+            "description": "See how others with similar energy types are thriving — and learn from their timing strategies.",
+            "icon": "RiRobot2Line"
+          }
+        ]
+      },
+      "stats": {
+        "id": "stats",
+        "title": "People Are Finally Breaking Free from Hustle Culture",
+        "description": "Join thousands who've discovered that timing beats grinding.",
+        "items": [
+          {
+            "title": "2,000+",
+            "description": "Active Users"
+          },
+          {
+            "title": "47%",
+            "description": "Reported Higher Energy"
+          },
+          {
+            "title": "3.2x",
+            "description": "Productivity Increase"
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "testimonials": {
+        "id": "testimonials",
+        "title": "What Users Say About Dreamcatcher",
+        "description": "Real stories from people who stopped grinding and started timing.",
+        "items": [
+          {
+            "name": "Sarah Chen",
+            "role": "Startup Founder",
+            "quote": "I used to feel guilty about not being productive after 3pm. Dreamcatcher showed me that's my creative thinking window. Now I schedule accordingly and my output has doubled.",
+            "image": {
+              "src": "/imgs/avatars/1.png",
+              "alt": "sarah"
+            }
+          },
+          {
+            "name": "Marcus Johnson",
+            "role": "Software Engineer",
+            "quote": "The biggest insight was learning that my best coding happens between 9-11am. I protect those hours fiercely now. No more meetings, no more email — just deep work.",
+            "image": {
+              "src": "/imgs/avatars/2.png",
+              "alt": "marcus"
+            }
+          },
+          {
+            "name": "Elena Rodriguez",
+            "role": "Marketing Director",
+            "quote": "I was burning out trying to be 'on' all day. Now I understand my ultradian rhythms and take intentional breaks. Same hours, way more impact.",
+            "image": {
+              "src": "/imgs/avatars/3.png",
+              "alt": "elena"
+            }
+          },
+          {
+            "name": "David Park",
+            "role": "Freelance Designer",
+            "quote": "As a freelancer, I used to feel guilty about downtime. Dreamcatcher helped me see rest as productive. My best ideas come during my recovery periods.",
+            "image": {
+              "src": "/imgs/avatars/4.png",
+              "alt": "david"
+            }
+          },
+          {
+            "name": "Priya Sharma",
+            "role": "Product Manager",
+            "quote": "I schedule strategic thinking for my peak hours and administrative tasks for my low-energy periods. It seems obvious now, but I had never thought about it this way.",
+            "image": {
+              "src": "/imgs/avatars/5.png",
+              "alt": "priya"
+            }
+          },
+          {
+            "name": "Tom Anderson",
+            "role": "Writer & Author",
+            "quote": "My writing improved dramatically once I started writing during my peak creative hours. I produce more in 2 focused hours than I used to in 8 tired ones.",
+            "image": {
+              "src": "/imgs/avatars/6.png",
+              "alt": "tom"
+            }
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "Frequently Asked Questions About Dreamcatcher",
+        "description": "Have another question? Reach out — we're happy to help.",
+        "items": [
+          {
+            "question": "What exactly is Dreamcatcher?",
+            "answer": "Dreamcatcher is a personal timing coach that helps you understand when to work, when to rest, and when to consolidate based on your unique energy patterns and circadian rhythm."
+          },
+          {
+            "question": "How does Dreamcatcher know my energy patterns?",
+            "answer": "We analyze data from your fitness tracker, calendar, or manual energy logs to identify your personal rhythms. Our AI recognizes patterns that you might not notice yourself."
+          },
+          {
+            "question": "Is this just another productivity app?",
+            "answer": "No. Most productivity apps tell you to do more. Dreamcatcher tells you when to do things. We're not about cramming more into your day — we're about doing the right things at the right time."
+          },
+          {
+            "question": "How long until I see results?",
+            "answer": "Most users notice a difference within the first week as they start protecting their peak hours. More profound insights emerge after 2-3 weeks of tracking."
+          },
+          {
+            "question": "What if my schedule is unpredictable?",
+            "answer": "Dreamcatcher works even with irregular schedules. We help you find the patterns within the chaos and identify micro-windows of opportunity you might be missing."
+          },
+          {
+            "question": "Can I use this with my team?",
+            "answer": "Yes! Teams can use Dreamcatcher to optimize meeting schedules and project timelines. When everyone understands their timing, collaboration becomes much more effective."
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Start Working with Your Timing, Not Against It",
+        "description": "Your best work is waiting to happen at the right time.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/pricing",
+            "target": "_self",
+            "icon": "Zap"
+          },
+          {
+            "title": "Read the Blog",
+            "url": "/blog",
+            "target": "_blank",
+            "variant": "outline",
+            "icon": "BookOpenText"
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "subscribe": {
+        "id": "subscribe",
+        "title": "Get Timing Tips Delivered Weekly",
+        "description": "Join our newsletter for insights on energy and timing.",
+        "submit": {
+          "input": {
+            "placeholder": "Enter your email"
+          },
+          "button": {
+            "title": "Subscribe"
+          },
+          "action": "/api/subscribe"
+        },
+        "className": "bg-muted"
+      }
+    }
+  }
+}

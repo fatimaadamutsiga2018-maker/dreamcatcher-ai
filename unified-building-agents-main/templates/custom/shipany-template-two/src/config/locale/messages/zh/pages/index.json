@@ -1,0 +1,417 @@
+{
+  "page": {
+    "show_sections": [
+      "hero",
+      "logos",
+      "introduce",
+      "benefits",
+      "usage",
+      "features",
+      "stats",
+      "testimonials",
+      "faq",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "让努力与时机同频共振",
+        "highlight_text": "时机同频",
+        "description": "Dreamcatcher 帮助你理解何时行动、何时休息、何时巩固。<br/>停止在错误的时间空转，让你的每一分努力都产生倍增效应。",
+        "announcement": {
+          "badge": "新",
+          "title": "免费早期体验开放中",
+          "url": "/pricing"
+        },
+        "tip": "已有 2,000+ 人掌握了自己的能量周期",
+        "buttons": [
+          {
+            "title": "获取专属指南",
+            "icon": "Zap",
+            "url": "/pricing",
+            "target": "_self",
+            "variant": "default"
+          },
+          {
+            "title": "阅读博客",
+            "icon": "BookOpenText",
+            "url": "/blog",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "show_avatars": true,
+        "avatars_tip": "2,000+ 人在使用 Dreamcatcher",
+        "show_award": false,
+        "image": {
+          "src": "/imgs/features/admin.png",
+          "alt": "hero",
+          "width": 1200,
+          "height": 800
+        },
+        "image_invert": {
+          "src": "/imgs/features/admin-dark.png",
+          "alt": "hero",
+          "width": 1200,
+          "height": 800
+        },
+        "background_image": {
+          "src": "/imgs/bg/tree.jpg",
+          "alt": "hero"
+        }
+      },
+      "logos": {
+        "id": "logos",
+        "title": "基于科学，而非奋斗文化",
+        "items": [
+          {
+            "title": "昼夜节律科学",
+            "image": {
+              "src": "/imgs/logos/nextjs.svg",
+              "alt": "昼夜节律科学"
+            }
+          },
+          {
+            "title": "时间生物学",
+            "image": {
+              "src": "/imgs/logos/react.svg",
+              "alt": "时间生物学"
+            }
+          },
+          {
+            "title": "能量管理",
+            "image": {
+              "src": "/imgs/logos/tailwindcss.svg",
+              "alt": "能量管理"
+            }
+          },
+          {
+            "title": "生产力研究",
+            "image": {
+              "src": "/imgs/logos/shadcn.svg",
+              "alt": "生产力研究"
+            }
+          }
+        ]
+      },
+      "introduce": {
+        "block": "features-list",
+        "id": "introduce",
+        "title": "Dreamcatcher 是什么",
+        "label": "简介",
+        "description": "Dreamcatcher 是你的个人时机教练——帮助你了解自己的自然能量周期，让每一分努力都算数。",
+        "image": {
+          "src": "/imgs/features/landing-page.png",
+          "alt": "introduce"
+        },
+        "items": [
+          {
+            "title": "了解你的能量类型",
+            "description": "发现你是晨型人、夜猫子，还是介于两者之间——顺应你的生物节律工作，而不是对抗它。",
+            "icon": "RiNextjsFill",
+            "image": {
+              "src": "/imgs/features/1.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "时机预测",
+            "description": "获得个性化建议，了解最佳专注工作时间、创造性思考时间、会议时间和休息时间。",
+            "icon": "RiDatabase2Line",
+            "image": {
+              "src": "/imgs/features/2.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "能量追踪",
+            "description": "全天追踪你的能量水平，发现你从未注意到的模式。",
+            "icon": "RiCloudyFill",
+            "image": {
+              "src": "/imgs/features/3.png",
+              "alt": "introduce"
+            }
+          },
+          {
+            "title": "行动指引",
+            "description": "获得每日指导，了解何时向前冲刺、何时暂停、何时巩固成果。",
+            "icon": "RiRobot2Line",
+            "image": {
+              "src": "/imgs/features/4.png",
+              "alt": "introduce"
+            }
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "benefits": {
+        "block": "features-accordion",
+        "id": "benefits",
+        "title": "为什么时机比努力更重要",
+        "label": "优势",
+        "description": "你一直被告知要更努力工作。如果秘诀是在正确的时间工作呢？",
+        "items": [
+          {
+            "title": "不是你的问题——是你的时机",
+            "description": "下午的低谷不是懒惰。这是生物学。学会顺应你的超日节律，而不是对抗它们。",
+            "icon": "RiNextjsFill",
+            "image": {
+              "src": "/imgs/features/user-billing.png",
+              "alt": "benefits"
+            }
+          },
+          {
+            "title": "努力 × 时机 = 影响力",
+            "description": "同样的努力，根据你何时应用，会产生截然不同的结果。停止乘以零。",
+            "icon": "RiClapperboardAiLine",
+            "image": {
+              "src": "/imgs/features/admin-settings.png",
+              "alt": "benefits"
+            }
+          },
+          {
+            "title": "像运动员一样恢复",
+            "description": "精英运动员知道恢复是进步发生的时刻。将运动科学应用到你的认知表现上。",
+            "icon": "RiCodeFill",
+            "image": {
+              "src": "/imgs/features/landing-page.png",
+              "alt": "benefits"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "block": "features-step",
+        "id": "usage",
+        "title": "Dreamcatcher 如何工作",
+        "description": "只需三步，开始让你的努力与最佳时机对齐：",
+        "image": {
+          "src": "/imgs/features/1.png",
+          "alt": "usage"
+        },
+        "image_position": "left",
+        "text_align": "center",
+        "items": [
+          {
+            "title": "连接你的数据",
+            "description": "同步你的日历、健身追踪器，或简单手动记录你的能量水平。",
+            "image": {
+              "src": "/imgs/features/5.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "发现你的模式",
+            "description": "我们的 AI 分析你的节律，识别你的巅峰表现窗口和充电期。",
+            "image": {
+              "src": "/imgs/features/6.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "获取每日指引",
+            "description": "获得个性化建议，了解关注什么以及何时——在你需要时精确送达。",
+            "image": {
+              "src": "/imgs/features/7.png",
+              "alt": "usage"
+            }
+          },
+          {
+            "title": "倍增你的影响力",
+            "description": "看着你的生产力飙升，因为你停止对抗自然周期，开始与之合作。",
+            "image": {
+              "src": "/imgs/features/8.png",
+              "alt": "usage"
+            }
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "features": {
+        "id": "features",
+        "title": "掌握时机所需的一切",
+        "description": "设计用于帮助你更聪明地工作，而不是更辛苦地工作。",
+        "items": [
+          {
+            "title": "个人能量仪表盘",
+            "description": "可视化你的日常能量模式，一目了然地看到你的最佳表现窗口。",
+            "icon": "RiNextjsFill"
+          },
+          {
+            "title": "智能日历集成",
+            "description": "你的日程自动为你的个人节律优化——不再在低谷期安排会议。",
+            "icon": "RiKey2Fill"
+          },
+          {
+            "title": "习惯时机分析",
+            "description": "了解哪些习惯会放大你的能量，哪些会消耗能量——以及何时练习每个习惯。",
+            "icon": "RiDatabase2Line"
+          },
+          {
+            "title": "周能量报告",
+            "description": "查看你一周的能量如何变化，了解是什么影响了它。",
+            "icon": "RiCloudy2Fill"
+          },
+          {
+            "title": "休息优化",
+            "description": "在耗尽之前获得休息提醒——并了解你实际需要哪种类型的休息。",
+            "icon": "RiBarChart2Line"
+          },
+          {
+            "title": "社区见解",
+            "description": "看到其他具有相似能量类型的人如何蓬勃发展——并从他们的时机策略中学习。",
+            "icon": "RiRobot2Line"
+          }
+        ]
+      },
+      "stats": {
+        "id": "stats",
+        "title": "人们终于摆脱了奋斗文化",
+        "description": "加入数千名发现时机胜过空转的人。",
+        "items": [
+          {
+            "title": "2,000+",
+            "description": "活跃用户"
+          },
+          {
+            "title": "47%",
+            "description": "报告能量提升"
+          },
+          {
+            "title": "3.2倍",
+            "description": "生产力增长"
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "testimonials": {
+        "id": "testimonials",
+        "title": "用户对 Dreamcatcher 的评价",
+        "description": "来自停止空转、开始把握时机的人们的真实故事。",
+        "items": [
+          {
+            "name": "陈思雨",
+            "role": "创业公司创始人",
+            "quote": "我过去常常因为下午3点后无法高效工作而感到内疚。Dreamcatcher 让我明白那是我的创造性思维窗口。现在我相应地安排日程，产出翻倍。",
+            "image": {
+              "src": "/imgs/avatars/1.png",
+              "alt": "sarah"
+            }
+          },
+          {
+            "name": "马库斯·张",
+            "role": "软件工程师",
+            "quote": "最大的收获是了解到我最好的编码时间是早上9-11点。我现在拼命保护这段时间。没有会议，没有邮件——只有深度工作。",
+            "image": {
+              "src": "/imgs/avatars/2.png",
+              "alt": "marcus"
+            }
+          },
+          {
+            "name": "艾琳·王",
+            "role": "市场总监",
+            "quote": "我曾经试图整天保持"在线"状态，结果精疲力尽。现在我理解了我的超日节律，并有意识地休息。同样的工作时间，更大的影响力。",
+            "image": {
+              "src": "/imgs/avatars/3.png",
+              "alt": "elena"
+            }
+          },
+          {
+            "name": "大卫·李",
+            "role": "自由设计师",
+            "quote": "作为自由职业者，我曾经对休息时间感到内疚。Dreamcatcher 帮助我看到休息也是生产力。我最好的想法来自恢复期。",
+            "image": {
+              "src": "/imgs/avatars/4.png",
+              "alt": "david"
+            }
+          },
+          {
+            "name": "普莉雅·刘",
+            "role": "产品经理",
+            "quote": "我在高峰期安排战略思考，在低能量期安排行政任务。现在看来很明显，但我从未这样思考过。",
+            "image": {
+              "src": "/imgs/avatars/5.png",
+              "alt": "priya"
+            }
+          },
+          {
+            "name": "汤姆·吴",
+            "role": "作家、作者",
+            "quote": "一旦我开始在最佳创作时间写作，我的写作水平就大幅提升。我在2小时专注时间内产出的内容，比过去8小时疲惫状态下产出的还要多。",
+            "image": {
+              "src": "/imgs/avatars/6.png",
+              "alt": "tom"
+            }
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "关于 Dreamcatcher 的常见问题",
+        "description": "还有其他问题？联系我们——我们很乐意提供帮助。",
+        "items": [
+          {
+            "question": "Dreamcatcher 到底是什么？",
+            "answer": "Dreamcatcher 是一个个人时机教练，根据你独特的能量模式和昼夜节律，帮助你了解何时工作、何时休息、何时巩固。"
+          },
+          {
+            "question": "Dreamcatcher 如何知道我的能量模式？",
+            "answer": "我们分析来自健身追踪器、日历或手动能量记录的数据，以识别你的个人节律。我们的 AI 能识别你自己可能注意不到的模式。"
+          },
+          {
+            "question": "这只是另一个生产力应用吗？",
+            "answer": "不是。大多数生产力应用告诉你做得更多。Dreamcatcher 告诉你何时做事情。我们不是要在一天内塞进更多事情——我们是在正确的时间做正确的事情。"
+          },
+          {
+            "question": "多久能看到效果？",
+            "answer": "大多数用户在第一周内就会注意到差异，因为他们开始保护高峰时段。更深刻的见解会在2-3周的追踪后出现。"
+          },
+          {
+            "question": "如果我的日程不规律怎么办？",
+            "answer": "Dreamcatcher 即使在不规律的日程下也能工作。我们帮助你在混乱中找到模式，并识别你可能错过的微机会窗口。"
+          },
+          {
+            "question": "我可以和团队一起使用吗？",
+            "answer": "可以！团队可以使用 Dreamcatcher 优化会议时间和项目时间表。当每个人都理解自己的时机时，协作就会变得更加有效。"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "开始与时机合作，而非对抗",
+        "description": "你最好的工作正在合适的时间等待发生。",
+        "buttons": [
+          {
+            "title": "免费开始",
+            "url": "/pricing",
+            "target": "_self",
+            "icon": "Zap"
+          },
+          {
+            "title": "阅读博客",
+            "url": "/blog",
+            "target": "_blank",
+            "variant": "outline",
+            "icon": "BookOpenText"
+          }
+        ],
+        "className": "bg-muted"
+      },
+      "subscribe": {
+        "id": "subscribe",
+        "title": "每周获取时机技巧",
+        "description": "订阅我们的通讯，获取关于能量和时机的见解。",
+        "submit": {
+          "input": {
+            "placeholder": "输入你的邮箱"
+          },
+          "button": {
+            "title": "订阅"
+          },
+          "action": "/api/subscribe"
+        },
+        "className": "bg-muted"
+      }
+    }
+  }
+}

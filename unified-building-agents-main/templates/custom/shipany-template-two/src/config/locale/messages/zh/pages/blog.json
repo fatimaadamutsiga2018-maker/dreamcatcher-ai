@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "title": "Dreamcatcher 博客",
+    "description": "学习如何让行动与自然时机同频。探索关于能量管理、生产力周期的见解，了解何时向前冲刺、何时暂且休息。"
+  },
+  "page": {
+    "title": "Dreamcatcher 博客",
+    "sections": {
+      "blog": {
+        "id": "blog",
+        "title": "博客",
+        "description": "学习如何让行动与自然时机同频。"
+      }
+    }
+  },
+  "messages": {
+    "all": "全部",
+    "no_content": "暂无内容",
+    "crumb": "博客",
+    "toc": "目录"
+  }
+}
