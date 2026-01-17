@@ -1,14 +1,6 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm prisma generate && next build",
+  "buildCommand": "prisma generate && next build",
   "devCommand": "next dev",
   "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "regions": ["hkg1", "sin1"],
-  "env": {
-    "NEXTAUTH_URL": {
-      "description": "The URL of your NextAuth.js installation",
-      "value": "$VERCEL_URL"
-    }
-  }
+  "framework": "nextjs"
 }
