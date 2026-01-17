@@ -1,11 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "framework": "nextjs",
-  "installCommand": "npm install",
-  "build": {
-    "env": {
-      "NEXT_PRIVATE_SKIP_CACHE": "1"
-    }
-  }
+  "devCommand": "npm run dev",
+  "framework": "nextjs"
 }
