@@ -52,7 +52,18 @@
       "Bash(git branch:*)",
       "Bash(git remote set-url:*)",
       "Bash(openssl rand:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(npm dev)",
+      "Bash(vercel install acme)",
+      "Bash(vercel login:*)",
+      "Bash(vercel whoami:*)",
+      "Bash(vercel:*)",
+      "Bash(cmd /c \"echo %APPDATA%\")",
+      "Bash(dir:*)",
+      "WebSearch",
+      "Bash(npx vercel ls)",
+      "Bash(npx vercel:*)",
+      "Bash(printf:*)"
     ]
   }
 }
