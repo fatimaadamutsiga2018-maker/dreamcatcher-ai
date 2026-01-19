@@ -13,46 +13,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// SEO Metadata
+// SEO Metadata (AEO Optimized for 2026)
 export const metadata: Metadata = {
   // Basic
   title: {
-    default: "Dreamcatcher AI — Daily Energy & Decision Guidance",
-    template: "%s | Dreamcatcher AI"
+    default: "Dreamcatcher — Daily Energy & Timing Decision Guide",
+    template: "%s | Dreamcatcher"
   },
-  description: "Discover your daily energy rhythm. Get personalized timing guidance for business, relationships, and strategic decisions. Align your actions with the field, not against it.",
+  description: "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day. Stop grinding at the wrong time and start working with natural energy cycles.",
   keywords: [
-    "daily energy guidance",
-    "timing astrology",
-    "decision making tool",
-    "energy field analysis",
-    "strategic timing",
+    "daily energy guide",
+    "timing decision support",
+    "when to act or pause",
     "personal rhythm",
-    "daily oracle",
+    "strategic timing",
+    "energy cycles",
     "action timing",
-    "rest vs action",
     "momentum tracking",
-    "chinese energy cycles",
-    "decision dashboard"
+    "decision dashboard",
+    "daily energy forecast"
   ],
-  authors: [{ name: "Dreamcatcher AI" }],
-  creator: "Dreamcatcher AI",
-  publisher: "Dreamcatcher AI",
+  authors: [{ name: "Dreamcatcher" }],
+  creator: "Dreamcatcher",
+  publisher: "Dreamcatcher",
 
   // Open Graph / Facebook
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://dreamcatcher-ai-nine.vercel.app",
-    title: "Dreamcatcher AI — Daily Energy & Decision Guidance",
-    description: "Discover your daily energy rhythm. Get personalized timing guidance for business, relationships, and strategic decisions.",
-    siteName: "Dreamcatcher AI",
+    url: "https://dreamcatcherai.us",
+    title: "Dreamcatcher — Daily Energy & Timing Decision Guide",
+    description: "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day.",
+    siteName: "Dreamcatcher",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Dreamcatcher AI"
+        alt: "Dreamcatcher - Daily Energy & Timing Guide"
       }
     ]
   },
@@ -60,8 +58,8 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "Dreamcatcher AI — Daily Energy & Decision Guidance",
-    description: "Discover your daily energy rhythm. Get personalized timing guidance for business, relationships, and strategic decisions.",
+    title: "Dreamcatcher — Daily Energy & Timing Decision Guide",
+    description: "Know when to act, pause, or adjust every day. Your personal timing decision guide.",
     images: ["/og-image.png"],
     creator: "@dreamcatcherai"
   },
@@ -82,7 +80,6 @@ export const metadata: Metadata = {
   // Verification
   verification: {
     // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
   },
 
   // Icons
@@ -95,13 +92,13 @@ export const metadata: Metadata = {
   // App
   appleWebApp: {
     capable: true,
-    title: "Dreamcatcher AI",
+    title: "Dreamcatcher",
     statusBarStyle: "default",
   },
 
   // Alternate
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app",
+    canonical: "https://dreamcatcherai.us",
   }
 };
 
@@ -110,14 +107,80 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // FAQ Schema Markup for Google Rich Results
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Dreamcatcher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dreamcatcher is a daily energy & timing decision guide that helps you understand when to act, pause, or adjust based on natural energy cycles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Dreamcatcher work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We analyze daily energy patterns using ancient timing wisdom combined with modern decision science. Each day gets a unique energy profile for business, social, strategy, and action domains."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this astrology or fortune telling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Dreamcatcher is based on timing principles and energy patterns. It's a decision support tool, not a prediction system. You're always the final decision-maker."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often should I check Dreamcatcher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Energy changes daily. Check each morning to align your schedule with the day's natural rhythm. Many users find it helpful before planning their day."
+        }
+      }
+    ]
+  };
+
+  // WebSite Schema Markup
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Dreamcatcher",
+    "url": "https://dreamcatcherai.us",
+    "description": "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://dreamcatcherai.us/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
-    <html lang="en">
+    <html lang="en" className="bg-black">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteSchema),
+          }}
+        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
         <AuthProvider>{children}</AuthProvider>
       </body>

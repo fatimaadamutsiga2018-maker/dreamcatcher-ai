@@ -126,6 +126,8 @@ export default function Home() {
   const [cardOpen, setCardOpen] = useState(false);
   const [personalModalOpen, setPersonalModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [isAligning, setIsAligning] = useState(false);
+  const [hasClickedGuide, setHasClickedGuide] = useState(false);
   // Track flip state for each tactical card individually
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
   const toggleCardFlip = (cardKey: string) => {
@@ -505,6 +507,16 @@ export default function Home() {
     }
   };
 
+  // Handle CTA button click with loading animation
+  const handlePersonalGuideClick = () => {
+    setHasClickedGuide(true);
+    setIsAligning(true);
+    setTimeout(() => {
+      setIsAligning(false);
+      setPersonalModalOpen(true);
+    }, 3000);
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       {/* Nebula/Vortex animated background */}
@@ -527,46 +539,51 @@ export default function Home() {
       </nav>
 
       {/* Main content - Decision Dashboard V1.0 */}
-      <main className="relative z-10 mx-auto min-h-screen w-full max-w-6xl px-4 py-6 flex flex-col">
-        {/* TOP: Date - Anchored at Top */}
-        <div className="text-center mb-4">
-          <h1 className="text-xl md:text-2xl font-medium tracking-[0.2em] text-white/90">
-            {mounted ? currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase() : ''}
+      <main className="relative z-10 mx-auto w-full max-w-6xl px-4 py-4 flex flex-col pb-16">
+        {/* Header - Landing Page Copy */}
+        <div className="text-center mb-3 mt-2">
+          {/* H1 - Main Title (SEO Optimized) */}
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight leading-tight">
+            <span className="text-white">Dreamcatcher</span><br />
+            <span className="text-white/80 text-lg md:text-2xl">Daily Energy &amp; Timing Decision Guide</span>
           </h1>
+
+          {/* H2 - Subtitle (SEO & AEO Optimized) */}
+          <h2 className="text-sm md:text-base text-white/60 mb-3 font-normal leading-relaxed tracking-wide">
+            Helping you know when to act, pause, or adjust every day.
+          </h2>
+
+          {/* Text / H3 */}
+          <p className="text-xs md:text-sm text-white/50 mb-4 max-w-xl mx-auto leading-relaxed">
+            It&apos;s not that you&apos;re not working hard — you&apos;re just working at the wrong time.
+          </p>
         </div>
 
-        {/* Header - Simple Human Language V2.0 */}
-        <div className="text-center mb-6">
-          {/* Label - Large, Bold, Gradient */}
-          <div className="mb-5 relative inline-block">
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-500/40 to-amber-500/40 blur-3xl rounded-full"></div>
-            <span className="relative text-5xl md:text-6xl font-bold tracking-[0.15em] text-white" style={{ textShadow: '0 0 20px rgba(139,92,246,0.8), 0 0 40px rgba(245,158,11,0.6)' }}>
-              {SIMPLE_STATE_COPY[todayState].label}
+        {/* Today Context Layer - The bridge between Hero and Cards */}
+        <div className="mb-4 max-w-2xl mx-auto mt-2">
+          {/* Section divider with date */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+            <span className="text-[10px] tracking-[0.25em] text-white/30">
+              {mounted ? currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase() : ''}
             </span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
           </div>
-          {/* Main Line - Medium, Bright (Gold/White) */}
-          <p className="text-xl md:text-2xl text-amber-100/90 leading-relaxed max-w-3xl mx-auto font-semibold mb-6">
-            {SIMPLE_STATE_COPY[todayState].mainLine}
-          </p>
-          {/* Why & What to do - Small gray, bottom */}
-          <div className="mt-6 max-w-2xl mx-auto space-y-3">
-            <div>
-              <p className="text-xs text-white/40 tracking-wider mb-1">WHY</p>
-              <p className="text-sm text-white/50 leading-relaxed">
-                {SIMPLE_STATE_COPY[todayState].why}
-              </p>
+
+          {/* Today's state - simplified from original */}
+          <div className="text-center space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="text-xs tracking-wider text-white/40">Today's vibe:</span>
+              <span className="text-sm font-medium text-white/80">{SIMPLE_STATE_COPY[todayState].label}</span>
             </div>
-            <div>
-              <p className="text-xs text-white/40 tracking-wider mb-1">WHAT TO DO</p>
-              <p className="text-sm text-white/50 leading-relaxed">
-                {SIMPLE_STATE_COPY[todayState].whatToDo}
-              </p>
-            </div>
+            <p className="text-xs text-white/40 max-w-md mx-auto leading-relaxed">
+              {SIMPLE_STATE_COPY[todayState].mainLine}
+            </p>
           </div>
         </div>
 
         {/* Tactical Cards - 4 Columns on Large Screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 mb-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 mb-3 max-w-5xl mx-auto">
           {(() => {
             // Get worldview content for all domains
             const worldviewBIZ = getActionAdvice(todayState, 'BIZ');
@@ -658,10 +675,10 @@ export default function Home() {
             };
 
             const cardData_list = [
-              { key: 'business', domain: 'BIZ', front: tacticalCards.business, worldview: worldviewBIZ, image: 'BUSINESS.png' },
-              { key: 'social', domain: 'SOC', front: tacticalCards.social, worldview: worldviewSOC, image: 'SOCIAL.png' },
-              { key: 'strategic', domain: 'STRAT', front: tacticalCards.strategic, worldview: worldviewSTRAT, image: 'STRATEGIC.png' },
-              { key: 'action', domain: 'ACT', front: tacticalCards.action, worldview: worldviewACT, image: 'ACTION.png' },
+              { key: 'business', domain: 'BIZ', front: tacticalCards.business, worldview: worldviewBIZ, image: 'BUSINESS.png', alt: 'Business and wealth growth energy card' },
+              { key: 'social', domain: 'SOC', front: tacticalCards.social, worldview: worldviewSOC, image: 'SOCIAL.png', alt: 'People and social circle energy card' },
+              { key: 'strategic', domain: 'STRAT', front: tacticalCards.strategic, worldview: worldviewSTRAT, image: 'STRATEGIC.png', alt: 'Strategy and thinking focus energy card' },
+              { key: 'action', domain: 'ACT', front: tacticalCards.action, worldview: worldviewACT, image: 'ACTION.png', alt: 'Energy and speed momentum card' },
             ];
 
             return cardData_list.map(card => {
@@ -669,11 +686,11 @@ export default function Home() {
               const isFlipped = flippedCards[card.key];
 
               return (
-                <div key={card.key} className="group relative rounded-2xl overflow-hidden h-80 cursor-pointer transition-all duration-500 hover:scale-[1.02]" onClick={() => toggleCardFlip(card.key)}>
+                <div key={card.key} className="group relative rounded-2xl overflow-hidden h-80 cursor-pointer transition-all duration-500 hover:scale-[1.02]" onClick={() => toggleCardFlip(card.key)} role="article" aria-label={card.alt}>
                   {!isFlipped ? (
                     <>
                       {/* FRONT - Original Card */}
-                      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 group-hover:opacity-90 transition-opacity duration-500" style={{ backgroundImage: `url(/cards/${card.image})` }} />
+                      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 group-hover:opacity-90 transition-opacity duration-500" style={{ backgroundImage: `url(/cards/${card.image})` }} role="img" aria-label={card.alt} />
                       <div className="absolute inset-0 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3),inset_0_0_20px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.5),inset_0_0_30px_rgba(255,255,255,0.2)] transition-shadow duration-500" />
                       <div className="relative p-3 h-full flex flex-col">
                         <div className="flex-1"></div>
@@ -732,16 +749,18 @@ export default function Home() {
         </div>
 
         {/* YOUR UNIQUE RESONANCE Section */}
-        <div className="mt-8 relative flex justify-center">
+        <div className="mt-4 relative flex justify-center">
           {/* Pulsing glow button - entire text area is clickable */}
           <button
-            onClick={() => setPersonalModalOpen(true)}
-            className="relative group w-full max-w-3xl rounded-3xl p-10 md:p-12 transition-all duration-700"
+            onClick={isAligning ? undefined : handlePersonalGuideClick}
+            disabled={isAligning}
+            className={`relative group w-full max-w-3xl rounded-3xl p-6 md:p-8 transition-all duration-700 disabled:cursor-not-allowed disabled:opacity-90 ${
+              !hasClickedGuide && !isAligning ? 'animate-guide-pulse' : ''
+            }`}
             style={{
               background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.05) 50%, rgba(139,92,246,0.08) 100%)',
               border: '1px solid rgba(139,92,246,0.15)',
               boxShadow: '0 0 60px rgba(139,92,246,0.2), inset 0 0 60px rgba(139,92,246,0.05)',
-              animation: 'pulse-glow 3s ease-in-out infinite'
             }}
           >
             {/* Animated gradient overlay */}
@@ -752,30 +771,30 @@ export default function Home() {
 
             {/* Content */}
             <div className="relative z-10 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-[0.2em] text-white mb-4 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
-                Get your personal guide
-              </h2>
-              <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto transition-all duration-500 group-hover:text-white/90">
-                See how today's energy works for <em className="not-italic">you</em>.
-              </p>
-
-              {/* Status indicator when calibrated */}
-              {userCalibration.calibrated && (
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
-                  <span className="text-xs tracking-[0.2em] text-amber-300/80">
-                    SYNCED · {userCalibration.code}
-                  </span>
+              {isAligning ? (
+                // Loading state
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-violet-400/30 border-t-violet-400 rounded-full animate-spin"></div>
+                  </div>
+                  <p className="text-sm tracking-wide text-white/70 animate-pulse">
+                    Aligning with the field...
+                  </p>
                 </div>
-              )}
+              ) : (
+                // Normal state
+                <>
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-[0.2em] text-white mb-4 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
+                    Your Personal Timing Guide
+                  </h2>
 
-              {/* Tap to sync hint */}
-              {!userCalibration.calibrated && (
-                <div className="mt-6 flex items-center justify-center">
-                  <span className="text-xs tracking-[0.2em] text-white/50">
-                    Tap to sync
-                  </span>
-                </div>
+                  {/* Small text */}
+                  <div className="mt-6 flex items-center justify-center">
+                    <span className="text-sm tracking-wide text-white/50 leading-relaxed">
+                      See how <em className="not-italic text-white/70">today</em> works just for you.
+                    </span>
+                  </div>
+                </>
               )}
             </div>
           </button>
@@ -922,6 +941,65 @@ export default function Home() {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* FAQ Section - SEO Optimized with Schema Markup */}
+        <div className="mt-12 mb-8 max-w-2xl mx-auto">
+          <h3 className="text-xs tracking-[0.2em] text-white/30 text-center mb-6">FREQUENTLY ASKED QUESTIONS</h3>
+          <div className="space-y-3">
+            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                <span className="text-xs text-white/70">What is Dreamcatcher?</span>
+                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-3 pb-3 pt-0 bg-white/5">
+                <p className="text-xs text-white/50 leading-relaxed">
+                  Dreamcatcher is a daily energy &amp; timing decision guide that helps you understand when to act, pause, or adjust based on natural energy cycles.
+                </p>
+              </div>
+            </details>
+            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                <span className="text-xs text-white/70">How does it work?</span>
+                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-3 pb-3 pt-0 bg-white/5">
+                <p className="text-xs text-white/50 leading-relaxed">
+                  We analyze daily energy patterns using ancient timing wisdom combined with modern decision science. Each day gets a unique energy profile for business, social, strategy, and action domains.
+                </p>
+              </div>
+            </details>
+            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                <span className="text-xs text-white/70">Is this astrology or fortune telling?</span>
+                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-3 pb-3 pt-0 bg-white/5">
+                <p className="text-xs text-white/50 leading-relaxed">
+                  No. Dreamcatcher is based on timing principles and energy patterns. It&apos;s a decision support tool, not a prediction system. You&apos;re always the final decision-maker.
+                </p>
+              </div>
+            </details>
+            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                <span className="text-xs text-white/70">How often should I check?</span>
+                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-3 pb-3 pt-0 bg-white/5">
+                <p className="text-xs text-white/50 leading-relaxed">
+                  Energy changes daily. Check each morning to align your schedule with the day&apos;s natural rhythm. Many users find it helpful before planning their day.
+                </p>
+              </div>
+            </details>
           </div>
         </div>
       </main>

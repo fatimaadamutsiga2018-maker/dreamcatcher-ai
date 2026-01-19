@@ -63,7 +63,11 @@
       "WebSearch",
       "Bash(npx vercel ls)",
       "Bash(npx vercel:*)",
-      "Bash(printf:*)"
+      "Bash(printf:*)",
+      "Bash(gh --help:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\yyzz\\\\Documents\\\\GitHub\\\\dreamcatcher-ai && npm run dev\")",
+      "Bash(git pull:*)"
     ]
   }
 }

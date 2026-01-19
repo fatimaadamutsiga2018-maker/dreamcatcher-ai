@@ -36,6 +36,7 @@ yarn-error.log*
 .env.*.local
 !.env.example
 .env*.local
+.env.production
 
 # vercel
 .vercel
@@ -44,3 +45,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 tmpclaude-*
+
+# temp files
+nul
