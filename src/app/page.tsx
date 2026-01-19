@@ -549,9 +549,14 @@ export default function Home() {
           </h1>
 
           {/* H2 - Subtitle (SEO & AEO Optimized) */}
-          <h2 className="text-sm md:text-base text-white/60 mb-3 font-normal leading-relaxed tracking-wide">
+          <h2 className="text-sm md:text-base text-white/60 mb-2 font-normal leading-relaxed tracking-wide">
             Helping you know when to act, pause, or adjust every day.
           </h2>
+
+          {/* Key Message - Curiosity Hook */}
+          <p className="text-sm md:text-base text-amber-200/90 mb-4 max-w-xl mx-auto leading-relaxed font-medium tracking-wide" style={{ textShadow: '0 0 20px rgba(251,191,36,0.3)' }}>
+            Some days reward action. Some days punish it.
+          </p>
 
           {/* Text / H3 */}
           <p className="text-xs md:text-sm text-white/50 mb-4 max-w-xl mx-auto leading-relaxed">
