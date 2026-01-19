@@ -17,10 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   // Basic
   title: {
-    default: "Dreamcatcher — Daily Energy & Timing Decision Guide",
+    default: "Dreamcatcher – Find the Right Time to Act",
     template: "%s | Dreamcatcher"
   },
-  description: "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day. Stop grinding at the wrong time and start working with natural energy cycles.",
+  description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
   keywords: [
     "daily energy guide",
     "timing decision support",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://dreamcatcherai.us",
-    title: "Dreamcatcher — Daily Energy & Timing Decision Guide",
-    description: "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day.",
+    title: "Dreamcatcher – Find the Right Time to Act",
+    description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
     siteName: "Dreamcatcher",
     images: [
       {
@@ -58,8 +58,8 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "Dreamcatcher — Daily Energy & Timing Decision Guide",
-    description: "Know when to act, pause, or adjust every day. Your personal timing decision guide.",
+    title: "Dreamcatcher – Find the Right Time to Act",
+    description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
     images: ["/og-image.png"],
     creator: "@dreamcatcherai"
   },
@@ -153,7 +153,7 @@ export default function RootLayout({
     "@type": "WebSite",
     "name": "Dreamcatcher",
     "url": "https://dreamcatcherai.us",
-    "description": "A daily personal guide based on energy, focus, and timing. Know when to act, pause, or adjust every day.",
+    "description": "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://dreamcatcherai.us/blog?q={search_term_string}",

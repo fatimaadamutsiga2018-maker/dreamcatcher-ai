@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-08",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/why-doing-nothing-is-rational",
+    url: "https://dreamcatcherai.us/blog/why-doing-nothing-is-rational",
   },
   twitter: {
     card: "summary_large_image",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "In low-leverage environments, restraint preserves optionality. The case for strategic pause.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/why-doing-nothing-is-rational"
+    canonical: "https://dreamcatcherai.us/blog/why-doing-nothing-is-rational"
   }
 };
 

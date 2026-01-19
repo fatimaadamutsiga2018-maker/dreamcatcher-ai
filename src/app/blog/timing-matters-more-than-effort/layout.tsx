@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-12",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/timing-matters-more-than-effort",
+    url: "https://dreamcatcherai.us/blog/timing-matters-more-than-effort",
     images: [
       {
         url: "/blog/timing-matters-more-than-effort/og-image.png",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: "Most people believe success comes from effort. But here's a quieter truth: Effort has a cost. Timing decides whether that cost pays back.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/timing-matters-more-than-effort"
+    canonical: "https://dreamcatcherai.us/blog/timing-matters-more-than-effort"
   }
 };
 

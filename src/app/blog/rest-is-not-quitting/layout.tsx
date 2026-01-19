@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-12",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/rest-is-not-quitting",
+    url: "https://dreamcatcherai.us/blog/rest-is-not-quitting",
   },
   twitter: {
     card: "summary_large_image",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "There are days when pushing costs you more than it gives back. Rest is waiting for the slope to change.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/rest-is-not-quitting"
+    canonical: "https://dreamcatcherai.us/blog/rest-is-not-quitting"
   }
 };
 

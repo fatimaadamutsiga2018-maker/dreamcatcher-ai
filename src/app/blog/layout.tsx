@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Blog — Dreamcatcher AI Journal",
     description: "Exploring the intersection of energy fields, decision architecture, and strategic timing.",
     type: "website",
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog",
+    url: "https://dreamcatcherai.us/blog",
   },
   twitter: {
     card: "summary_large_image",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: "Exploring the intersection of energy fields, decision architecture, and strategic timing.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog"
+    canonical: "https://dreamcatcherai.us/blog"
   }
 };
 

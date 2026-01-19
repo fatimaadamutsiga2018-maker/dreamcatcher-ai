@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-12",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/why-timing-changes-everything",
+    url: "https://dreamcatcherai.us/blog/why-timing-changes-everything",
   },
   twitter: {
     card: "summary_large_image",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: "Two people can do the same thing. Same skills. Same effort. The difference is rarely talent. It's timing.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/why-timing-changes-everything"
+    canonical: "https://dreamcatcherai.us/blog/why-timing-changes-everything"
   }
 };
 

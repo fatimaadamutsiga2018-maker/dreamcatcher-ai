@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-12",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/momentum-not-confidence",
+    url: "https://dreamcatcherai.us/blog/momentum-not-confidence",
   },
   twitter: {
     card: "summary_large_image",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: "Confidence doesn't come first. Momentum does. You might just be waiting for the right green light.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/momentum-not-confidence"
+    canonical: "https://dreamcatcherai.us/blog/momentum-not-confidence"
   }
 };
 

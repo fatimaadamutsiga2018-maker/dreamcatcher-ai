@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2024-12-28",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/the-speed-of-clarity",
+    url: "https://dreamcatcherai.us/blog/the-speed-of-clarity",
   },
   twitter: {
     card: "summary_large_image",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "Insight erodes when action is delayed. The case for rapid deployment during density windows.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/the-speed-of-clarity"
+    canonical: "https://dreamcatcherai.us/blog/the-speed-of-clarity"
   }
 };
 

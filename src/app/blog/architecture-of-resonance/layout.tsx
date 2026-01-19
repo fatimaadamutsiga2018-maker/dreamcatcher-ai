@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     publishedTime: "2025-01-05",
     authors: ["Dreamcatcher AI"],
-    url: "https://dreamcatcher-ai-nine.vercel.app/blog/architecture-of-resonance",
+    url: "https://dreamcatcherai.us/blog/architecture-of-resonance",
   },
   twitter: {
     card: "summary_large_image",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "How alignment reduces decision cost and cognitive drag. The hidden mathematics of sync.",
   },
   alternates: {
-    canonical: "https://dreamcatcher-ai-nine.vercel.app/blog/architecture-of-resonance"
+    canonical: "https://dreamcatcherai.us/blog/architecture-of-resonance"
   }
 };
 
