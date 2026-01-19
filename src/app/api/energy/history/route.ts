@@ -4,7 +4,7 @@ import { prisma } from '@/shared/lib/prisma';
 
 /**
  * GET /api/energy/history
- * 获取用户能量历史记录
+ * Get user energy history records
  */
 export async function GET() {
   const session = await auth();

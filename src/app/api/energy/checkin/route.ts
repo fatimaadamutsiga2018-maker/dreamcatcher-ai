@@ -5,7 +5,7 @@ import { addEnergyToLedger } from '@/shared/lib/energy-ledger';
 
 /**
  * POST /api/energy/checkin
- * 每日签到 +5 Energy (免费来源)
+ * Daily check-in +5 Energy (free source)
  */
 export async function POST() {
   const session = await auth();

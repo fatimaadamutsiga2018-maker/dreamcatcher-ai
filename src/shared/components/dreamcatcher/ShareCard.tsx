@@ -15,18 +15,49 @@ type ShareCardProps = {
   onShared?: () => void;
 };
 
-// Main line hook pool - curiosity-driven, no "fortune/luck" language
-const MAIN_HOOKS = [
+// Main line hook pool - curiosity-driven, no "fortune/luck" language (V1.0 Frozen)
+// A. Curiosity - Makes people ask "why?"
+const HOOKS_CURIOSITY = [
   "Are you sure today is a good day to decide?",
-  "Some days punish effort. Today might be one of them.",
-  "Today is not about pushing.",
   "Before you rush today, you may want to check this.",
+  "Not every day rewards effort. Today might be different.",
   "I almost made a fast decision today. Glad I paused.",
-  "Timing changes everything. Effort doesn't.",
-  "You don't need more confidence. You need better timing.",
-  "Some days reward action. Some days punish it.",
-  "The slope is against you today. Adjust, don't force.",
-  "I checked my timing before acting. It changed everything.",
+  "Some days look normal — until you act.",
+];
+
+// B. Caution - "Am I making the same mistake?"
+const HOOKS_CAUTION = [
+  "Today is not about pushing.",
+  "Speed feels right today — but might cost more than you think.",
+  "This is one of those days where forcing backfires.",
+  "If you feel the urge to act fast today, read this first.",
+  "Momentum can be misleading today.",
+];
+
+// C. Timing - Decision Science (rational, high US acceptance)
+const HOOKS_TIMING = [
+  "Timing matters more than effort today.",
+  "The same action today may cost twice the energy.",
+  "Today rewards adjustment, not acceleration.",
+  "This is a day for alignment, not expansion.",
+  "Not a bad day — just a bad day to rush.",
+];
+
+// D. Resonance - Emotional relief ("I feel understood")
+const HOOKS_RESONANCE = [
+  "You're not behind. Today just moves differently.",
+  "It's okay to slow down today. It's strategic.",
+  "You're not lazy — today simply resists force.",
+  "Resting today is part of staying sharp.",
+  "Doing less today might get you further.",
+];
+
+// Combined pool - system randomly picks 1
+const MAIN_HOOKS = [
+  ...HOOKS_CURIOSITY,
+  ...HOOKS_CAUTION,
+  ...HOOKS_TIMING,
+  ...HOOKS_RESONANCE,
 ];
 
 export default function ShareCard({ isOpen, onClose, cardData, onShared }: ShareCardProps) {

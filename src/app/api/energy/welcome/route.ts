@@ -5,7 +5,7 @@ import { addEnergyToLedger } from '@/shared/lib/energy-ledger';
 
 /**
  * POST /api/energy/welcome
- * 注册欢迎奖励 - 仅触发一次
+ * Welcome reward - triggers once per user
  */
 export async function POST() {
   const session = await auth();

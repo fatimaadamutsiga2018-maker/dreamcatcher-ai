@@ -60,7 +60,7 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
         {/* Content */}
         <div className="p-6 space-y-4">
           {!session ? (
-            // 未登录 - 显示注册引导
+            // Not logged in - show sign up prompt
             <div className="text-center space-y-4">
               <p className="text-sm text-white/70 leading-relaxed">
                 This part is personal.
@@ -76,7 +76,7 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
               <button
                 onClick={() => {
                   onClose();
-                  // 触发注册弹窗（通过全局事件或其他方式）
+                  // Trigger auth modal
                   window.dispatchEvent(new CustomEvent('open-auth-modal'));
                 }}
                 className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold hover:from-violet-500 hover:to-blue-500 transition-all"
@@ -85,7 +85,7 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
               </button>
             </div>
           ) : (
-            // 已登录 - 显示获取 Energy 的方式
+            // Logged in - show ways to get Energy
             <>
               <div className="text-center space-y-3">
                 <p className="text-sm text-white/70 leading-relaxed">
@@ -111,8 +111,8 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
                 <button
                   onClick={() => {
                     onClose();
-                    // TODO: 实现分享功能
-                    alert('Share feature coming soon!');
+                    // Open share card
+                    window.dispatchEvent(new CustomEvent('open-share-card'));
                   }}
                   className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all"
                 >
@@ -126,7 +126,7 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
                 <button
                   onClick={() => {
                     onClose();
-                    // 打开 Energy 充值弹窗
+                    // Open Energy top-up modal
                     window.dispatchEvent(new CustomEvent('open-energy-modal'));
                   }}
                   className="w-full p-3 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/30 hover:border-amber-500/50 transition-all"
@@ -138,7 +138,7 @@ export default function PaymentWall({ isOpen, onClose, action, onRetry }: Paymen
                 </button>
               </div>
 
-              {/* 首日用尽提示 */}
+              {/* First day depletion notice */}
               {action === 'personal_timing' && (
                 <div className="mt-4 p-3 rounded-lg bg-violet-500/10 border border-violet-500/20 text-center">
                   <p className="text-xs text-violet-200 leading-relaxed">

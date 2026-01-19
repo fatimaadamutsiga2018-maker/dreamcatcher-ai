@@ -5,7 +5,7 @@ import { consumeEnergyFromLedger } from '@/shared/lib/energy-ledger';
 
 /**
  * POST /api/energy/consume
- * 消费 Energy - 使用 FIFO 逻辑（先消耗免费，后消耗付费）
+ * Consume Energy - uses FIFO logic (free energy first, then paid)
  * Body: { action: 'personal_timing' | 'detailed_insight', amount?: number }
  */
 export async function POST(request: Request) {

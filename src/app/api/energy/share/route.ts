@@ -5,7 +5,7 @@ import { addEnergyToLedger } from '@/shared/lib/energy-ledger';
 
 /**
  * POST /api/energy/share
- * 分享测算卡片 +5 Energy（每日最多1次，免费来源）
+ * Share reading card +5 Energy (once per day, free source)
  */
 export async function POST(request: Request) {
   const session = await auth();

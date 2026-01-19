@@ -4,7 +4,7 @@ import { prisma } from '@/shared/lib/prisma';
 
 /**
  * GET /api/energy/balance
- * 获取用户当前 Energy 余额
+ * Get user's current Energy balance
  */
 export async function GET() {
   const session = await auth();
@@ -27,7 +27,7 @@ export async function GET() {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // 检查今日是否可以签到
+    // Check if can check in today
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const lastCheckin = user.lastCheckin ? new Date(user.lastCheckin) : null;
@@ -36,7 +36,7 @@ export async function GET() {
       : null;
     const canCheckin = !lastCheckinDate || lastCheckinDate.getTime() < today.getTime();
 
-    // 检查今日是否已分享
+    // Check if already shared today
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
     const todayEnd = new Date(todayStart.getTime() + 24 * 60 * 60 * 1000);
 

@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 type EnergyDisplayProps = {
   onOpenModal?: () => void;
-  compact?: boolean; // 紧凑模式，只显示数字
+  compact?: boolean; // Compact mode - show number only
 };
 
 export default function EnergyDisplay({ onOpenModal, compact = false }: EnergyDisplayProps) {
