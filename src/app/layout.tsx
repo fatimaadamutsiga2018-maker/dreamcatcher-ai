@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   // Basic
   title: {
-    default: "Dreamcatcher – Find the Right Time to Act",
+    default: "Dreamcatcher — Know When to Act, Pause, or Wait Each Day",
     template: "%s | Dreamcatcher"
   },
   description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://dreamcatcherai.us",
-    title: "Dreamcatcher – Find the Right Time to Act",
+    title: "Dreamcatcher — Know When to Act, Pause, or Wait Each Day",
     description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
     siteName: "Dreamcatcher",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "Dreamcatcher – Find the Right Time to Act",
+    title: "Dreamcatcher — Know When to Act, Pause, or Wait Each Day",
     description: "Dreamcatcher helps you understand today's energy and choose the right timing for action, rest, or consolidation.",
     images: ["/og-image.png"],
     creator: "@dreamcatcherai"

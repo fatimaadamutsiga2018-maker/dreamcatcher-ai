@@ -542,25 +542,24 @@ export default function Home() {
       <main className="relative z-10 mx-auto w-full max-w-6xl px-4 py-4 flex flex-col pb-16">
         {/* Header - Landing Page Copy */}
         <div className="text-center mb-3 mt-2">
-          {/* H1 - Main Title (SEO Optimized) */}
+          {/* H1 - Main Hook (SEO Optimized) */}
           <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight leading-tight">
-            <span className="text-white">Dreamcatcher</span><br />
-            <span className="text-white/80 text-lg md:text-2xl">Daily Energy &amp; Timing Decision Guide</span>
+            It's Not That You're Not Working Hard.
           </h1>
 
-          {/* H2 - Subtitle (SEO & AEO Optimized) */}
+          {/* H2 - Problem Statement */}
+          <h2 className="text-lg md:text-xl text-white/80 mb-3 font-normal leading-relaxed">
+            Sometimes, timing matters more than effort.
+          </h2>
+
+          {/* H2 - Solution Statement */}
           <h2 className="text-sm md:text-base text-white/60 mb-2 font-normal leading-relaxed tracking-wide">
-            Helping you know when to act, pause, or adjust every day.
+            A daily timing guide to help you know when to act, pause, or adjust.
           </h2>
 
           {/* Key Message - Curiosity Hook */}
           <p className="text-sm md:text-base text-amber-200/90 mb-4 max-w-xl mx-auto leading-relaxed font-medium tracking-wide" style={{ textShadow: '0 0 20px rgba(251,191,36,0.3)' }}>
             Some days reward action. Some days punish it.
-          </p>
-
-          {/* Text / H3 */}
-          <p className="text-xs md:text-sm text-white/50 mb-4 max-w-xl mx-auto leading-relaxed">
-            It&apos;s not that you&apos;re not working hard — you&apos;re just working at the wrong time.
           </p>
         </div>
 
@@ -755,6 +754,15 @@ export default function Home() {
 
         {/* YOUR UNIQUE RESONANCE Section */}
         <div className="mt-4 relative flex justify-center">
+          {/* H2 - CTA Section */}
+          <div className="w-full max-w-3xl text-center mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-2">
+              Get Your Personal Timing for Today
+            </h2>
+          </div>
+        </div>
+
+        <div className="relative flex justify-center">
           {/* Pulsing glow button - entire text area is clickable */}
           <button
             onClick={isAligning ? undefined : handlePersonalGuideClick}
@@ -789,12 +797,12 @@ export default function Home() {
               ) : (
                 // Normal state
                 <>
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-[0.2em] text-white mb-4 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
+                  <p className="text-xl md:text-2xl font-semibold tracking-wide text-white mb-2 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
                     Your Personal Timing Guide
-                  </h2>
+                  </p>
 
                   {/* Small text */}
-                  <div className="mt-6 flex items-center justify-center">
+                  <div className="mt-4 flex items-center justify-center">
                     <span className="text-sm tracking-wide text-white/50 leading-relaxed">
                       See how <em className="not-italic text-white/70">today</em> works just for you.
                     </span>
@@ -955,7 +963,7 @@ export default function Home() {
           <div className="space-y-3">
             <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
               <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <span className="text-xs text-white/70">What is Dreamcatcher?</span>
+                <h4 className="text-xs text-white/70">What is Dreamcatcher?</h4>
                 <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -968,7 +976,7 @@ export default function Home() {
             </details>
             <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
               <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <span className="text-xs text-white/70">How does it work?</span>
+                <h4 className="text-xs text-white/70">How does it work?</h4>
                 <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -981,7 +989,7 @@ export default function Home() {
             </details>
             <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
               <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <span className="text-xs text-white/70">Is this astrology or fortune telling?</span>
+                <h4 className="text-xs text-white/70">Is this astrology or fortune telling?</h4>
                 <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -994,7 +1002,7 @@ export default function Home() {
             </details>
             <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
               <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <span className="text-xs text-white/70">How often should I check?</span>
+                <h4 className="text-xs text-white/70">How often should I check?</h4>
                 <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
