@@ -46,7 +46,7 @@ const blogPosts = [
   },
 ]
 
-const siteUrl = 'https://dreamcatcher-ai-nine.vercel.app'
+const siteUrl = 'https://dreamcatcherai.us'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages

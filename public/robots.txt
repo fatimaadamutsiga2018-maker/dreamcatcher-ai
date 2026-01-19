@@ -10,7 +10,7 @@ Disallow: /_next/
 Disallow: /admin/
 
 # Sitemap
-Sitemap: https://dreamcatcher-ai-nine.vercel.app/sitemap.xml
+Sitemap: https://dreamcatcherai.us/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1
