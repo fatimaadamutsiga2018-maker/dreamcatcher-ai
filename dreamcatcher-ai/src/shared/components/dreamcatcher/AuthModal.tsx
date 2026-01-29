@@ -75,7 +75,8 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
   const handleOAuthSignIn = async (provider: "github" | "google") => {
     setLoading(true);
-    await signIn(provider, { callbackUrl: window.location.href });
+    // Redirect to NextAuth's sign-in page directly
+    window.location.href = `/api/auth/signin?callbackUrl=${encodeURIComponent(window.location.href)}`;
   };
 
   return (
