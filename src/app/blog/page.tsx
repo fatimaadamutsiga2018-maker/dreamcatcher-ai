@@ -41,6 +41,24 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 0,
+      title: "When to Push, When to Pause: The Hidden Skill Nobody Taught You",
+      excerpt: "High performers aren't just good at action. They're good at timing their action. Learn how to recognize expansion and contraction phases.",
+      date: "JAN 29, 2025",
+      category: "STRATEGY",
+      readTime: "5 MIN READ",
+      href: "/blog/push-vs-pause",
+    },
+    {
+      id: 1,
+      title: "Why Some Days Multiply Effort — And Others Cancel It",
+      excerpt: "Effort is not a vending machine. Learn how to recognize tailwind days where effort multiplies and headwind days where it evaporates.",
+      date: "JAN 29, 2025",
+      category: "INSIGHT",
+      readTime: "4 MIN READ",
+      href: "/blog/tailwind-vs-headwind",
+    },
+    {
+      id: 2,
       title: "Why Some Days Multiply Effort — And Others Cancel It Out",
       excerpt: "Timing is the invisible multiplier. Right effort at the wrong time drains you. Right effort at the right time changes your trajectory.",
       date: "JAN 29, 2025",
@@ -49,7 +67,7 @@ export default function BlogPage() {
       href: "/blog/effort-multiplier-days",
     },
     {
-      id: 1,
+      id: 3,
       title: "It's Not That You're Not Working Hard — You're Just Pushing at the Wrong Time",
       excerpt: "Effort has a cost. Timing decides whether that cost pays back. The case for strategic action over constant effort.",
       date: "JAN 12, 2025",
@@ -58,7 +76,7 @@ export default function BlogPage() {
       href: "/blog/timing-matters-more-than-effort",
     },
     {
-      id: 2,
+      id: 4,
       title: "Why Resting at the Right Time Is Not Quitting",
       excerpt: "There are days when pushing costs you more than it gives back. Rest is waiting for the slope to change.",
       date: "JAN 12, 2025",
@@ -67,7 +85,7 @@ export default function BlogPage() {
       href: "/blog/rest-is-not-quitting",
     },
     {
-      id: 3,
+      id: 5,
       title: "You Don't Need Confidence — You Need the Right Moment to Start",
       excerpt: "Confidence doesn't come first. Momentum does. You might just be waiting for the right green light.",
       date: "JAN 12, 2025",
@@ -76,7 +94,7 @@ export default function BlogPage() {
       href: "/blog/momentum-not-confidence",
     },
     {
-      id: 4,
+      id: 6,
       title: "Why Timing Changes Everything (Even When Nothing Else Does)",
       excerpt: "Two people can do the same thing. Same skills. Same effort. The difference is rarely talent. It's timing.",
       date: "JAN 12, 2025",
@@ -85,7 +103,7 @@ export default function BlogPage() {
       href: "/blog/why-timing-changes-everything",
     },
     {
-      id: 5,
+      id: 7,
       title: "Why Doing Nothing Can Be Rational",
       excerpt: "In low-leverage environments, restraint preserves optionality. The case for strategic pause.",
       date: "JAN 08, 2025",
@@ -94,7 +112,7 @@ export default function BlogPage() {
       href: "/blog/why-doing-nothing-is-rational",
     },
     {
-      id: 6,
+      id: 8,
       title: "The Architecture of Resonance",
       excerpt: "How alignment reduces decision cost and cognitive drag. The hidden mathematics of sync.",
       date: "JAN 05, 2025",
@@ -103,7 +121,7 @@ export default function BlogPage() {
       href: "/blog/architecture-of-resonance",
     },
     {
-      id: 7,
+      id: 9,
       title: "The Speed of Clarity",
       excerpt: "Insight erodes when action is delayed. The case for rapid deployment during density windows.",
       date: "DEC 28, 2024",
