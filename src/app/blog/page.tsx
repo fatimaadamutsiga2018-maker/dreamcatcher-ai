@@ -40,6 +40,15 @@ export default function BlogPage() {
 
   const blogPosts = [
     {
+      id: 0,
+      title: "Why Some Days Multiply Effort — And Others Cancel It Out",
+      excerpt: "Timing is the invisible multiplier. Right effort at the wrong time drains you. Right effort at the right time changes your trajectory.",
+      date: "JAN 29, 2025",
+      category: "CONCEPT",
+      readTime: "4 MIN READ",
+      href: "/blog/effort-multiplier-days",
+    },
+    {
       id: 1,
       title: "It's Not That You're Not Working Hard — You're Just Pushing at the Wrong Time",
       excerpt: "Effort has a cost. Timing decides whether that cost pays back. The case for strategic action over constant effort.",
