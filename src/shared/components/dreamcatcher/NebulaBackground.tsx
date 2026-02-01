@@ -151,9 +151,22 @@ export default function NebulaBackground({ date = new Date() }: NebulaBackground
     raf = window.requestAnimationFrame(step);
 
     window.addEventListener("resize", resize);
+
+    // Add ResizeObserver to handle content changes (like opening FAQs)
+    const parent = canvas.parentElement;
+    let resizeObserver: ResizeObserver | null = null;
+
+    if (parent) {
+      resizeObserver = new ResizeObserver(() => {
+        resize();
+      });
+      resizeObserver.observe(parent);
+    }
+
     return () => {
       window.removeEventListener("resize", resize);
       if (raf) window.cancelAnimationFrame(raf);
+      if (resizeObserver) resizeObserver.disconnect();
     };
   }, [config, dpr]);
 

@@ -14,7 +14,7 @@ const testCases = [
 
 console.log('测试用例准备完成');
 console.log('由于模块系统限制，建议通过浏览器测试：');
-console.log('1. 访问 http://localhost:3000');
+console.log('1. 访问 http://localhost:3001');
 console.log('2. 输入3位数字（如 123）');
 console.log('3. 查看返回的神谕结果\n');
 

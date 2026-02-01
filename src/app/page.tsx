@@ -15,6 +15,7 @@ import { generateAmbientEnergyField } from "@/shared/lib/dreamcatcher/ambient-en
 import { getTodayState, generatePermissionStatement, generateTacticalCards, type TodayState } from "@/shared/lib/dreamcatcher/decision-dashboard";
 import { getActionAdvice } from "@/shared/lib/dreamcatcher/worldview-copy-v1";
 import type { TriFactorResult } from "@/shared/lib/dreamcatcher/engine-v3";
+import MessageForm from "@/shared/components/guestbook/MessageForm";
 
 type CardData = {
   mode: keyof typeof USER_MODES;
@@ -97,7 +98,7 @@ const SIMPLE_STATE_COPY: Record<TodayState, StateCopy> = {
   },
   ACCELERATE: {
     label: "Keep the Momentum",
-    mainLine: "You're already on the right track—just keep going.",
+    mainLine: "You’re already moving in the right direction. Keep going — don’t overthink it today.",
     why: "Momentum is on your side right now. Stopping would be a waste of energy.",
     whatToDo: "Double down on what's already working. Avoid changing direction.",
   },
@@ -534,6 +535,15 @@ export default function Home() {
             </svg>
             <span className="text-xs tracking-wider text-white/70 group-hover:text-white/90 transition-colors">BLOG</span>
           </Link>
+          <Link
+            href="/guestbook"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
+          >
+            <svg className="w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <span className="text-xs tracking-wider text-white/70 group-hover:text-white/90 transition-colors">GUESTBOOK</span>
+          </Link>
           <UserMenu onLoginClick={() => setAuthModalOpen(true)} />
         </div>
       </nav>
@@ -544,43 +554,37 @@ export default function Home() {
         <div className="text-center mb-3 mt-2">
           {/* H1 - Main Hook (SEO Optimized) */}
           <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight leading-tight">
-            It's Not That You're Not Working Hard.
+            We Help You Do the Right Thing at the Right Time.
           </h1>
 
           {/* H2 - Problem Statement */}
           <h2 className="text-lg md:text-xl text-white/80 mb-3 font-normal leading-relaxed">
-            Sometimes, timing matters more than effort.
+            Not every day is built for the same kind of effort.
           </h2>
 
           {/* H2 - Solution Statement */}
-          <h2 className="text-sm md:text-base text-white/60 mb-2 font-normal leading-relaxed tracking-wide">
-            A daily timing guide to help you know when to act, pause, or adjust.
+          <h2 className="text-sm md:text-base text-white/60 mb-8 font-normal leading-relaxed tracking-wide">
+            This daily timing guide helps you know when to act, pause, or adjust.
           </h2>
 
-          {/* Key Message - Curiosity Hook */}
-          <p className="text-sm md:text-base text-amber-200/90 mb-4 max-w-xl mx-auto leading-relaxed font-medium tracking-wide" style={{ textShadow: '0 0 20px rgba(251,191,36,0.3)' }}>
-            Some days reward action. Some days punish it.
-          </p>
         </div>
 
         {/* Today Context Layer - The bridge between Hero and Cards */}
-        <div className="mb-4 max-w-2xl mx-auto mt-2">
-          {/* Section divider with date */}
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-            <span className="text-[10px] tracking-[0.25em] text-white/30">
+        <div className="mb-6 max-w-3xl mx-auto mt-6 text-center">
+          {/* Date and Label Line */}
+          <div className="flex items-center justify-center gap-3 text-xl md:text-2xl font-bold text-yellow-300 tracking-wide mb-2">
+            <span>
               {mounted ? currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase() : ''}
             </span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+            <span className="opacity-80">Today's Energy:</span>
           </div>
 
           {/* Today's state - simplified from original */}
-          <div className="text-center space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
-              <span className="text-xs tracking-wider text-white/40">Today's vibe:</span>
-              <span className="text-sm font-medium text-white/80">{SIMPLE_STATE_COPY[todayState].label}</span>
+          <div className="text-center space-y-2">
+            <div className="text-3xl md:text-4xl font-extrabold text-orange-500 tracking-wider" style={{ textShadow: '0 0 15px rgba(255,255,255,0.6), 0 0 30px rgba(255,165,0,0.4)' }}>
+              {SIMPLE_STATE_COPY[todayState].label}
             </div>
-            <p className="text-xs text-white/40 max-w-md mx-auto leading-relaxed">
+            <p className="text-sm text-white/60 max-w-md mx-auto leading-relaxed font-light tracking-wide">
               {SIMPLE_STATE_COPY[todayState].mainLine}
             </p>
           </div>
@@ -755,10 +759,13 @@ export default function Home() {
         {/* YOUR UNIQUE RESONANCE Section */}
         <div className="mt-4 relative flex justify-center">
           {/* H2 - CTA Section */}
-          <div className="w-full max-w-3xl text-center mb-2">
+          <div className="w-full max-w-3xl text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-2">
-              Get Your Personal Timing for Today
+              Get Your Personal Timing
             </h2>
+            <p className="text-sm text-white/50 tracking-wide">
+              Click below to see what today supports — and what to avoid.
+            </p>
           </div>
         </div>
 
@@ -767,9 +774,8 @@ export default function Home() {
           <button
             onClick={isAligning ? undefined : handlePersonalGuideClick}
             disabled={isAligning}
-            className={`relative group w-full max-w-3xl rounded-3xl p-6 md:p-8 transition-all duration-700 disabled:cursor-not-allowed disabled:opacity-90 ${
-              !hasClickedGuide && !isAligning ? 'animate-guide-pulse' : ''
-            }`}
+            className={`relative group w-full max-w-3xl rounded-3xl p-6 md:p-8 transition-all duration-700 disabled:cursor-not-allowed disabled:opacity-90 ${!hasClickedGuide && !isAligning ? 'animate-guide-pulse' : ''
+              }`}
             style={{
               background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.05) 50%, rgba(139,92,246,0.08) 100%)',
               border: '1px solid rgba(139,92,246,0.15)',
@@ -798,15 +804,11 @@ export default function Home() {
                 // Normal state
                 <>
                   <p className="text-xl md:text-2xl font-semibold tracking-wide text-white mb-2 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
-                    Your Personal Timing Guide
+                    Check My Timing for Today
                   </p>
 
                   {/* Small text */}
-                  <div className="mt-4 flex items-center justify-center">
-                    <span className="text-sm tracking-wide text-white/50 leading-relaxed">
-                      See how <em className="not-italic text-white/70">today</em> works just for you.
-                    </span>
-                  </div>
+
                 </>
               )}
             </div>
@@ -905,29 +907,30 @@ export default function Home() {
                     href={links[insight.title] || '/blog'}
                     className="group relative rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-xl p-4 transition-all duration-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)] hover:border-white/10 cursor-pointer block"
                   >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`text-[8px] tracking-wider px-1.5 py-0.5 rounded border ${tagColors[insight.tag]}`}>
-                          {insight.tag}
-                        </span>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className={`text-[8px] tracking-wider px-1.5 py-0.5 rounded border ${tagColors[insight.tag]}`}>
+                            {insight.tag}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-serif font-medium text-white/70 mb-1.5 leading-snug">
+                          {insight.title}
+                        </h4>
+                        <p className="text-xs text-white/40 font-serif leading-relaxed">
+                          {insight.description}
+                        </p>
                       </div>
-                      <h4 className="text-sm font-serif font-medium text-white/70 mb-1.5 leading-snug">
-                        {insight.title}
-                      </h4>
-                      <p className="text-xs text-white/40 font-serif leading-relaxed">
-                        {insight.description}
-                      </p>
+                      <div className="flex items-center gap-1 text-white/20 text-[10px] tracking-wider group-hover:text-white/40 transition-colors">
+                        <span>Read</span>
+                        <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 text-white/20 text-[10px] tracking-wider group-hover:text-white/40 transition-colors">
-                      <span>Read</span>
-                      <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </div>
-                  </div>
-                </Link>
-              )});
+                  </Link>
+                )
+              });
             })()}
           </div>
         </div>
@@ -958,62 +961,70 @@ export default function Home() {
         </div>
 
         {/* FAQ Section - SEO Optimized with Schema Markup */}
-        <div className="mt-12 mb-8 max-w-2xl mx-auto">
-          <h3 className="text-xs tracking-[0.2em] text-white/30 text-center mb-6">FREQUENTLY ASKED QUESTIONS</h3>
-          <div className="space-y-3">
-            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
-              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <h4 className="text-xs text-white/70">What is Dreamcatcher?</h4>
-                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div className="px-3 pb-3 pt-0 bg-white/5">
-                <p className="text-xs text-white/50 leading-relaxed">
-                  Dreamcatcher is a daily energy &amp; timing decision guide that helps you understand when to act, pause, or adjust based on natural energy cycles.
-                </p>
-              </div>
-            </details>
-            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
-              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <h4 className="text-xs text-white/70">How does it work?</h4>
-                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div className="px-3 pb-3 pt-0 bg-white/5">
-                <p className="text-xs text-white/50 leading-relaxed">
-                  We analyze daily energy patterns using ancient timing wisdom combined with modern decision science. Each day gets a unique energy profile for business, social, strategy, and action domains.
-                </p>
-              </div>
-            </details>
-            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
-              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <h4 className="text-xs text-white/70">Is this astrology or fortune telling?</h4>
-                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div className="px-3 pb-3 pt-0 bg-white/5">
-                <p className="text-xs text-white/50 leading-relaxed">
-                  No. Dreamcatcher is based on timing principles and energy patterns. It&apos;s a decision support tool, not a prediction system. You&apos;re always the final decision-maker.
-                </p>
-              </div>
-            </details>
-            <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
-              <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
-                <h4 className="text-xs text-white/70">How often should I check?</h4>
-                <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div className="px-3 pb-3 pt-0 bg-white/5">
-                <p className="text-xs text-white/50 leading-relaxed">
-                  Energy changes daily. Check each morning to align your schedule with the day&apos;s natural rhythm. Many users find it helpful before planning their day.
-                </p>
-              </div>
-            </details>
+        {/* FAQ & Guestbook Section - 2 Columns */}
+        <div className="mt-16 mb-8 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+
+          {/* Left Column: FAQ */}
+          <div className="space-y-6">
+            <div className="text-center md:text-left mb-6">
+              <h3 className="text-xs tracking-[0.2em] text-white/30">FREQUENTLY ASKED QUESTIONS</h3>
+            </div>
+
+            <div className="space-y-3">
+              <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                  <h4 className="text-xs text-white/70">What is Dreamcatcher?</h4>
+                  <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-3 pb-3 pt-0 bg-white/5">
+                  <p className="text-xs text-white/50 leading-relaxed">
+                    Dreamcatcher is a daily energy &amp; timing decision guide that helps you understand when to act, pause, or adjust based on natural energy cycles.
+                  </p>
+                </div>
+              </details>
+              <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                  <h4 className="text-xs text-white/70">How does it work?</h4>
+                  <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-3 pb-3 pt-0 bg-white/5">
+                  <p className="text-xs text-white/50 leading-relaxed">
+                    We analyze daily energy patterns using ancient timing wisdom combined with modern decision science. Each day gets a unique energy profile for business, social, strategy, and action domains.
+                  </p>
+                </div>
+              </details>
+              <details className="group rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer p-3 hover:bg-white/10 transition-colors">
+                  <h4 className="text-xs text-white/70">Is this astrology or fortune telling?</h4>
+                  <svg className="w-4 h-4 text-white/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-3 pb-3 pt-0 bg-white/5">
+                  <p className="text-xs text-white/50 leading-relaxed">
+                    No. Dreamcatcher is based on timing principles and energy patterns. It&apos;s a decision support tool, not a prediction system. You&apos;re always the final decision-maker.
+                  </p>
+                </div>
+              </details>
+            </div>
           </div>
+
+          {/* Right Column: Guestbook */}
+          <div className="space-y-6">
+            <div className="text-center md:text-left mb-6">
+              <h3 className="text-xs tracking-[0.2em] text-white/30">LEAVE A MESSAGE</h3>
+            </div>
+
+            {/* Wrapped MessageForm to fit aesthetic */}
+            <div className="relative">
+              <MessageForm />
+            </div>
+          </div>
+
         </div>
       </main>
 

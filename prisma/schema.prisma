@@ -155,3 +155,11 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model GuestMessage {
+  id          String   @id @default(cuid())
+  content     String
+  contactInfo String?
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
