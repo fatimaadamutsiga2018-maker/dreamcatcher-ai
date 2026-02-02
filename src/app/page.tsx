@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
@@ -6,9 +6,10 @@ import { useSession } from "next-auth/react";
 import EnergyTuner from "@/shared/components/dreamcatcher/EnergyTuner";
 import AtomicCard from "@/shared/components/dreamcatcher/AtomicCard";
 import NebulaBackground from "@/shared/components/dreamcatcher/NebulaBackground";
-import PersonalModal from "@/shared/components/dreamcatcher/PersonalModal";
 import AuthModal from "@/shared/components/dreamcatcher/AuthModal";
 import UserMenu from "@/shared/components/dreamcatcher/UserMenu";
+import DecisionFlowModal from "@/shared/components/dreamcatcher/DecisionFlowModal";
+import PersonalModal from "@/shared/components/dreamcatcher/PersonalModal";
 import { calculateGuestMode, calculateAnonymousMode, calculateMemberMode, calculateSeedSum, calculateBirthdaySum } from "@/shared/lib/dreamcatcher/engine-v3";
 import { USER_MODES, TWELVE_OFFICERS, calculateTwelveOfficer } from "@/shared/lib/dreamcatcher/constants";
 import { generateAmbientEnergyField } from "@/shared/lib/dreamcatcher/ambient-energy";
@@ -48,17 +49,12 @@ type CardData = {
 const STORAGE_KEY = 'dreamcatcher-recent-reading';
 const STORAGE_VERSION = 'v1';
 
-// ============================================
-// Wisdom Quotes Library
-// ============================================
-
 interface Quote {
   text: string;
   category: 'philosophy' | 'timing' | 'rest' | 'action' | 'wealth';
 }
 
 const WISDOM_QUOTES: Quote[] = [
-  // Philosophy - Core system beliefs
   { text: "Align with the field. Flow with the day.", category: 'philosophy' },
   { text: "Don't just act. Respond to the rhythm.", category: 'philosophy' },
   { text: "Effort has a cost. Timing decides whether that cost pays back.", category: 'timing' },
@@ -71,22 +67,16 @@ const WISDOM_QUOTES: Quote[] = [
   { text: "Momentum comes before confidence, not after.", category: 'action' },
 ];
 
-// Get 2 random quotes (different from each other)
 function getRandomQuotes(count: number = 2): Quote[] {
   const shuffled = [...WISDOM_QUOTES].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 }
 
-// ============================================
-// Simple Human Language Copy V2.0
-// Maps system states to user-friendly messages
-// ============================================
-
 interface StateCopy {
-  label: string;      // Simple Label - large, bold, gradient
-  mainLine: string;   // Main Line - medium, bright (gold/white)
-  why: string;        // Why - small gray, bottom
-  whatToDo: string;   // What to do - small gray, bottom
+  label: string;
+  mainLine: string;
+  why: string;
+  whatToDo: string;
 }
 
 const SIMPLE_STATE_COPY: Record<TodayState, StateCopy> = {
@@ -126,14 +116,23 @@ export default function Home() {
   const { data: session, status } = useSession();
   const [cardOpen, setCardOpen] = useState(false);
   const [personalModalOpen, setPersonalModalOpen] = useState(false);
+  const [specificModalOpen, setSpecificModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [isAligning, setIsAligning] = useState(false);
+  const [isLoadingResult, setIsLoadingResult] = useState(false);
   const [hasClickedGuide, setHasClickedGuide] = useState(false);
   // Track flip state for each tactical card individually
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
   const toggleCardFlip = (cardKey: string) => {
     setFlippedCards(prev => ({ ...prev, [cardKey]: !prev[cardKey] }));
   };
+
+  // Handle CTA button click - OPENS DECISION FLOW
+  const handlePersonalGuideClick = () => {
+    // Always open the Decision Selection Flow now
+    setSpecificModalOpen(true);
+  };
+
 
   // Debug session
   useEffect(() => {
@@ -258,46 +257,22 @@ export default function Home() {
 
   // Calculate personalized compatibility based on Global Vibe x User State interaction
   const personalizedCompatibility = useMemo(() => {
-    console.log('RELOAD Calculating personalized compatibility...');
-    console.log('  - userCalibration.calibrated:', userCalibration.calibrated);
-    console.log('  - userCalibration.triFactorResult:', userCalibration.triFactorResult);
-    console.log('  - ambientField.compatibility:', ambientField.compatibility);
-
+    // ... (logic remains same, shortened for brevity in diff but strictly kept in execution) ...
     if (!userCalibration.calibrated || !userCalibration.triFactorResult) {
-      console.log('  WARNING Not calibrated, returning ambient compatibility');
-      console.log('  - ambient compatibility data:', {
-        business: { status: ambientField.compatibility.business.status, directive: (ambientField.compatibility.business as any).directive },
-        social: { status: ambientField.compatibility.social.status, directive: (ambientField.compatibility.social as any).directive },
-        strategic: { status: ambientField.compatibility.strategic.status, directive: (ambientField.compatibility.strategic as any).directive },
-        action: { status: ambientField.compatibility.action.status, directive: (ambientField.compatibility.action as any).directive }
-      });
-      // Return ambient compatibility if not calibrated
       return ambientField.compatibility;
     }
 
     const triFactor = userCalibration.triFactorResult;
     const baseCompatibility = ambientField.compatibility;
 
-    // Calculate resonance factor based on hexagram
     const upperTrigram = triFactor.hexagram.upper_trigram;
     const lowerTrigram = triFactor.hexagram.lower_trigram;
     const movingPosition = triFactor.hexagram.moving_position;
-
-    // Trigram harmony (0-2: 2=perfect match, 0=clash)
     const trigramHarmony = upperTrigram === lowerTrigram ? 2 : 1;
-
-    // Moving position influence (1-6: even numbers are more stable)
     const positionStability = movingPosition % 2 === 0 ? 1 : 0.5;
-
-    // Bio-field intensity from L2 interpretation
     const bioIntensity = triFactor.l2_interpretation.bio_field_intensity / 100;
-
-    // Calculate resonance multiplier (0.5 to 1.5)
     const resonanceMultiplier = 0.5 + (trigramHarmony * 0.3) + (positionStability * 0.2) + (bioIntensity * 0.5);
 
-    // Note: Energy color is already set in userCalibration.state
-
-    // Adjust each compatibility category
     const adjustStatus = (baseStatus: 'High' | 'Medium' | 'Low', resonance: number) => {
       if (resonance > 1.2) {
         return baseStatus === 'Low' ? 'Medium' : 'High';
@@ -307,198 +282,181 @@ export default function Home() {
       return baseStatus;
     };
 
-    const result = {
-      business: {
-        status: adjustStatus(baseCompatibility.business.status, resonanceMultiplier * (upperTrigram % 2 === 0 ? 1.1 : 0.9)),
-        directive: (baseCompatibility.business as any).directive,
-      },
-      social: {
-        status: adjustStatus(baseCompatibility.social.status, resonanceMultiplier * (lowerTrigram % 2 === 0 ? 1.1 : 0.9)),
-        directive: (baseCompatibility.social as any).directive,
-      },
-      strategic: {
-        status: adjustStatus(baseCompatibility.strategic.status, resonanceMultiplier * (movingPosition <= 3 ? 1.1 : 0.9)),
-        directive: (baseCompatibility.strategic as any).directive,
-      },
-      action: {
-        status: adjustStatus(baseCompatibility.action.status, resonanceMultiplier * bioIntensity),
-        directive: (baseCompatibility.action as any).directive,
-      },
+    return {
+      business: { status: adjustStatus(baseCompatibility.business.status, resonanceMultiplier * (upperTrigram % 2 === 0 ? 1.1 : 0.9)), directive: (baseCompatibility.business as any).directive },
+      social: { status: adjustStatus(baseCompatibility.social.status, resonanceMultiplier * (lowerTrigram % 2 === 0 ? 1.1 : 0.9)), directive: (baseCompatibility.social as any).directive },
+      strategic: { status: adjustStatus(baseCompatibility.strategic.status, resonanceMultiplier * (movingPosition <= 3 ? 1.1 : 0.9)), directive: (baseCompatibility.strategic as any).directive },
+      action: { status: adjustStatus(baseCompatibility.action.status, resonanceMultiplier * bioIntensity), directive: (baseCompatibility.action as any).directive },
     };
-
-    console.log('  OK Personalized compatibility calculated:', {
-      business: { status: result.business.status, original: baseCompatibility.business.status },
-      social: { status: result.social.status, original: baseCompatibility.social.status },
-      strategic: { status: result.strategic.status, original: baseCompatibility.strategic.status },
-      action: { status: result.action.status, original: baseCompatibility.action.status },
-    });
-
-    return result;
   }, [userCalibration.calibrated, userCalibration.triFactorResult, ambientField.compatibility]);
 
   const handleTuned = (code: string, mode: keyof typeof USER_MODES, birthday?: string) => {
-    try {
-      let result: TriFactorResult;
+    // START LOADING EFFECT
+    setPersonalModalOpen(false);
+    setIsLoadingResult(true);
 
-      switch (mode) {
-        case "GUEST":
-          result = calculateGuestMode(new Date());
-          break;
-        case "ANONYMOUS":
-          const seedSum = calculateSeedSum(code);
-          result = calculateAnonymousMode(seedSum, new Date());
-          break;
-        case "MEMBER":
-          const birthdaySum = birthday ? calculateBirthdaySum(birthday) : calculateSeedSum(code);
-          const intentSum = code ? calculateSeedSum(code) : undefined;
-          result = calculateMemberMode(birthdaySum, intentSum, new Date());
-          break;
-        default:
-          result = calculateAnonymousMode(calculateSeedSum(code || "123"), new Date());
+    setTimeout(() => {
+      try {
+        let result: TriFactorResult;
+
+        switch (mode) {
+          case "GUEST":
+            result = calculateGuestMode(new Date());
+            break;
+          case "ANONYMOUS":
+            const seedSum = calculateSeedSum(code);
+            result = calculateAnonymousMode(seedSum, new Date());
+            break;
+          case "MEMBER":
+            const birthdaySum = birthday ? calculateBirthdaySum(birthday) : calculateSeedSum(code);
+            const intentSum = code ? calculateSeedSum(code) : undefined;
+            result = calculateMemberMode(birthdaySum, intentSum, new Date());
+            break;
+          default:
+            result = calculateAnonymousMode(calculateSeedSum(code || "123"), new Date());
+        }
+
+        const newCardData: CardData = {
+          mode: result.mode,
+          status: result.l1_card.status,
+          oracle: result.l1_card.oracle,
+          supported: result.l1_card.supported,
+          adjustment: result.l1_card.adjustment,
+          disclaimer: result.l1_card.disclaimer,
+          hexagram: {
+            upper_trigram: result.hexagram.upper_trigram,
+            lower_trigram: result.hexagram.lower_trigram,
+            moving_position: result.hexagram.moving_position,
+            upper_name: result.hexagram.upper_name,
+            lower_name: result.hexagram.lower_name,
+          },
+          l2_interpretation: {
+            theme: result.l2_interpretation.theme,
+            resonance_pattern: result.l2_interpretation.resonance_pattern,
+            bio_field_intensity: result.l2_interpretation.bio_field_intensity,
+            state_description: result.l2_interpretation.state_description,
+            friction_point: result.l2_interpretation.friction_point,
+            strategic_recalibration: result.l2_interpretation.strategic_recalibration,
+            optimal_window: result.l2_interpretation.optimal_window,
+            execution_blueprint: result.l2_interpretation.execution_blueprint,
+          },
+          timestamp: result.timestamp,
+          seed: code || `${mode}-${new Date().toISOString()}`,
+        };
+
+        setCardData(newCardData);
+        saveReading(newCardData);
+        setCardOpen(true);
+
+        // Store tri-factor result for calibration
+        setUserCalibration({
+          calibrated: true,
+          mode: mode,
+          code: code,
+          birthday: birthday,
+          triFactorResult: result,
+        });
+      } catch (error) {
+        console.error('Tri-factor resonance calculation failed:', error);
+      } finally {
+        setIsLoadingResult(false);
       }
-
-      const newCardData: CardData = {
-        mode: result.mode,
-        status: result.l1_card.status,
-        oracle: result.l1_card.oracle,
-        supported: result.l1_card.supported,
-        adjustment: result.l1_card.adjustment,
-        disclaimer: result.l1_card.disclaimer,
-        hexagram: {
-          upper_trigram: result.hexagram.upper_trigram,
-          lower_trigram: result.hexagram.lower_trigram,
-          moving_position: result.hexagram.moving_position,
-          upper_name: result.hexagram.upper_name,
-          lower_name: result.hexagram.lower_name,
-        },
-        l2_interpretation: {
-          theme: result.l2_interpretation.theme,
-          resonance_pattern: result.l2_interpretation.resonance_pattern,
-          bio_field_intensity: result.l2_interpretation.bio_field_intensity,
-          state_description: result.l2_interpretation.state_description,
-          friction_point: result.l2_interpretation.friction_point,
-          strategic_recalibration: result.l2_interpretation.strategic_recalibration,
-          optimal_window: result.l2_interpretation.optimal_window,
-          execution_blueprint: result.l2_interpretation.execution_blueprint,
-        },
-        timestamp: result.timestamp,
-        seed: code || `${mode}-${new Date().toISOString()}`,
-      };
-
-      setCardData(newCardData);
-      saveReading(newCardData);
-      setCardOpen(true);
-
-      // Store tri-factor result for calibration
-      setUserCalibration({
-        calibrated: true,
-        mode: mode,
-        code: code,
-        birthday: birthday,
-        triFactorResult: result,
-      });
-    } catch (error) {
-      console.error('Tri-factor resonance calculation failed:', error);
-    }
+    }, 2500); // 2.5s delay for effect
   };
 
   // Handle calibration from Resonance Compass
   const handleCalibrated = useCallback((code: string, mode: keyof typeof USER_MODES, birthday?: string) => {
-    console.log('CALIBRATED handleCalibrated called:', { code, mode, birthday });
-    try {
-      let result: TriFactorResult;
+    // START LOADING EFFECT
+    setPersonalModalOpen(false);
+    setIsLoadingResult(true);
 
-      switch (mode) {
-        case "ANONYMOUS":
-          const seedSum = calculateSeedSum(code);
-          result = calculateAnonymousMode(seedSum, new Date());
-          break;
-        case "MEMBER":
-          const birthdaySum = birthday ? calculateBirthdaySum(birthday) : calculateSeedSum(code);
-          const intentSum = code ? calculateSeedSum(code) : undefined;
-          result = calculateMemberMode(birthdaySum, intentSum, new Date());
-          break;
-        default:
-          result = calculateAnonymousMode(calculateSeedSum(code || "123"), new Date());
+    setTimeout(() => {
+      try {
+        let result: TriFactorResult;
+
+        switch (mode) {
+          case "ANONYMOUS":
+            const seedSum = calculateSeedSum(code);
+            result = calculateAnonymousMode(seedSum, new Date());
+            break;
+          case "MEMBER":
+            const birthdaySum = birthday ? calculateBirthdaySum(birthday) : calculateSeedSum(code);
+            const intentSum = code ? calculateSeedSum(code) : undefined;
+            result = calculateMemberMode(birthdaySum, intentSum, new Date());
+            break;
+          default:
+            result = calculateAnonymousMode(calculateSeedSum(code || "123"), new Date());
+        }
+
+        // Calculate energy color based on tri-factor result
+        const upperTrigram = result.hexagram.upper_trigram;
+        const lowerTrigram = result.hexagram.lower_trigram;
+        const movingPosition = result.hexagram.moving_position;
+        const bioIntensity = result.l2_interpretation.bio_field_intensity;
+
+        const trigramHarmony = upperTrigram === lowerTrigram ? 2 : 1;
+        const positionStability = movingPosition % 2 === 0 ? 1 : 0.5;
+
+        let energyColor: 'kinetic-green' | 'stillness-violet' | 'neutral';
+        if (bioIntensity > 70 && trigramHarmony >= 1) {
+          energyColor = 'kinetic-green';
+        } else if (bioIntensity < 50 || positionStability < 1) {
+          energyColor = 'stillness-violet';
+        } else {
+          energyColor = 'neutral';
+        }
+
+        // Store calibration state
+        const newCalibration = {
+          calibrated: true,
+          mode: mode,
+          code: code,
+          birthday: birthday,
+          energyColor: energyColor,
+          triFactorResult: result,
+        };
+
+        setUserCalibration(newCalibration);
+
+        // Force a re-render by updating card data
+        const newCardData: CardData = {
+          mode: result.mode,
+          status: result.l1_card.status,
+          oracle: result.l1_card.oracle,
+          supported: result.l1_card.supported,
+          adjustment: result.l1_card.adjustment,
+          disclaimer: result.l1_card.disclaimer,
+          hexagram: {
+            upper_trigram: result.hexagram.upper_trigram,
+            lower_trigram: result.hexagram.lower_trigram,
+            moving_position: result.hexagram.moving_position,
+            upper_name: result.hexagram.upper_name,
+            lower_name: result.hexagram.lower_name,
+          },
+          l2_interpretation: {
+            theme: result.l2_interpretation.theme,
+            resonance_pattern: result.l2_interpretation.resonance_pattern,
+            bio_field_intensity: result.l2_interpretation.bio_field_intensity,
+            state_description: result.l2_interpretation.state_description,
+            friction_point: result.l2_interpretation.friction_point,
+            strategic_recalibration: result.l2_interpretation.strategic_recalibration,
+            optimal_window: result.l2_interpretation.optimal_window,
+            execution_blueprint: result.l2_interpretation.execution_blueprint,
+          },
+          timestamp: result.timestamp,
+          seed: code || `${mode}-${new Date().toISOString()}`,
+        };
+
+        setCardData(newCardData);
+        saveReading(newCardData);
+        setCardOpen(true);
+
+      } catch (error) {
+        console.error('Calibration failed:', error);
+      } finally {
+        setIsLoadingResult(false);
       }
-
-      console.log('DATA Tri-factor result:', result);
-
-      // Calculate energy color based on tri-factor result
-      const upperTrigram = result.hexagram.upper_trigram;
-      const lowerTrigram = result.hexagram.lower_trigram;
-      const movingPosition = result.hexagram.moving_position;
-      const bioIntensity = result.l2_interpretation.bio_field_intensity;
-
-      const trigramHarmony = upperTrigram === lowerTrigram ? 2 : 1;
-      const positionStability = movingPosition % 2 === 0 ? 1 : 0.5;
-
-      let energyColor: 'kinetic-green' | 'stillness-violet' | 'neutral';
-      if (bioIntensity > 70 && trigramHarmony >= 1) {
-        energyColor = 'kinetic-green';
-      } else if (bioIntensity < 50 || positionStability < 1) {
-        energyColor = 'stillness-violet';
-      } else {
-        energyColor = 'neutral';
-      }
-
-      console.log('COLOR Energy color:', energyColor);
-
-      // Store calibration state
-      const newCalibration = {
-        calibrated: true,
-        mode: mode,
-        code: code,
-        birthday: birthday,
-        energyColor: energyColor,
-        triFactorResult: result,
-      };
-
-      console.log('STATE Setting user calibration:', newCalibration);
-      setUserCalibration(newCalibration);
-
-      // Force a re-render by updating card data
-      const newCardData: CardData = {
-        mode: result.mode,
-        status: result.l1_card.status,
-        oracle: result.l1_card.oracle,
-        supported: result.l1_card.supported,
-        adjustment: result.l1_card.adjustment,
-        disclaimer: result.l1_card.disclaimer,
-        hexagram: {
-          upper_trigram: result.hexagram.upper_trigram,
-          lower_trigram: result.hexagram.lower_trigram,
-          moving_position: result.hexagram.moving_position,
-          upper_name: result.hexagram.upper_name,
-          lower_name: result.hexagram.lower_name,
-        },
-        l2_interpretation: {
-          theme: result.l2_interpretation.theme,
-          resonance_pattern: result.l2_interpretation.resonance_pattern,
-          bio_field_intensity: result.l2_interpretation.bio_field_intensity,
-          state_description: result.l2_interpretation.state_description,
-          friction_point: result.l2_interpretation.friction_point,
-          strategic_recalibration: result.l2_interpretation.strategic_recalibration,
-          optimal_window: result.l2_interpretation.optimal_window,
-          execution_blueprint: result.l2_interpretation.execution_blueprint,
-        },
-        timestamp: result.timestamp,
-        seed: code || `${mode}-${new Date().toISOString()}`,
-      };
-
-      setCardData(newCardData);
-      saveReading(newCardData);
-
-      // Close Personal Modal after calibration
-      setPersonalModalOpen(false);
-
-      // Open the detailed reading card
-      setCardOpen(true);
-
-      console.log('SUCCESS Calibration complete, card data updated, modal closed');
-    } catch (error) {
-      console.error('ERROR Calibration failed:', error);
-    }
+    }, 2500); // 2.5s delay
   }, [saveReading]);
 
   const handleViewRecent = () => {
@@ -508,20 +466,35 @@ export default function Home() {
     }
   };
 
-  // Handle CTA button click with loading animation
-  const handlePersonalGuideClick = () => {
-    setHasClickedGuide(true);
-    setIsAligning(true);
-    setTimeout(() => {
-      setIsAligning(false);
-      setPersonalModalOpen(true);
-    }, 3000);
-  };
+
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       {/* Nebula/Vortex animated background */}
       <NebulaBackground date={currentDate} />
+
+      {/* Loading Overlay for Result Generation */}
+      {isLoadingResult && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-md">
+          <div className="space-y-6 text-center">
+            <div className="flex items-center justify-center">
+              <div className="relative w-16 h-16">
+                <div className="absolute inset-0 rounded-full border-t-2 border-violet-500 animate-spin"></div>
+                <div className="absolute inset-2 rounded-full border-r-2 border-blue-400 animate-spin-reverse"></div>
+                <div className="absolute inset-4 rounded-full border-b-2 border-indigo-300 animate-pulse"></div>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-xl font-medium tracking-widest text-white/90 animate-pulse">
+                ALIGNING WITH THE FIELD...
+              </p>
+              <p className="text-sm text-white/50">
+                Calculating personal resonance
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Top Right Navigation */}
       <nav className="fixed top-0 right-0 z-50 p-4">
@@ -551,47 +524,45 @@ export default function Home() {
       {/* Main content - Decision Dashboard V1.0 */}
       <main className="relative z-10 mx-auto w-full max-w-6xl px-4 py-4 flex flex-col pb-16">
         {/* Header - Landing Page Copy */}
-        <div className="text-center mb-3 mt-2">
+        <div className="text-center mb-2 mt-2">
           {/* H1 - Main Hook (SEO Optimized) */}
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 tracking-tight leading-tight">
             We Help You Do the Right Thing at the Right Time.
           </h1>
 
-          {/* H2 - Problem Statement */}
-          <h2 className="text-lg md:text-xl text-white/80 mb-3 font-normal leading-relaxed">
+          {/* Subheadline */}
+          <h2 className="text-base md:text-lg text-white/70 mb-1 font-normal leading-relaxed max-w-2xl mx-auto">
             Not every day is built for the same kind of effort.
           </h2>
-
-          {/* H2 - Solution Statement */}
-          <h2 className="text-sm md:text-base text-white/60 mb-8 font-normal leading-relaxed tracking-wide">
+          <h2 className="text-base md:text-lg text-white/70 mb-4 font-normal leading-relaxed max-w-2xl mx-auto">
             This daily timing guide helps you know when to act, pause, or adjust.
           </h2>
-
         </div>
 
         {/* Today Context Layer - The bridge between Hero and Cards */}
-        <div className="mb-6 max-w-3xl mx-auto mt-6 text-center">
+        <div className="mb-4 max-w-3xl mx-auto mt-2 text-center">
           {/* Date and Label Line */}
-          <div className="flex items-center justify-center gap-3 text-xl md:text-2xl font-bold text-yellow-300 tracking-wide mb-2">
+          <div className="flex items-center justify-center gap-3 text-sm md:text-base font-medium text-white/50 tracking-widest uppercase mb-2">
             <span>
               {mounted ? currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase() : ''}
             </span>
-            <span className="opacity-80">Today's Energy:</span>
+            <span className="opacity-60">•</span>
+            <span>Today’s Energy</span>
           </div>
 
           {/* Today's state - simplified from original */}
-          <div className="text-center space-y-2">
-            <div className="text-3xl md:text-4xl font-extrabold text-orange-500 tracking-wider" style={{ textShadow: '0 0 15px rgba(255,255,255,0.6), 0 0 30px rgba(255,165,0,0.4)' }}>
+          <div className="text-center space-y-1">
+            <div className="text-4xl md:text-5xl font-extrabold text-orange-400 tracking-wider" style={{ textShadow: '0 0 20px rgba(251,146,60,0.3)' }}>
               {SIMPLE_STATE_COPY[todayState].label}
             </div>
-            <p className="text-sm text-white/60 max-w-md mx-auto leading-relaxed font-light tracking-wide">
+            <p className="text-lg md:text-xl text-white/80 max-w-xl mx-auto leading-relaxed font-light">
               {SIMPLE_STATE_COPY[todayState].mainLine}
             </p>
           </div>
         </div>
 
         {/* Tactical Cards - 4 Columns on Large Screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 mb-3 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 mb-6 max-w-5xl mx-auto">
           {(() => {
             // Get worldview content for all domains
             const worldviewBIZ = getActionAdvice(todayState, 'BIZ');
@@ -760,33 +731,36 @@ export default function Home() {
         <div className="mt-4 relative flex justify-center">
           {/* H2 - CTA Section */}
           <div className="w-full max-w-3xl text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-2">
-              Get Your Personal Timing
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              {hasClickedGuide ? "Want to check something more specific?" : "Get Your Personal Timing"}
             </h2>
-            <p className="text-sm text-white/50 tracking-wide">
-              Click below to see what today supports — and what to avoid.
+            <p className="text-white/60 tracking-wide">
+              {hasClickedGuide
+                ? "You’ve seen your overall timing. Now you can explore how it applies to a specific area."
+                : "Click below to see what today supports — and what to avoid."
+              }
             </p>
           </div>
         </div>
 
-        <div className="relative flex justify-center">
+        <div className="relative flex justify-center mb-4">
           {/* Pulsing glow button - entire text area is clickable */}
           <button
             onClick={isAligning ? undefined : handlePersonalGuideClick}
             disabled={isAligning}
-            className={`relative group w-full max-w-3xl rounded-3xl p-6 md:p-8 transition-all duration-700 disabled:cursor-not-allowed disabled:opacity-90 ${!hasClickedGuide && !isAligning ? 'animate-guide-pulse' : ''
+            className={`relative group w-full max-w-xl rounded-2xl p-6 transition-all duration-700 disabled:cursor-not-allowed disabled:opacity-90 ${!hasClickedGuide && !isAligning ? 'animate-guide-pulse' : ''
               }`}
             style={{
-              background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,130,246,0.05) 50%, rgba(139,92,246,0.08) 100%)',
-              border: '1px solid rgba(139,92,246,0.15)',
-              boxShadow: '0 0 60px rgba(139,92,246,0.2), inset 0 0 60px rgba(139,92,246,0.05)',
+              background: 'linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(59,130,246,0.1) 50%, rgba(139,92,246,0.15) 100%)',
+              border: '1px solid rgba(139,92,246,0.3)',
+              boxShadow: '0 0 40px rgba(139,92,246,0.25), inset 0 0 20px rgba(139,92,246,0.1)',
             }}
           >
             {/* Animated gradient overlay */}
-            <div className="absolute inset-0 rounded-3xl opacity-50 bg-gradient-to-r from-violet-500/10 via-blue-500/10 to-violet-500/10 animate-[shimmer_4s_ease-in-out_infinite]"></div>
+            <div className="absolute inset-0 rounded-2xl opacity-50 bg-gradient-to-r from-violet-500/10 via-blue-500/10 to-violet-500/10 animate-[shimmer_4s_ease-in-out_infinite]"></div>
 
             {/* Breathing glow ring */}
-            <div className="absolute inset-0 rounded-3xl animate-[breathing-glow_3s_ease-in-out_infinite]"></div>
+            <div className="absolute inset-0 rounded-2xl animate-[breathing-glow_3s_ease-in-out_infinite]"></div>
 
             {/* Content */}
             <div className="relative z-10 text-center">
@@ -803,16 +777,20 @@ export default function Home() {
               ) : (
                 // Normal state
                 <>
-                  <p className="text-xl md:text-2xl font-semibold tracking-wide text-white mb-2 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 40px rgba(139,92,246,0.9), 0 0 80px rgba(59,130,246,0.6)' }}>
-                    Check My Timing for Today
+                  <p className="text-xl md:text-2xl font-bold tracking-wide text-white mb-1 transition-all duration-500 group-hover:scale-105" style={{ textShadow: '0 0 20px rgba(139,92,246,0.8)' }}>
+                    {hasClickedGuide ? "Check Timing for a Specific Decision" : "Check My Timing for Today"}
                   </p>
-
-                  {/* Small text */}
-
                 </>
               )}
             </div>
           </button>
+        </div>
+
+        {/* Education below button */}
+        <div className="text-center mb-8">
+          <p className="text-sm text-white/40">
+            The daily energy is the weather. <br className="hidden md:inline" />Your personal timing shows how it affects you.
+          </p>
         </div>
 
         {/* Decision Briefs Section - Blog Articles V2.0 */}
@@ -1028,7 +1006,21 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Personal Resonance Modal */}
+      {/* New Decision Flow Modal (Unifies all flows) */}
+      {/* New Decision Flow Modal (Unifies all flows) */}
+      {specificModalOpen && (
+        <DecisionFlowModal
+          open={specificModalOpen}
+          todayState={todayState}
+          onClose={() => setSpecificModalOpen(false)}
+          onOpenPersonal={() => {
+            setSpecificModalOpen(false);
+            setPersonalModalOpen(true);
+          }}
+        />
+      )}
+
+      {/* Personal Calibration Modal */}
       <PersonalModal
         open={personalModalOpen}
         calibrated={userCalibration.calibrated}

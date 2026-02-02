@@ -84,12 +84,12 @@ export default function AtomicCard({
 
       {/* Scrollable container for long content */}
       <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-white/12 bg-white/8 p-5 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
-           style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.2) transparent' }}
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.2) transparent' }}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-[11px] font-medium uppercase tracking-widest text-white/70">
-              Current State
+              Your Timing for Today
             </div>
             <div className="mt-2 text-xl font-semibold leading-tight text-white">{status}</div>
 
@@ -115,7 +115,7 @@ export default function AtomicCard({
 
         <div className="mt-4">
           <div className="text-[11px] font-medium uppercase tracking-widest text-white/60 mb-2">
-            Resonance Insight
+            What to Lean Into
           </div>
           <ul className="space-y-1">
             {supported.map((item, index) => (
@@ -128,7 +128,7 @@ export default function AtomicCard({
 
         <div className="mt-4">
           <div className="text-[11px] font-medium uppercase tracking-widest text-white/60 mb-2">
-            Recommended Action
+            Micro Adjustment
           </div>
           <div className="rounded-lg border border-white/8 bg-white/5 px-3 py-2">
             <div className="text-xs leading-5 text-white/80">{adjustment}</div>

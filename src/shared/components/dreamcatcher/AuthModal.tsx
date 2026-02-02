@@ -106,12 +106,12 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">
-            {mode === "signin" ? "Welcome Back" : "Join Dreamcatcher"}
+            {mode === "signin" ? "Welcome Back" : "This part is personal."}
           </h2>
           <p className="text-white/60 text-sm">
             {mode === "signin"
               ? "Sign in to access your unique resonance"
-              : "Create an account to unlock your potential"}
+              : "Create a free account to see how today works for you."}
           </p>
         </div>
 

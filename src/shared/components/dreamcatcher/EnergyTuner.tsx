@@ -86,8 +86,14 @@ export default function EnergyTuner({ onTuned }: Props) {
     useRef<HTMLInputElement | null>(null),
   ];
 
-  const complete = useMemo(() => digits.every((d) => d.length === 1), [digits]);
-  const code = useMemo(() => digits.join(""), [digits]);
+  // Check if we are ready to tune
+  const canSubmit = useMemo(() => {
+    if (selectedMode === "GUEST") return true;
+    if (selectedMode === "ANONYMOUS") return digits.every(d => d.length === 1);
+    // For Member, we definitely need birthday. Digits are optional.
+    if (selectedMode === "MEMBER") return birthday.length >= 10; // Simple length check YYYY-MM-DD
+    return false;
+  }, [selectedMode, digits, birthday]);
 
   // Use ref to track if we've already triggered
   const triggeredRef = useRef(false);
@@ -101,43 +107,34 @@ export default function EnergyTuner({ onTuned }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  // Trigger callback when complete
-  useEffect(() => {
-    if (phase !== "input" || triggeredRef.current) {
-      return;
-    }
-
-    // Guest mode proceeds immediately
-    if (selectedMode === "GUEST") {
-      triggeredRef.current = true;
-      setPhase("tuning");
-      setPulseKey((k) => k + 1);
-
-      // Use requestAnimationFrame to ensure state updates first
-      requestAnimationFrame(() => {
-        onTuned("", selectedMode);
-      });
-      return;
-    }
-
-    // For ANONYMOUS and MEMBER modes, wait for complete digits
-    if (!complete) {
-      return;
-    }
-
-    // Mark as triggered
+  const triggerTuning = () => {
     triggeredRef.current = true;
     setPhase("tuning");
     setPulseKey((k) => k + 1);
 
-    // Use requestAnimationFrame to ensure state updates first, then callback
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         onTuned(code, selectedMode, selectedMode === "MEMBER" ? birthday : undefined);
       });
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [complete, code, selectedMode, birthday, phase, digits]);
+  };
+
+  // Auto-Trigger for GUEST and ANONYMOUS
+  useEffect(() => {
+    if (phase !== "input" || triggeredRef.current) return;
+
+    // Guest mode auto-starts
+    if (selectedMode === "GUEST") {
+      triggerTuning();
+      return;
+    }
+
+    // Anonymous mode auto-starts when digits are full
+    if (selectedMode === "ANONYMOUS" && digits.every(d => d.length === 1)) {
+      triggerTuning();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, selectedMode, digits]);
 
   const setAt = (idx: number, raw: string) => {
     const d = digitsOnly(raw).slice(-1);
@@ -186,15 +183,8 @@ export default function EnergyTuner({ onTuned }: Props) {
     setSelectedMode(mode);
     setDigits(["", "", ""]);
     setBirthday("");
-
-    // GUEST mode immediately enters tuning phase
-    if (mode === "GUEST") {
-      setPhase("tuning");
-      setPulseKey((k) => k + 1);
-    } else {
-      // Other modes enter input phase
-      setPhase("input");
-    }
+    // Everyone starts in 'input' phase - allowing useEffect to handle auto-triggers
+    setPhase("input");
   };
 
   const handleBirthdayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -249,6 +239,7 @@ export default function EnergyTuner({ onTuned }: Props) {
       <input
         type="date"
         value={birthday}
+        max={new Date().toISOString().split('T')[0]}
         onChange={handleBirthdayChange}
         className={[
           "w-full h-12 rounded-xl px-4 text-sm text-white outline-none",
@@ -269,31 +260,28 @@ export default function EnergyTuner({ onTuned }: Props) {
         <div className="grid grid-cols-3 gap-2">
           <button
             onClick={() => handleModeSelect("GUEST")}
-            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${
-              selectedMode === "GUEST"
-                ? "bg-gradient-to-r from-yellow-400/20 to-amber-500/20 border border-yellow-400/50 text-white"
-                : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
-            }`}
+            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${selectedMode === "GUEST"
+              ? "bg-gradient-to-r from-yellow-400/20 to-amber-500/20 border border-yellow-400/50 text-white"
+              : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+              }`}
           >
             Environmental
           </button>
           <button
             onClick={() => handleModeSelect("ANONYMOUS")}
-            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${
-              selectedMode === "ANONYMOUS"
-                ? "bg-gradient-to-r from-green-500/20 to-emerald-400/20 border border-green-400/50 text-white"
-                : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
-            }`}
+            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${selectedMode === "ANONYMOUS"
+              ? "bg-gradient-to-r from-green-500/20 to-emerald-400/20 border border-green-400/50 text-white"
+              : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+              }`}
           >
             Quick
           </button>
           <button
             onClick={() => handleModeSelect("MEMBER")}
-            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${
-              selectedMode === "MEMBER"
-                ? "bg-gradient-to-r from-violet-500/20 to-purple-400/20 border border-violet-400/50 text-white"
-                : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
-            }`}
+            className={`px-3 py-3 rounded-lg text-xs font-medium transition-all ${selectedMode === "MEMBER"
+              ? "bg-gradient-to-r from-violet-500/20 to-purple-400/20 border border-violet-400/50 text-white"
+              : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+              }`}
           >
             With Birthday
           </button>
@@ -309,13 +297,25 @@ export default function EnergyTuner({ onTuned }: Props) {
             </h1>
             <p className="mt-1 text-xs text-white/60">
               {selectedMode === "MEMBER"
-                ? "Your birthday establishes the baseline. Add optional digits for specific intention."
+                ? "Your birthday establishes the baseline resonance."
                 : "Three digits. One intention. Let the pattern settle before it speaks."}
             </p>
           </div>
 
-          {renderInputs()}
+          {selectedMode !== "MEMBER" && renderInputs()}
           {selectedMode === "MEMBER" && renderBirthdayInput()}
+
+          {selectedMode === "MEMBER" && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={triggerTuning}
+                disabled={!canSubmit}
+                className="px-6 py-2 rounded-full bg-white/10 text-white font-medium text-sm disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/20 transition-all"
+              >
+                Begin Calibration
+              </button>
+            </div>
+          )}
         </div>
       )}
 
