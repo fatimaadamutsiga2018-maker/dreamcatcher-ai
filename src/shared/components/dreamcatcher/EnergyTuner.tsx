@@ -114,7 +114,7 @@ export default function EnergyTuner({ onTuned }: Props) {
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        onTuned(code, selectedMode, selectedMode === "MEMBER" ? birthday : undefined);
+        onTuned(digits.join(""), selectedMode, selectedMode === "MEMBER" ? birthday : undefined);
       });
     });
   };

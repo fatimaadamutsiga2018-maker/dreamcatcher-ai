@@ -192,9 +192,14 @@ export default function SpecificDecisionModal({ open, todayState, onClose }: Spe
                                             Support Direction
                                         </h3>
                                     </div>
-                                    <p className="text-emerald-100/70 text-sm leading-relaxed pl-1">
-                                        {result.advice.support}
-                                    </p>
+                                    <div className="text-emerald-100/70 text-sm leading-relaxed pl-1">
+                                        <div className="font-semibold mb-1 opacity-90">{result.advice.support.title}</div>
+                                        <ul className="list-disc pl-4 space-y-1">
+                                            {result.advice.support.items.map((item, i) => (
+                                                <li key={i}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
@@ -210,9 +215,14 @@ export default function SpecificDecisionModal({ open, todayState, onClose }: Spe
                                             Caution Direction
                                         </h3>
                                     </div>
-                                    <p className="text-rose-100/70 text-sm leading-relaxed pl-1">
-                                        {result.advice.caution}
-                                    </p>
+                                    <div className="text-rose-100/70 text-sm leading-relaxed pl-1">
+                                        <div className="font-semibold mb-1 opacity-90">{result.advice.caution.title}</div>
+                                        <ul className="list-disc pl-4 space-y-1">
+                                            {result.advice.caution.items.map((item, i) => (
+                                                <li key={i}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
