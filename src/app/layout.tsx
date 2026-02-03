@@ -98,10 +98,7 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
 
-  // Alternate
-  alternates: {
-    canonical: "https://dreamcatcherai.us",
-  }
+  metadataBase: new URL("https://dreamcatcherai.us"),
 };
 
 export default function RootLayout({
