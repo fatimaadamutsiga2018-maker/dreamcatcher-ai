@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd dreamcatcher-ai && npm run build",
-  "outputDirectory": "dreamcatcher-ai/.next",
-  "installCommand": "cd dreamcatcher-ai && npm install",
-  "framework": "nextjs"
-}
