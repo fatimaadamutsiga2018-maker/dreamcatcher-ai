@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Hexagram Reading UI</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    .test-group { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Testing Hexagram Reading Page with Moving Lines</h1>
+  <p>Click buttons to test different moving line positions (动爻)</p>
+
+  <div class="test-group">
+    <h3>Same Hexagram, Different Moving Lines</h3>
+    <p>火雷噬嗑 (Hexagram 21) - Level 3 "Work for It"</p>
+    <button onclick="testMovingLine(1)">Moving Line 1 - Just Beginning</button>
+    <button onclick="testMovingLine(3)">Moving Line 3 - In Progress (Your Actions Key)</button>
+    <button onclick="testMovingLine(6)">Moving Line 6 - Outcome Taking Shape</button>
+  </div>
+
+  <div class="test-group">
+    <h3>High Success Example</h3>
+    <button onclick="testHighSuccess()">Level 5 - Highly Favorable (Moving Line 5)</button>
+  </div>
+
+  <script>
+    function testMovingLine(line) {
+      const testData = {
+        sequence_number: 21,
+        name_cn: "火雷噬嗑",
+        name_en: "Biting Through",
+        upper_trigram: "Fire",
+        lower_trigram: "Thunder",
+        result_level: 3,
+        result_icon: "🟠",
+        result_label: "Work for It",
+        situation: "Obstacles can be overcome through decisive action",
+        action_1: "Address challenges directly",
+        action_2: "Be clear and firm in communication",
+        action_3: "Remove what no longer serves",
+        question: "Should I pursue this business partnership?",
+        inputNumbers: "357",
+        movingLine: line
+      };
+
+      localStorage.setItem('hexagramReading', JSON.stringify(testData));
+      window.location.href = 'http://localhost:3000/hexagram/reading';
+    }
+
+    function testHighSuccess() {
+      const testData = {
+        sequence_number: 1,
+        name_cn: "乾为天",
+        name_en: "The Creative",
+        upper_trigram: "Heaven",
+        lower_trigram: "Heaven",
+        result_level: 5,
+        result_icon: "🟢",
+        result_label: "Green Light",
+        situation: "Strong creative energy and leadership potential",
+        action_1: "Take initiative on important projects",
+        action_2: "Lead with confidence and vision",
+        action_3: "Maintain integrity in all actions",
+        question: "Should I start my new business venture?",
+        inputNumbers: "888",
+        movingLine: 5
+      };
+
+      localStorage.setItem('hexagramReading', JSON.stringify(testData));
+      window.location.href = 'http://localhost:3000/hexagram/reading';
+    }
+  </script>
+</body>
+</html>

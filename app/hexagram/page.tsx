@@ -1,0 +1,176 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getHexagram64Reading } from '@/lib/hexagram64';
+
+export default function HexagramPage() {
+  const router = useRouter();
+  const [question, setQuestion] = useState('');
+  const [numbers, setNumbers] = useState('');
+  const [error, setError] = useState('');
+  const [showGuidelines, setShowGuidelines] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    // Numbers are required, question is optional
+    if (numbers.length !== 3 || !/^\d{3}$/.test(numbers)) {
+      setError('Please enter exactly 3 digits (0-9)');
+      return;
+    }
+
+    // Use question if provided, otherwise use a default message
+    const finalQuestion = question.trim() || 'General guidance';
+    const reading = getHexagram64Reading(finalQuestion, numbers);
+    localStorage.setItem('hexagramReading', JSON.stringify(reading));
+    router.push('/hexagram/reading');
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white py-12 px-4">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Seek Guidance
+          </h1>
+          <p className="text-lg text-gray-600">
+            Ancient wisdom for modern decisions
+          </p>
+        </div>
+
+        {/* Input Form - Moved to Top */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 mb-6">
+          {/* Question Input - First */}
+          <div className="mb-8">
+            <label htmlFor="question" className="block text-base font-medium text-gray-700 mb-3">
+              Your Question <span className="text-gray-400 font-normal">(Optional - Ask ONE question only)</span>
+            </label>
+            <textarea
+              id="question"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder={`e.g. Should I start this project now?\n\ne.g. Is this the right time to make this change?\n\ne.g. Will this approach work?`}
+              className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:border-emerald-500 focus:outline-none resize-none text-lg"
+              rows={5}
+            />
+          </div>
+
+          {/* Number Input - Second, but prominent */}
+          <div className="mb-8 text-center">
+            <label htmlFor="numbers" className="block text-base font-medium text-gray-700 mb-4">
+              Choose Three Numbers (0-9) <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="numbers"
+              type="text"
+              value={numbers}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 3);
+                setNumbers(value);
+              }}
+              placeholder="_ _ _"
+              className="w-full max-w-md mx-auto px-8 py-8 border-2 border-emerald-300 rounded-2xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none text-5xl text-center tracking-[2rem] font-mono font-bold text-emerald-600 bg-emerald-50"
+              maxLength={3}
+            />
+            <p className="text-sm text-gray-500 mt-3">
+              Trust your first instinct
+            </p>
+          </div>
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="w-full py-4 bg-emerald-600 text-white rounded-full font-medium text-lg hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg"
+          >
+            Receive Guidance
+          </button>
+        </form>
+
+        {/* Collapsible Guidelines */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <button
+            onClick={() => setShowGuidelines(!showGuidelines)}
+            className="w-full px-8 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">💡</span>
+              <span className="text-lg font-semibold text-gray-900">
+                How to ask better questions
+              </span>
+            </div>
+            <svg
+              className={`w-6 h-6 text-gray-400 transition-transform ${showGuidelines ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {showGuidelines && (
+            <div className="px-8 pb-8 pt-4 border-t border-gray-100">
+              <p className="text-gray-700 mb-6">
+                This tool assesses the likelihood of success for a specific action or decision you're considering.
+                It provides guidance based on probability, not certainty.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h3 className="text-base font-semibold text-emerald-700 mb-3">✓ Good Questions</h3>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li>"Should I start this project now?"</li>
+                    <li>"Is this the right time to make this change?"</li>
+                    <li>"Will this approach work?"</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-semibold text-red-700 mb-3">✗ Avoid Asking</h3>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li>"When will X happen?" (timing predictions)</li>
+                    <li>"What should I do?" (open-ended)</li>
+                    <li>"Will X person do Y?" (predicting others)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-gray-100">
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Guidelines:</h3>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li className="flex items-start">
+                    <span className="text-emerald-600 mr-2">•</span>
+                    <span>Only consult when facing uncertainty</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-emerald-600 mr-2">•</span>
+                    <span>Trust your first instinct for numbers</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-emerald-600 mr-2">•</span>
+                    <span>Ask once per question</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>
+            Guidance for reflection and inspiration. You are the final decision-maker.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
