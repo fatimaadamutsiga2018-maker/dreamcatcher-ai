@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { ArrowRight, Calendar, Star, Radar as RadarIcon, GitBranch, Signpost, Compass } from "lucide-react";
+import { getTodayEnergy } from "@/lib/daily-energy";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  // TODO: 从数据库读取今日能量数据
-  const todayEnergy = {
-    level: 4,
-    stars: "⭐⭐⭐⭐",
-    label: "Favorable",
-    description: "Good day for new beginnings"
-  };
+  const [todayEnergy, setTodayEnergy] = useState<ReturnType<typeof getTodayEnergy> | null>(null);
+
+  useEffect(() => {
+    // Get today's energy data on client side
+    setTodayEnergy(getTodayEnergy());
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/30 to-emerald-50/30 overflow-hidden">
@@ -124,7 +125,7 @@ export default function Home() {
                     <div className="bg-emerald-50/50 rounded-xl p-6 space-y-3">
                       <div className="text-center space-y-2">
                         <p className="text-2xl font-bold text-emerald-600">Input 3 numbers</p>
-                        <p className="text-sm text-slate-600">Get probability for your choice</p>
+                        <p className="text-sm text-slate-600">Get favorability assessment</p>
                       </div>
 
                       <div className="flex items-center justify-center gap-2 pt-2">
@@ -139,7 +140,7 @@ export default function Home() {
                         </div>
                         <ArrowRight className="w-5 h-5 text-emerald-500 mx-2" />
                         <div className="px-4 py-2 bg-emerald-100 rounded-lg">
-                          <span className="text-sm font-semibold text-emerald-700">Probability 1-5</span>
+                          <span className="text-sm font-semibold text-emerald-700">Guidance</span>
                         </div>
                       </div>
                     </div>
@@ -150,7 +151,7 @@ export default function Home() {
                         "Should I start this business now?"
                       </p>
                       <p className="text-sm font-semibold text-emerald-600 mt-1">
-                        → Probability 4: Favorable
+                        → Favorable: Conditions support your direction
                       </p>
                     </div>
                   </div>
@@ -175,17 +176,26 @@ export default function Home() {
 
                     <div>
                       <h3 className="text-xl font-bold text-slate-900 mb-2">Daily Energy</h3>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-2">
-                        Good day for better results
-                      </p>
-                      <div className="text-xs space-y-1">
-                        <p className="font-semibold text-emerald-600">Today: {todayEnergy.stars}</p>
-                        <p className="text-slate-500">Favorable for:</p>
-                        <ul className="text-slate-600 space-y-0.5">
-                          <li>• New projects</li>
-                          <li>• Important talks</li>
-                        </ul>
-                      </div>
+                      {todayEnergy ? (
+                        <>
+                          <p className="text-sm font-semibold text-emerald-600 mb-2">
+                            {todayEnergy.theme.title}
+                          </p>
+                          <p className="text-xs text-slate-600 mb-3">
+                            {todayEnergy.theme.subtitle}
+                          </p>
+                          <div className="text-xs space-y-1">
+                            <p className="text-slate-500 font-medium">Best for today:</p>
+                            <ul className="text-slate-600 space-y-0.5">
+                              {todayEnergy.activities.suitable.slice(0, 2).map((act, idx) => (
+                                <li key={idx}>• {act.en}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-sm text-slate-600">Loading today's energy...</p>
+                      )}
                     </div>
                   </div>
 
@@ -204,7 +214,10 @@ export default function Home() {
       <footer className="relative z-10 border-t border-slate-200 py-8 bg-white/60 backdrop-blur-sm">
         <div className="container mx-auto px-4 text-center text-sm text-slate-500">
           <p>
-            Guidance for reflection and inspiration. You are the final decision-maker.
+            Guidance for reflection and inspiration, not for financial, medical, legal, or gambling decisions.
+          </p>
+          <p className="mt-1">
+            You are the final decision-maker.
           </p>
         </div>
       </footer>

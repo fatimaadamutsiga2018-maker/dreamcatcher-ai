@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Hexagram } from '@/lib/hexagram64';
 import { getNumberEnergyLevel } from '@/lib/content-config';
-import EnergyRing from '@/components/EnergyRing';
 
 export default function ReadingPage() {
   const router = useRouter();
@@ -63,15 +62,15 @@ export default function ReadingPage() {
     );
   }
 
-  // Map result level to colors (New 5-level system)
-  const levelColors = {
-    5: { bg: 'emerald', text: 'emerald-700', border: 'emerald-200' },  // 🟢 Green Light (85-99%)
-    4: { bg: 'yellow', text: 'yellow-700', border: 'yellow-200' },     // 🟡 Favorable (70-84%)
-    3: { bg: 'orange', text: 'orange-700', border: 'orange-200' },     // 🟠 Work for It (55-69%)
-    2: { bg: 'red', text: 'red-700', border: 'red-200' },              // 🔴 Hold Off (35-54%)
-    1: { bg: 'gray', text: 'gray-700', border: 'gray-300' },           // ⚫ Not Now (1-34%)
+  // Map result level to colors and progress (New favorability system)
+  const levelConfig = {
+    5: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', progress: 'bg-emerald-500', width: 'w-[95%]' },
+    4: { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200', progress: 'bg-yellow-500', width: 'w-[75%]' },
+    3: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', progress: 'bg-orange-500', width: 'w-[55%]' },
+    2: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200', progress: 'bg-red-500', width: 'w-[35%]' },
+    1: { bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-gray-300', progress: 'bg-gray-500', width: 'w-[15%]' },
   };
-  const colors = levelColors[reading.result_level as keyof typeof levelColors] || levelColors[1];
+  const config = levelConfig[reading.result_level as keyof typeof levelConfig] || levelConfig[1];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white py-12 px-4">
@@ -79,9 +78,7 @@ export default function ReadingPage() {
         {/* Disclaimer at top */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 text-sm text-gray-700">
           <p className="text-center">
-            This reading assesses the favorability of conditions for your question.
-            It provides guidance based on probability, not certainty.
-            You remain the decision-maker and are responsible for your choices.
+            This guidance is for reflection and inspiration, not for financial, medical, legal, or gambling decisions. You are the final decision-maker.
           </p>
         </div>
 
@@ -112,22 +109,18 @@ export default function ReadingPage() {
           </div>
         )}
 
-        {/* Result Level - Prominent Display */}
-        <div className={`bg-${colors.bg}-50 border-2 border-${colors.border} rounded-2xl p-8 mb-6`}>
-          <div className="flex items-center justify-center gap-6 mb-6">
-            {/* Energy Ring */}
-            <EnergyRing
-              level={reading.result_level as 1 | 2 | 3 | 4 | 5}
-              size={120}
-              strokeWidth={12}
-              showLabel={false}
-            />
+        {/* Favorability Assessment - Prominent Display */}
+        <div className={`${config.bg} border-2 ${config.border} rounded-2xl p-8 mb-6`}>
+          {/* Favorability Label */}
+          <div className="text-center mb-6">
+            <div className="text-sm font-medium text-gray-500 mb-2">Favorability Assessment</div>
+            <div className={`text-3xl font-bold ${config.text} mb-4`}>
+              {reading.result_label}
+            </div>
 
-            {/* Result Label Only */}
-            <div>
-              <div className={`text-3xl font-bold text-${colors.text}`}>
-                {reading.result_label}
-              </div>
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+              <div className={`${config.progress} h-full ${config.width} transition-all duration-1000 ease-out`}></div>
             </div>
           </div>
 

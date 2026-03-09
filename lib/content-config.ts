@@ -13,39 +13,39 @@
 // Almanac Energy Levels (老黄历 - 整体环境能量)
 export const almanacEnergyConfig = {
   5: {
-    title: 'Peak Energy',
+    title: 'Highly Favorable Day',
     emoji: '⭐⭐⭐⭐⭐',
     color: 'green',
-    message: "Today's energy is at its peak. This is an exceptional day for taking bold action and making important decisions. The universe strongly supports your endeavors.",
-    shortMessage: "Peak energy - excellent for bold moves",
+    message: "Today's cosmic alignment is exceptionally strong. The activities listed below are particularly well-supported by today's energy.",
+    shortMessage: "Highly favorable for specific activities",
   },
   4: {
-    title: 'High Energy',
+    title: 'Favorable Day',
     emoji: '⭐⭐⭐⭐',
     color: 'blue',
-    message: "Strong positive energy flows today. Conditions are highly favorable for pursuing your goals. Confidence and clarity are on your side.",
-    shortMessage: "Strong energy - highly favorable",
+    message: "Today offers strong support for certain types of activities. Conditions are favorable for the actions listed below.",
+    shortMessage: "Favorable for specific activities",
   },
   3: {
-    title: 'Balanced Energy',
+    title: 'Balanced Day',
     emoji: '⭐⭐⭐',
     color: 'yellow',
-    message: "Energy is stable and balanced today. A good day for steady progress and routine activities. Approach tasks with mindfulness.",
-    shortMessage: "Balanced energy - steady progress",
+    message: "Today provides steady, balanced conditions. A good day for the types of activities listed below.",
+    shortMessage: "Balanced - good for steady progress",
   },
   2: {
-    title: 'Subdued Energy',
+    title: 'Cautious Day',
     emoji: '⭐⭐',
     color: 'orange',
-    message: "Energy is somewhat restrained today. Better suited for planning and preparation rather than major initiatives. Proceed thoughtfully.",
-    shortMessage: "Subdued energy - focus on planning",
+    message: "Today's energy is more restrained. Focus on the recommended activities and approach others with extra care.",
+    shortMessage: "Proceed thoughtfully",
   },
   1: {
-    title: 'Low Energy',
+    title: 'Reflective Day',
     emoji: '⭐',
     color: 'red',
-    message: "Energy is minimal today. This is an ideal time for reflection, rest, and strategic planning. Avoid major commitments if possible.",
-    shortMessage: "Low energy - rest and reflect",
+    message: "Today is best suited for reflection and planning. Focus on the recommended activities and avoid major commitments.",
+    shortMessage: "Best for reflection and planning",
   },
 } as const;
 
@@ -60,15 +60,16 @@ export const movingLineStages = {
 } as const;
 
 // Number Energy Reading Levels (数字能量测算 - 具体问题成功率)
+// Using confidence language instead of probability percentages
 export const numberEnergyConfig = {
   5: {
     title: 'Highly Favorable',
     emoji: '🟢',
     color: 'emerald',
-    conclusion: "Perfect timing, highly favorable",
-    suggestion: "Act with confidence. All conditions support your goal. Seize this opportunity.",
+    conclusion: "Conditions strongly support your goals",
+    suggestion: "This is a favorable time to move forward. The circumstances align well with your intentions.",
     expandedInsight: (situation: string, movingLine?: number) => {
-      let insight = `${situation}. All elements align perfectly. This is an optimal moment to move forward with confidence.`;
+      let insight = `${situation}. The conditions are well-aligned for this path. You can proceed with confidence.`;
       if (movingLine && movingLine >= 1 && movingLine <= 6) {
         insight += `\n\n${movingLineStages[movingLine as keyof typeof movingLineStages]}`;
       }
@@ -79,10 +80,10 @@ export const numberEnergyConfig = {
     title: 'Favorable',
     emoji: '🟡',
     color: 'yellow',
-    conclusion: "Favorable conditions, suitable for progress",
-    suggestion: "Prepare thoroughly and act when ready. Conditions support progress with proper execution.",
+    conclusion: "Conditions generally support your direction",
+    suggestion: "The environment is supportive. With thoughtful preparation, you're well-positioned to proceed.",
     expandedInsight: (situation: string, movingLine?: number) => {
-      let insight = `${situation}. Conditions generally favor progress. With proper preparation and timing, success is within reach.`;
+      let insight = `${situation}. The circumstances favor progress. Prepare well and you'll find the path opens naturally.`;
       if (movingLine && movingLine >= 1 && movingLine <= 6) {
         insight += `\n\n${movingLineStages[movingLine as keyof typeof movingLineStages]}`;
       }
@@ -90,13 +91,13 @@ export const numberEnergyConfig = {
     },
   },
   3: {
-    title: 'Achievable with Effort',
+    title: 'Moderate',
     emoji: '🟠',
     color: 'orange',
-    conclusion: "Achievable with effort",
-    suggestion: "Take initiative and commit sustained effort. Clarify your goal, take active steps, and success will require your dedication.",
+    conclusion: "Success depends on your commitment and effort",
+    suggestion: "This path is open, but requires active engagement. Clarify your goals and commit sustained effort.",
     expandedInsight: (situation: string, movingLine?: number) => {
-      let insight = `${situation}. Achievable, but requires considerable effort. Success is within reach, but won't come easily—it needs your active engagement.`;
+      let insight = `${situation}. The outcome depends significantly on your approach and persistence. Success is achievable with dedication.`;
       if (movingLine && movingLine >= 1 && movingLine <= 6) {
         insight += `\n\n${movingLineStages[movingLine as keyof typeof movingLineStages]}`;
       }
@@ -104,13 +105,13 @@ export const numberEnergyConfig = {
     },
   },
   2: {
-    title: 'Proceed Carefully',
+    title: 'Challenging',
     emoji: '🔴',
     color: 'red',
-    conclusion: "Uncertain, consider waiting",
-    suggestion: "Proceed with care. Current conditions require attention. Gather more information and consider timing before committing.",
+    conclusion: "Conditions present notable challenges",
+    suggestion: "Consider waiting or gathering more information. The current circumstances may not fully support this direction.",
     expandedInsight: (situation: string, movingLine?: number) => {
-      let insight = `${situation}. Current circumstances require careful consideration. Patience and observation may reveal clearer direction or better timing.`;
+      let insight = `${situation}. The present conditions suggest caution. Patience and observation may reveal better timing or approaches.`;
       if (movingLine && movingLine >= 1 && movingLine <= 6) {
         insight += `\n\n${movingLineStages[movingLine as keyof typeof movingLineStages]}`;
       }
@@ -118,13 +119,13 @@ export const numberEnergyConfig = {
     },
   },
   1: {
-    title: 'Consider Alternatives',
+    title: 'Unfavorable',
     emoji: '⚫',
     color: 'gray',
-    conclusion: "Challenging conditions, reconsider timing",
-    suggestion: "Consider pausing. Conditions may not support this path right now. Explore alternatives or wait for better timing.",
+    conclusion: "Conditions do not favor this path at this time",
+    suggestion: "Consider alternative approaches or timing. The current circumstances suggest exploring different options.",
     expandedInsight: (situation: string, movingLine?: number) => {
-      let insight = `${situation}. Present conditions present notable challenges. Consider whether different approaches or timing might serve you better.`;
+      let insight = `${situation}. The conditions present significant obstacles. Different timing or approaches may serve you better.`;
       if (movingLine && movingLine >= 1 && movingLine <= 6) {
         insight += `\n\n${movingLineStages[movingLine as keyof typeof movingLineStages]}`;
       }
@@ -175,36 +176,36 @@ export const hexagramReadingConfig = {
 export const activityConfig = {
   // Business & Career
   business: {
-    '开业': { en: 'Launch Projects', description: 'Start new ventures or initiatives' },
-    '开市': { en: 'Begin Trading', description: 'Open for business' },
-    '签约': { en: 'Sign Contracts', description: 'Formalize agreements' },
-    '交易': { en: 'Negotiate Deals', description: 'Business negotiations' },
-    '纳财': { en: 'Build Assets', description: 'Accumulate resources' },
-    '求财': { en: 'Make Investments', description: 'Financial decisions' },
-    '立券': { en: 'Sign Documents', description: 'Legal agreements' },
-    '置产': { en: 'Acquire Property', description: 'Real estate decisions' },
+    '开业': { en: 'Launch New Initiatives', description: 'Start projects or ventures' },
+    '开市': { en: 'Make Business Moves', description: 'Important business decisions' },
+    '签约': { en: 'Sign Agreements', description: 'Contracts and commitments' },
+    '交易': { en: 'Negotiate', description: 'Business discussions and deals' },
+    '纳财': { en: 'Financial Planning', description: 'Money management decisions' },
+    '求财': { en: 'Pursue Opportunities', description: 'Career and financial moves' },
+    '立券': { en: 'Finalize Documents', description: 'Sign important papers' },
+    '置产': { en: 'Major Purchases', description: 'Significant investments' },
   },
 
   // Relationship & Social
   social: {
-    '嫁娶': { en: 'Wedding Ceremonies', description: 'Marriage celebrations' },
-    '订婚': { en: 'Get Engaged', description: 'Engagement ceremonies' },
-    '订盟': { en: 'Form Partnerships', description: 'Create alliances' },
-    '会亲友': { en: 'Host Gatherings', description: 'Social events' },
-    '宴会': { en: 'Celebrate Together', description: 'Parties and celebrations' },
-    '纳采': { en: 'Meet New People', description: 'Expand social circle' },
+    '嫁娶': { en: 'Commitment Decisions', description: 'Important relationship steps' },
+    '订婚': { en: 'Make Commitments', description: 'Serious relationship decisions' },
+    '订盟': { en: 'Form Partnerships', description: 'Business or personal alliances' },
+    '会亲友': { en: 'Social Connections', description: 'Meet with important people' },
+    '宴会': { en: 'Host Events', description: 'Celebrations and gatherings' },
+    '纳采': { en: 'Network', description: 'Build new connections' },
   },
 
   // Home & Living
   home: {
-    '搬家': { en: 'Relocate', description: 'Move to new residence' },
-    '入宅': { en: 'Move In', description: 'Settle into new home' },
-    '安床': { en: 'Arrange Space', description: 'Organize living areas' },
-    '装修': { en: 'Home Renovations', description: 'Improvements and upgrades' },
-    '动土': { en: 'Break Ground', description: 'Start construction' },
-    '安门': { en: 'Structural Changes', description: 'Major modifications' },
-    '作灶': { en: 'Structural Changes', description: 'Major modifications' },
-    '扫舍': { en: 'Declutter', description: 'Deep cleaning and organizing' },
+    '搬家': { en: 'Relocate', description: 'Move to new place' },
+    '入宅': { en: 'Move In', description: 'Settle into new space' },
+    '安床': { en: 'Reorganize Space', description: 'Rearrange your environment' },
+    '装修': { en: 'Home Improvements', description: 'Renovations and upgrades' },
+    '动土': { en: 'Start Construction', description: 'Begin building projects' },
+    '安门': { en: 'Major Changes', description: 'Significant modifications' },
+    '作灶': { en: 'Major Changes', description: 'Significant modifications' },
+    '扫舍': { en: 'Deep Clean', description: 'Organize and declutter' },
   },
 
   // Health & Wellness
@@ -225,13 +226,13 @@ export const activityConfig = {
 
   // Personal Growth & Spiritual
   personal: {
-    '祭祀': { en: 'Honor Traditions', description: 'Spiritual remembrance' },
-    '祈福': { en: 'Set Intentions', description: 'Prayer and meditation' },
-    '开光': { en: 'Bless Items', description: 'Consecration rituals' },
-    '斋醮': { en: 'Mindful Detox', description: 'Fasting and meditation' },
-    '入学': { en: 'Begin Learning', description: 'Start education or training' },
-    '求嗣': { en: 'Family Planning', description: 'Growing family decisions' },
-    '冠笄': { en: 'Celebrate Milestones', description: 'Mark transitions' },
+    '祭祀': { en: 'Reflect & Remember', description: 'Honor what matters to you' },
+    '祈福': { en: 'Set Intentions', description: 'Focus on your goals' },
+    '开光': { en: 'Bless New Items', description: 'Consecrate meaningful objects' },
+    '斋醮': { en: 'Reset & Detox', description: 'Cleanse and renew' },
+    '入学': { en: 'Start Learning', description: 'Begin courses or training' },
+    '求嗣': { en: 'Family Planning', description: 'Family growth decisions' },
+    '冠笄': { en: 'Mark Milestones', description: 'Celebrate achievements' },
   },
 
   // Creative & Expression
@@ -242,15 +243,15 @@ export const activityConfig = {
 
   // Projects & Resources
   projects: {
-    '栽种': { en: 'Start Projects', description: 'Plant seeds for growth' },
-    '纳畜': { en: 'Acquire Resources', description: 'Build capacity' },
-    '伐木': { en: 'Clear Obstacles', description: 'Remove what no longer serves' },
+    '栽种': { en: 'Begin New Projects', description: 'Start fresh initiatives' },
+    '纳畜': { en: 'Acquire Resources', description: 'Build your capacity' },
+    '伐木': { en: 'Clear Obstacles', description: 'Remove what blocks you' },
   },
 
   // Endings & Transitions
   transitions: {
-    '安葬': { en: 'Memorial Services', description: 'Funeral and remembrance' },
-    '破土': { en: 'Major Changes', description: 'Significant transitions' },
+    '安葬': { en: 'Close Chapters', description: 'Let go and move forward' },
+    '破土': { en: 'Major Transitions', description: 'Significant life changes' },
   },
 
   // Special cases
@@ -268,16 +269,16 @@ export const activityConfig = {
 export const dayCharacteristicsConfig = {
   // Day Officer (建除十二值)
   dayOfficer: {
-    '建': { en: 'Initiation', energy: 'high', description: 'Excellent for starting new projects' },
-    '除': { en: 'Clearing', energy: 'medium', description: 'Good for removing obstacles and finishing tasks' },
+    '建': { en: 'Initiation', energy: 'high', description: 'Strong energy for bold moves' },
+    '除': { en: 'Clearing', energy: 'medium', description: 'Good for finishing and removing obstacles' },
     '满': { en: 'Abundance', energy: 'high', description: 'Favorable for completion and celebration' },
-    '平': { en: 'Balance', energy: 'medium', description: 'Stable energy for routine tasks' },
-    '定': { en: 'Commitment', energy: 'high', description: 'Perfect for making important decisions' },
+    '平': { en: 'Balance', energy: 'medium', description: 'Steady energy for consistent progress' },
+    '定': { en: 'Commitment', energy: 'high', description: 'Perfect for important decisions' },
     '执': { en: 'Persistence', energy: 'medium', description: 'Good for maintaining momentum' },
     '破': { en: 'Breakthrough', energy: 'low', description: 'Challenging day, focus on problem-solving' },
     '危': { en: 'Caution', energy: 'low', description: 'Proceed carefully with major decisions' },
     '成': { en: 'Achievement', energy: 'high', description: 'Excellent for completing goals' },
-    '收': { en: 'Harvest', energy: 'high', description: 'Great for gathering results and organizing' },
+    '收': { en: 'Harvest', energy: 'high', description: 'Great for gathering results' },
     '开': { en: 'Opening', energy: 'high', description: 'Ideal for new beginnings' },
     '闭': { en: 'Reflection', energy: 'low', description: 'Better for planning than action' },
   },

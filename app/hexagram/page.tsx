@@ -139,6 +139,7 @@ export default function HexagramPage() {
                     <li>"When will X happen?" (timing predictions)</li>
                     <li>"What should I do?" (open-ended)</li>
                     <li>"Will X person do Y?" (predicting others)</li>
+                    <li>"Will I win the lottery?" (random events)</li>
                   </ul>
                 </div>
               </div>
@@ -167,7 +168,10 @@ export default function HexagramPage() {
         {/* Disclaimer */}
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>
-            Guidance for reflection and inspiration. You are the final decision-maker.
+            Guidance for reflection and inspiration, not for financial, medical, legal, or gambling decisions.
+          </p>
+          <p className="mt-1">
+            You are the final decision-maker.
           </p>
         </div>
       </div>
