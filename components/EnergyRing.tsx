@@ -9,6 +9,7 @@ interface EnergyRingProps {
   strokeWidth?: number;
   showLabel?: boolean;
   label?: string;
+  darkBackground?: boolean; // New prop to control text color
 }
 
 export default function EnergyRing({
@@ -17,6 +18,7 @@ export default function EnergyRing({
   strokeWidth = 12,
   showLabel = true,
   label,
+  darkBackground = false,
 }: EnergyRingProps) {
   // Calculate percentage based on level
   const percentage = (level / 5) * 100;
@@ -52,15 +54,25 @@ export default function EnergyRing({
               <stop offset="100%" stopColor={colors.to} />
             </linearGradient>
             <filter id={`glow-${level}`}>
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
               <feMerge>
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+            {/* Gold glow for outer edge */}
+            <filter id={`gold-glow-${level}`}>
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feFlood floodColor="#fbbf24" floodOpacity="0.8"/>
+              <feComposite in2="coloredBlur" operator="in"/>
+              <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
 
-          {/* Background track */}
+          {/* Background track with gold glow */}
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -68,6 +80,7 @@ export default function EnergyRing({
             fill="none"
             stroke="#e5e7eb"
             strokeWidth={strokeWidth}
+            filter={`url(#gold-glow-${level})`}
           />
 
           {/* Progress ring */}
@@ -90,10 +103,18 @@ export default function EnergyRing({
 
         {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="text-3xl font-bold" style={{ color: colors.to }}>
+          <div
+            className="text-3xl font-bold drop-shadow-lg"
+            style={{ color: darkBackground ? '#ffffff' : colors.to }}
+          >
             {level}
           </div>
-          <div className="text-xs text-gray-500 font-medium">of 5</div>
+          <div
+            className="text-xs font-medium"
+            style={{ color: darkBackground ? 'rgba(255, 255, 255, 0.9)' : '#6b7280' }}
+          >
+            of 5
+          </div>
         </div>
       </div>
 
