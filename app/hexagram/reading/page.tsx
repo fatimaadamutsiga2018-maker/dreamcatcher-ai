@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Hexagram } from '@/lib/hexagram64';
 import { getNumberEnergyLevel } from '@/lib/content-config';
 
 export default function ReadingPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [reading, setReading] = useState<Hexagram & {
     question?: string;
     inputNumbers?: string;
@@ -15,6 +17,30 @@ export default function ReadingPage() {
     upperTrigram?: { name: string; symbol: string; unicode: string };
     lowerTrigram?: { name: string; symbol: string; unicode: string };
   } | null>(null);
+
+  // Redirect to sign-in if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin?callbackUrl=/hexagram');
+    }
+  }, [status, router]);
+
+  // Show loading state while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-purple-50 to-white">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated
+  if (!session) {
+    return null;
+  }
 
   // Get level-based content from centralized config
   const getLevelConclusion = (level: number): string => {
