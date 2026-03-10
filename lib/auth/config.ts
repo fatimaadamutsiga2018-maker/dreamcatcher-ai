@@ -4,10 +4,12 @@ import GitHubProvider from "next-auth/providers/github";
 import { CustomSupabaseAdapter } from "./adapter";
 
 export const authOptions: NextAuthOptions = {
-  adapter: CustomSupabaseAdapter(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  ),
+  adapter: process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+    ? CustomSupabaseAdapter(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.SUPABASE_SERVICE_ROLE_KEY
+      )
+    : undefined,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
