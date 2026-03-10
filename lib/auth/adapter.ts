@@ -12,7 +12,7 @@ export function CustomSupabaseAdapter(
   });
 
   return {
-    async createUser(user) {
+    async createUser(user: any) {
       const { data, error } = await supabase
         .from("cp_users")
         .insert({
@@ -28,7 +28,7 @@ export function CustomSupabaseAdapter(
       return data;
     },
 
-    async getUser(id) {
+    async getUser(id: string) {
       const { data, error } = await supabase
         .from("cp_users")
         .select()
@@ -39,7 +39,7 @@ export function CustomSupabaseAdapter(
       return data;
     },
 
-    async getUserByEmail(email) {
+    async getUserByEmail(email: string) {
       const { data, error } = await supabase
         .from("cp_users")
         .select()
@@ -50,7 +50,7 @@ export function CustomSupabaseAdapter(
       return data;
     },
 
-    async getUserByAccount({ providerAccountId, provider }) {
+    async getUserByAccount({ providerAccountId, provider }: any) {
       const { data, error } = await supabase
         .from("cp_accounts")
         .select("*, cp_users(*)")
@@ -62,7 +62,7 @@ export function CustomSupabaseAdapter(
       return data.cp_users;
     },
 
-    async updateUser(user) {
+    async updateUser(user: any) {
       const { data, error } = await supabase
         .from("cp_users")
         .update({
@@ -79,11 +79,11 @@ export function CustomSupabaseAdapter(
       return data;
     },
 
-    async deleteUser(userId) {
+    async deleteUser(userId: string) {
       await supabase.from("cp_users").delete().eq("id", userId);
     },
 
-    async linkAccount(account) {
+    async linkAccount(account: any) {
       const { error } = await supabase.from("cp_accounts").insert({
         user_id: account.userId,
         type: account.type,
@@ -101,7 +101,7 @@ export function CustomSupabaseAdapter(
       if (error) throw error;
     },
 
-    async unlinkAccount({ providerAccountId, provider }) {
+    async unlinkAccount({ providerAccountId, provider }: any) {
       await supabase
         .from("cp_accounts")
         .delete()
@@ -109,7 +109,7 @@ export function CustomSupabaseAdapter(
         .eq("provider_account_id", providerAccountId);
     },
 
-    async createSession({ sessionToken, userId, expires }) {
+    async createSession({ sessionToken, userId, expires }: any) {
       const { data, error } = await supabase
         .from("cp_sessions")
         .insert({
@@ -129,7 +129,7 @@ export function CustomSupabaseAdapter(
       };
     },
 
-    async getSessionAndUser(sessionToken) {
+    async getSessionAndUser(sessionToken: string) {
       const { data, error } = await supabase
         .from("cp_sessions")
         .select("*, cp_users(*)")
@@ -149,7 +149,7 @@ export function CustomSupabaseAdapter(
       };
     },
 
-    async updateSession({ sessionToken, expires, userId }) {
+    async updateSession({ sessionToken, expires, userId }: any) {
       const updateData: any = {
         session_token: sessionToken,
       };
@@ -177,14 +177,14 @@ export function CustomSupabaseAdapter(
       };
     },
 
-    async deleteSession(sessionToken) {
+    async deleteSession(sessionToken: string) {
       await supabase
         .from("cp_sessions")
         .delete()
         .eq("session_token", sessionToken);
     },
 
-    async createVerificationToken({ identifier, expires, token }) {
+    async createVerificationToken({ identifier, expires, token }: any) {
       const { data, error } = await supabase
         .from("cp_verification_tokens")
         .insert({
@@ -204,7 +204,7 @@ export function CustomSupabaseAdapter(
       };
     },
 
-    async useVerificationToken({ identifier, token }) {
+    async useVerificationToken({ identifier, token }: any) {
       const { data, error } = await supabase
         .from("cp_verification_tokens")
         .delete()
