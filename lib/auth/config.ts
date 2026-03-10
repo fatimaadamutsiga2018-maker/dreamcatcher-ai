@@ -4,12 +4,6 @@ import GitHubProvider from "next-auth/providers/github";
 import { CustomSupabaseAdapter } from "./adapter";
 
 export const authOptions: NextAuthOptions = {
-  adapter: process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
-    ? CustomSupabaseAdapter(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY
-      )
-    : undefined,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -22,18 +16,25 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/signin",
-    signOut: "/auth/signout",
     error: "/auth/error",
   },
   callbacks: {
-    async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    async jwt({ token, account, profile }) {
+      // Save user info to JWT token on first sign in
+      if (account && profile) {
+        token.id = profile.sub || account.providerAccountId;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Add user id to session from JWT token
+      if (session.user && token.id) {
+        session.user.id = token.id as string;
       }
       return session;
     },
   },
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
 };
