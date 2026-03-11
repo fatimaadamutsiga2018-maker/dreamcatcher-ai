@@ -17,6 +17,11 @@ export default function AlmanacPage() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showWhy, setShowWhy] = useState(false);
 
+  // Ensure date updates on client side
+  useEffect(() => {
+    setSelectedDate(new Date());
+  }, []);
+
   const solar = Solar.fromDate(selectedDate);
   const lunar = solar.getLunar();
 
