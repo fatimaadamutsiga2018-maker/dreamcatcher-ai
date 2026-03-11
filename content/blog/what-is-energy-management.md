@@ -1,161 +1,173 @@
 ---
-title: "What Is Energy Management? 为什么你管理了时间，还是累成狗"
+title: "What Is Energy Management? (And Why Your Calendar Is Lying to You)"
 slug: "what-is-energy-management"
-description: "Energy management is the missing piece. 不是时间不够，是能量不对。"
-keywords: ["energy management", "personal energy", "能量管理", "时间管理", "为什么总是累"]
+description: "You managed your time perfectly. So why do you still feel drained? The answer isn't in your schedule—it's in your energy."
+keywords: ["energy management", "personal energy", "burnout prevention", "productivity", "energy vs time"]
 ---
 
 # What Is Energy Management?
-# 为什么你管理了时间，还是累成狗
+# (And Why Your Calendar Is Lying to You)
 
 ---
 
-## Hook 钩子
+## The Problem You Know Too Well
 
-你试过吗？
+Your calendar says you're free at 3 PM.  
+Your body says you're done for the day.
 
-📅 时间表排得满满当当  
-✅ To-do list 全部打勾  
-💤 但晚上躺在床上，感觉被掏空
+You blocked 2 hours for deep work.  
+You spent 90 minutes staring at the screen, accomplishing nothing.
 
-**你不是时间管理出了问题。**  
-**你是能量管理出了问题。**
+You slept 8 hours.  
+You woke up exhausted anyway.
 
-> It's not about time. It's about energy.
-
----
-
-## The "Aha" Moment 顿悟时刻
-
-想象两个人：
-
-**小明**：每天工作12小时，精确到分钟，周末也在学习  
-**结果**：3个月后 burnout，辞职休养
-
-**小红**：每天工作6小时，但状态极好，创意不断  
-**结果**：升职加薪，还有时间健身约会
-
-**区别？**
-
-小明管理的是 **时间** (Time)  
-小红管理的是 **能量** (Energy)
+**Sound familiar?**
 
 ---
 
-## What Is Energy? 什么是能量？
+## Here's What's Really Happening
 
-不是玄学，是科学。
+You've been told to manage your **time**.
 
-你的能量 = 4个账户的总和：
+But nobody taught you to manage your **energy**.
 
-| 账户 | 中文 | 充电方式 | 耗电场景 |
-|------|------|---------|---------|
-| **Physical** | 身体 | 睡眠、运动、美食 | 熬夜、久坐、垃圾食品 |
-| **Mental** | 心智 | 深度学习、创造 | 无目的刷手机、多任务 |
-| **Emotional** | 情感 | 深度对话、爱好 | 讨好他人、压抑情绪 |
-| **Spiritual** | 精神 | 冥想、价值观对齐 | 做违背内心的事 |
+Time is a resource.  
+Energy is the **capacity** to use that resource.
 
-**关键洞察 Key Insight：**
+Think about it:
+- You can HAVE 8 hours
+- But if your energy is empty, you can't USE them
 
-> 你可以有 8 小时时间，但如果能量账户是空的，你什么都做不成。
+It's like having a full tank of gas—but a dead battery.
 
 ---
 
-## The Energy Account Metaphor 能量账户
+## What Is Personal Energy?
 
-把能量想象成银行账户：
+Not woo-woo. Science.
+
+Your energy comes from 4 sources:
+
+| Source | What It Means | Recharge | Drain |
+|--------|--------------|----------|-------|
+| **Physical** | Your body | Sleep, movement, nutrition | Late nights, sitting all day, junk food |
+| **Mental** | Your focus | Deep work, learning, creating | Multitasking, endless scrolling, notifications |
+| **Emotional** | Your mood | Meaningful connections, hobbies | People-pleasing, suppressed feelings, toxic relationships |
+| **Spiritual** | Your purpose | Values-aligned work, nature, reflection | Going against your core values, meaningless tasks |
+
+**The trap?** Most people only pay attention to Physical energy.  
+They sleep 8 hours and wonder why they're still tired.
+
+---
+
+## The Energy Account
+
+Forget time management for a second.
+
+Imagine you have an **energy bank account**:
 
 ```
-💰 收入：补充能量的事 (+)
-💸 支出：消耗能量的事 (-)
-📊 余额：当前可用能量
-🎯 目标：保持正向现金流
++ INCOME: Activities that recharge you
+- EXPENSES: Activities that drain you
+= BALANCE: Your available energy right now
 ```
 
-**问题来了：**
+**Here's the problem:**
 
-大多数人只关注 **时间账本** —— "我今天工作了8小时"  
-却忽略了 **能量账本** —— "这8小时里，我的能量是盈是亏？"
+You track your hours.  
+"I worked 8 hours today."
 
----
+But do you track your energy?  
+"Those 8 hours—was my energy balance positive or negative?"
 
-## Why Energy Management Wins 为什么能量管理更牛
-
-| 时间管理 | 能量管理 |
-|---------|---------|
-| "我还有2小时，做点什么" | "我现在能量高，做重要的事" |
-| 强迫自己在疲惫时工作 | 在最佳状态时全力输出 |
-| 追求"做完" | 追求"做好" |
-| 容易 burnout | 可持续的高表现 |
-
-**真相 Truth：**
-
-> 1小时的高能量工作 > 4小时的低能量工作
+Most people's energy account is **overdrawn**.
 
 ---
 
-## Quick Check 快速自检
+## Why Energy Management Wins
 
-你现在能量状态如何？（诚实回答）
+| Time Management | Energy Management |
+|-----------------|-------------------|
+| "I have 2 hours, what can I fit in?" | "I have high energy now, what's the important thing?" |
+| Forces you to work when depleted | Lets you perform at your peak |
+| Focuses on "getting it done" | Focuses on "doing it well" |
+| Leads to burnout | Leads to sustainable high performance |
 
-- [ ] 早上起床困难，需要闹钟轰炸
-- [ ] 下午3点必犯困，靠咖啡续命
-- [ ] 下班后只想瘫着，什么都不想做
-- [ ] 周末睡一整天，周一还是累
-- [ ] 对曾经喜欢的事提不起兴趣
+**The math is simple:**
 
-**勾选 2 个以上？**  
-你的能量账户已经透支了。
-
----
-
-## The Fix 解决方案
-
-不需要彻底改变生活。
-
-只需要 3 个小改变：
-
-### 1️⃣ 找到你的能量峰值
-你是 **晨型人** (Morning Person) 还是 **夜型人** (Night Owl)？
-
-把最重要的事，放在能量最高的时段。
-
-### 2️⃣ 识别你的能量来源
-什么让你 **真正充电**？
-
-不是刷手机那种假充电，是做完之后感觉"我又活了"的事。
-
-### 3️⃣ 砍掉能量黑洞
-列出 3 个最消耗你能量的人/事/习惯。
-
-本周先砍掉 1 个。
+> 1 hour of high-energy work > 4 hours of low-energy work
 
 ---
 
-## 中文金句总结
+## Quick Energy Check
 
-> 时间就像钱，能量就像电。
-> 你可以有很多钱，但没电，手机就是块砖。
-> 你可以有很多时间，但没能量，你什么都做不成。
+Be honest. How many apply to you right now?
 
----
+- [ ] Hitting snooze multiple times, still waking up tired
+- [ ] That 3 PM crash—every single day
+- [ ] Weekend "recovery" sleep doesn't actually recover you
+- [ ] Brain fog during important meetings
+- [ ] Things you used to enjoy feel like chores
 
-## What's Next 下一步
-
-想知道自己是什么 **能量类型**？
-
-👉 [做 2 分钟能量测试 →](/assessment)
+**Checked 2+?** Your energy account needs attention.
 
 ---
 
-**P.S.**  
-这篇文章读完用了 3 分钟。  
-但改变你的能量观念，可能只需要 3 秒钟的那个 "Aha" 时刻。
+## Three Shifts to Make Today
 
-你 get 到了吗？
+No life overhaul needed. Just three small changes:
+
+### 1. Find Your Peak
+Are you a **Morning Person** or **Night Owl**?
+
+Don't fight it.  
+Schedule your hardest work when your energy is naturally high.
+
+### 2. Know Your Fuel
+What actually **recharges** you?
+
+Not "relaxing" with Instagram.  
+The thing that makes you think "I'm back" afterward.
+
+Do more of that.
+
+### 3. Cut One Energy Drain
+List 3 things that consistently drain you.  
+People, habits, commitments.
+
+Pick one.  
+Reduce it this week.
 
 ---
 
-*Last updated: 2026-03-11*  
+## The Bottom Line
+
+Time is a renewable resource.  
+Energy is too—but only if you manage it.
+
+You can always find more time.  
+But if your energy is depleted, time doesn't matter.
+
+**Manage your energy. The rest follows.**
+
+---
+
+## What's Next
+
+Want to know your **energy type**?
+
+Take the 2-minute assessment:
+
+👉 [Discover Your Energy Profile →](/assessment)
+
+---
+
+**P.S.** This article takes 3 minutes to read.  
+But the shift in thinking? That happens in 3 seconds.
+
+Did you feel it?
+
+---
+
 *Reading time: 3 min*  
-*Share this if it resonated 👇*
+*Last updated: March 2026*
