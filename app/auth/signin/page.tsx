@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn } from '@/lib/auth-client';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -10,7 +10,7 @@ export default function SignInPage() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn('google', { callbackUrl: '/' });
+      await signIn.social({ provider: 'google', callbackURL: '/dashboard' });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);
@@ -20,7 +20,7 @@ export default function SignInPage() {
   const handleGitHubSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn('github', { callbackUrl: '/' });
+      await signIn.social({ provider: 'github', callbackURL: '/dashboard' });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);

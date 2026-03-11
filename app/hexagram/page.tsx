@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/auth-client';
 import { getHexagram64Reading } from '@/lib/hexagram64';
 
 export default function HexagramPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session, isPending } = useSession();
   const [question, setQuestion] = useState('');
   const [numbers, setNumbers] = useState('');
   const [error, setError] = useState('');
@@ -15,13 +15,13 @@ export default function HexagramPage() {
 
   // Redirect to sign-in if not authenticated
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!session) {
       router.push('/auth/signin?callbackUrl=/hexagram');
     }
-  }, [status, router]);
+  }, [session, router]);
 
   // Show loading state while checking authentication
-  if (status === 'loading') {
+  if (isPending) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-purple-50 to-white">
         <div className="text-center">

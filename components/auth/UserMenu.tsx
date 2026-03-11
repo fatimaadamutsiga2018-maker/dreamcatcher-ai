@@ -1,12 +1,12 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut } from '@/lib/auth-client';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { User, LogOut, History, Settings } from 'lucide-react';
 
 export function UserMenu() {
-  const { data: session, status } = useSession();
+  const { data: session, isPending } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ export function UserMenu() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  if (status === 'loading') {
+  if (isPending) {
     return (
       <div className="w-10 h-10 rounded-full bg-slate-200 animate-pulse"></div>
     );
@@ -96,9 +96,10 @@ export function UserMenu() {
           {/* Sign Out */}
           <div className="border-t border-slate-100 pt-2">
             <button
-              onClick={() => {
+              onClick={async () => {
                 setIsOpen(false);
-                signOut({ callbackUrl: '/' });
+                await signOut();
+                window.location.href = '/';
               }}
               className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors w-full"
             >
