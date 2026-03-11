@@ -1,7 +1,37 @@
-# ClarityPath 产品定位与 Slogan 升级方案
+# ClarityPath 产品定位与 Slogan 升级方案（修正版）
 
 > 更新日期：2026-03-11
 > 基于能量场互动理论 V2.1
+> **重要修正**：平衡"选择"和"能量提升"的关系
+
+---
+
+## 核心逻辑修正
+
+### 之前的错误理解
+❌ "不是帮你做选择，而是提升能量"
+
+**问题**：
+- 忽略了网站的核心功能：决策辅助建议
+- 过度否定"选择"的重要性
+- 与产品实际功能不符
+
+### 正确的理解
+✅ "通过更好的选择，提升你的能量"
+
+**核心逻辑**：
+```
+更好的选择 → 能量提升 → 更容易面对问题 → 更容易做出好选择
+         ↑                                        ↓
+         └────────────── 正向循环 ──────────────┘
+```
+
+**关键洞察**：
+1. 我们**确实帮助用户做选择**（决策辅助是核心功能）
+2. 但我们的目标不是"一次性的选择"，而是"通过一个个好的选择，持续提升能量"
+3. 每个小选择都会影响能量状态
+4. 我们帮用户选择**对能量增长更有利的选项**
+5. 能量提升后，做选择会变得更容易（正向循环）
 
 ---
 
@@ -16,14 +46,15 @@
 - 没有突出"提升能量"这个核心价值
 - 缺少"成长"和"伙伴"的温度感
 
-### 现在（V2.1）
-**中文定位**：你的能量提升伙伴 / 不只是选择，更是成长
-**英文定位**：Your Energy Elevation Partner | Not Just Choices, But Growth
+### 现在（V2.1 修正版）
+**中文定位**：你的能量提升伙伴 / 通过更好的选择，提升能量
+**英文定位**：Your Energy Elevation Partner | Better Choices, Higher Energy
 
 **优势**：
 - ✅ "伙伴"比"顾问"更有温度，符合"导师+朋友"的角色定位
 - ✅ "提升"比"管理"更积极，强调向上成长
-- ✅ "不只是选择，更是成长"直接点明核心价值主张
+- ✅ "通过更好的选择"明确了决策辅助的核心功能
+- ✅ 强调选择和能量提升的正向循环关系
 - ✅ 与能量场互动理论（7.1章节）完美契合
 
 ---
@@ -39,17 +70,26 @@
 - 没有突出用户利益（"对我有什么好处？"）
 - 缺少情感共鸣
 
-### 现在（V2.1）
+### 现在（V2.1 修正版）
 
 #### 主 Slogan（产品级）
+**中文**：更好的选择，更高的能量
+**英文**：Better Choices, Elevated Energy, Easier Life
+
+**优势**：
+- ✅ 明确"选择"和"能量"的因果关系
+- ✅ 强调正向循环：好选择 → 高能量 → 更容易
+- ✅ 简洁有力，易记易传播
+- ✅ 与核心功能（决策辅助）完美契合
+
+#### 副 Slogan（用户利益）
 **中文**：提升能量，轻松面对
 **英文**：Elevate Your Energy, Face Life with Ease
 
-**优势**：
-- ✅ 直接点明用户利益："轻松面对"生活
-- ✅ 简洁有力，易记易传播
-- ✅ 情感共鸣：谁不想"轻松面对"生活？
-- ✅ 与核心价值主张一致："当你的能量提升了，面对问题就容易一些"
+**用途**：
+- 强调用户利益
+- 情感共鸣
+- 品牌传播
 
 #### 副 Slogan（品牌级）
 **中文**：世界在升维，我们一起成长
@@ -62,23 +102,27 @@
 
 ---
 
-## 三、核心价值主张
+## 三、核心价值主张（修正版）
 
-### 新增明确的价值主张声明
+### 新的价值主张声明
 
 **中文版本**：
-> 我们的目的不是帮你"做选择"，而是：
-> 1. 提升你的能量 → 当你的能量提升了，面对问题就容易一些
-> 2. 找到合适的时机 → 在友好的环境下做适合的选择，更容易成功
-> 3. 建立能量意识 → 学会识别和管理自己的能量状态
-> 4. 优化能量分配 → 把有限的能量用在最有价值的地方
+> 我们帮你通过更好的选择，提升你的能量。
+>
+> 核心理念：
+> 1. **决策辅助** → 帮你在合适的时间做出更好的选择
+> 2. **能量导向** → 每个选择都考虑对能量的影响，倾向于选择对能量增长更有利的选项
+> 3. **正向循环** → 好的选择 → 能量提升 → 更容易做出好选择 → 持续成长
+> 4. **长期视角** → 不是一次性的决策，而是通过一个个小选择，持续提升能量
 
 **英文版本**：
-> We don't just help you "make choices" — we help you "elevate your energy"
-> 1. Elevate your energy → When your energy rises, challenges become easier
-> 2. Find the right timing → Making the right choice at the right time, in a supportive environment, leads to success
-> 3. Build energy awareness → Learn to recognize and manage your energy state
-> 4. Optimize energy allocation → Use your limited energy where it matters most
+> We help you elevate your energy through better choices.
+>
+> Core Principles:
+> 1. **Decision Support** → Help you make better choices at the right time
+> 2. **Energy-Oriented** → Every choice considers its impact on energy, guiding you toward options that support energy growth
+> 3. **Positive Cycle** → Better choices → Elevated energy → Easier to make good choices → Continuous growth
+> 4. **Long-term Perspective** → Not one-time decisions, but sustained energy elevation through a series of small choices
 
 ---
 

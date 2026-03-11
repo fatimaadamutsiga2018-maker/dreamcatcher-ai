@@ -267,17 +267,25 @@ Personal Energy Assessment（个人能量评估）
 
 #### 7.1.5 产品价值主张
 
-**我们的目的不是帮你"做选择"**，而是：
+**我们帮你通过更好的选择，提升你的能量**
+
+核心理念：
+1. **决策辅助** → 帮你在合适的时间做出更好的选择
+2. **能量导向** → 每个选择都考虑对能量的影响，倾向于选择对能量增长更有利的选项
+3. **正向循环** → 好的选择 → 能量提升 → 更容易做出好选择 → 持续成长
+4. **长期视角** → 不是一次性的决策，而是通过一个个小选择，持续提升能量
+
+**四个核心价值**：
 
 1. **提升你的能量** → 当你的能量提升了，面对一些问题就容易一些
 2. **找到合适的时机** → 在友好的环境下做适合的选择，更容易成功
-3. **建立能量意识** → 学会识别和管理自己的能量状态
+3. **建立能量意识** → 学会识别每个选择对能量的影响
 4. **优化能量分配** → 把有限的能量用在最有价值的地方
 
 **核心理念**：
-> 不只是做选择，更是提升能量，让你更轻松地面对生活。
+> 通过更好的选择，提升你的能量，让你更轻松地面对生活。
 >
-> Not Just Choices, But Energy Elevation for an Easier Life.
+> Better Choices, Elevated Energy, Easier Life.
 
 ---
 
@@ -407,14 +415,14 @@ Personal Energy Assessment（个人能量评估）
 
 ### 11.1 小红书内容框架（中文）
 
-**账号定位**：你的能量提升伙伴 / 不只是选择，更是成长
+**账号定位**：你的能量提升伙伴 / 通过更好的选择，提升能量
 **简介**：提升能量，轻松面对 🔋 在合适的时间，做合适的事
-**Slogan**：提升能量，轻松面对 | 世界在升维，我们一起成长
+**Slogan**：更好的选择，更高的能量 | 世界在升维，我们一起成长
 
 **核心价值主张**：
-- 不是帮你"做选择"，而是帮你"提升能量"
-- 当你的能量提升了，面对问题就容易一些
-- 在友好的环境下做适合的选择，更容易成功
+- 帮你通过更好的选择，提升你的能量
+- 每个小选择都会影响能量状态，我们帮你选择对能量增长更有利的选项
+- 当你的能量提升了，做选择会变得更容易，形成正向循环
 
 **内容系列**：
 
@@ -427,14 +435,14 @@ Personal Energy Assessment（个人能量评估）
 
 ### 11.2 博客内容框架（英文）
 
-**Brand Positioning**: Your Energy Elevation Partner | Not Just Choices, But Growth
+**Brand Positioning**: Your Energy Elevation Partner | Better Choices, Higher Energy
 **Tagline**: Elevate Your Energy, Face Life with Ease
-**Slogan**: Rise with the World: Elevate Your Energy
+**Slogan**: Better Choices, Elevated Energy, Easier Life
 
 **Core Value Proposition**:
-- We don't just help you "make choices" — we help you "elevate your energy"
-- When your energy rises, challenges become easier
-- Making the right choice at the right time, in a supportive environment, leads to success
+- We help you elevate your energy through better choices
+- Every small choice affects your energy state — we guide you toward choices that support energy growth
+- When your energy rises, making good choices becomes easier, creating a positive cycle
 
 **Content Pillars**:
 
