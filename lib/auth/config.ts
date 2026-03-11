@@ -18,7 +18,6 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
-  url: process.env.NEXTAUTH_URL,
   callbacks: {
     async jwt({ token, account, profile }) {
       // Save user info to JWT token on first sign in
