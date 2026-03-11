@@ -5,7 +5,8 @@ export const auth = betterAuth({
   baseURL: process.env.NEXTAUTH_URL || 'https://www.dreamcatcherai.us',
   secret: process.env.NEXTAUTH_SECRET || 'fallback-secret-for-build',
   trustedOrigins: [
-    process.env.NEXTAUTH_URL || 'https://www.dreamcatcherai.us',
+    'https://www.dreamcatcherai.us',
+    'https://dreamcatcherai.us',
     'https://dreamcatcher-ai-nine.vercel.app',
   ],
   socialProviders: {
