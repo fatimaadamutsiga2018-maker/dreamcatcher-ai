@@ -30,7 +30,7 @@ export default function Home() {
                 ClarityPath
               </h1>
               <h2 className="text-2xl md:text-3xl font-bold text-slate-700">
-                Right Time, Right Choice
+                Elevate Your Energy, Face Life with Ease
               </h2>
             </div>
 
