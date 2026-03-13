@@ -29,7 +29,9 @@ export default function SignInPage() {
         email,
         password,
         callbackURL: '/dashboard',
-        throw: true,
+        fetchOptions: {
+          throw: true,
+        },
       });
     } catch (err: any) {
       setError(err.message || 'Sign in failed. Please check your credentials.');
@@ -43,7 +45,9 @@ export default function SignInPage() {
       await signIn.social({
         provider: 'google',
         callbackURL: '/',
-        throw: true,
+        fetchOptions: {
+          throw: true,
+        },
       });
     } catch (error) {
       console.error('Sign in error:', error);
@@ -57,7 +61,9 @@ export default function SignInPage() {
       await signIn.social({
         provider: 'github',
         callbackURL: '/',
-        throw: true,
+        fetchOptions: {
+          throw: true,
+        },
       });
     } catch (error) {
       console.error('Sign in error:', error);
