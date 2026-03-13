@@ -20,7 +20,12 @@ This is the only auth SQL in this directory that matches the current project dec
 
 - `better-auth-tables-cp.sql`
   Purpose: Better Auth compatible auth tables for ClarityPath
-  Status: current
+  Status: current, deployed to production
+
+- `blog-comments-cp.sql`
+  Purpose: Blog comment and like tables, references cp_users(id) TEXT
+  Status: current, not yet deployed — run in Supabase SQL Editor when ready
+  Depends on: better-auth-tables-cp.sql (cp_users must exist first)
 
 - `update-result-labels.sql`
   Purpose: result label updates for domain content
@@ -52,3 +57,9 @@ If the goal is to work on current auth:
 2. Keep `cp_` prefixes
 3. Do not revive old NextAuth SQL
 4. Do not mix these files with `planning/supabase/` drafts
+
+If the goal is to set up blog comments:
+
+1. Ensure `better-auth-tables-cp.sql` has been run first
+2. Run `blog-comments-cp.sql` in Supabase SQL Editor
+3. Tables created: `cp_blog_comments`, `cp_comment_likes`
