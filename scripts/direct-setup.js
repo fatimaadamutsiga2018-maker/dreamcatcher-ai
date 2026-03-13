@@ -2,7 +2,7 @@ require('dotenv').config({ path: '.env.local' });
 const fs = require('fs');
 
 async function executeSQLDirectly() {
-  const sql = fs.readFileSync('./supabase/init.sql', 'utf8');
+  const sql = fs.readFileSync('./supabase/legacy/init.sql', 'utf8');
 
   console.log('🚀 Executing SQL via Supabase Management API...\n');
 

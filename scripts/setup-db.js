@@ -22,7 +22,7 @@ async function setupDatabase() {
   console.log('🚀 Starting database setup via Supabase client...\n');
 
   // Read and execute SQL statements one by one
-  const sql = fs.readFileSync('./supabase/init.sql', 'utf8');
+  const sql = fs.readFileSync('./supabase/legacy/init.sql', 'utf8');
 
   // Split into statements
   const statements = sql

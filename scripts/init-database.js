@@ -16,7 +16,7 @@ async function initDatabase() {
     console.log('✅ Connected successfully!\n');
 
     // Read SQL file
-    const sqlFile = path.join(__dirname, '../supabase/init.sql');
+    const sqlFile = path.join(__dirname, '../supabase/legacy/init.sql');
     const sql = fs.readFileSync(sqlFile, 'utf8');
 
     console.log('📝 Executing database initialization SQL...\n');
