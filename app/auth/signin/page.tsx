@@ -6,7 +6,10 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function SignInPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -16,10 +19,27 @@ export default function SignInPage() {
     }
   }, [session, router]);
 
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await signIn.email({
+        email,
+        password,
+        callbackURL: '/dashboard',
+      });
+    } catch (err: any) {
+      setError(err.message || 'Sign in failed. Please check your credentials.');
+      setIsLoading(false);
+    }
+  };
+
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn.social({ provider: 'google', callbackURL: '/dashboard' });
+      await signIn.social({ provider: 'google', callbackURL: '/' });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);
@@ -29,7 +49,7 @@ export default function SignInPage() {
   const handleGitHubSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn.social({ provider: 'github', callbackURL: '/dashboard' });
+      await signIn.social({ provider: 'github', callbackURL: '/' });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);
@@ -49,6 +69,63 @@ export default function SignInPage() {
             <p className="text-slate-600">
               Sign in to save your readings and access your history
             </p>
+          </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
+
+          {/* Email/Password Form */}
+          <form onSubmit={handleEmailSignIn} className="space-y-4 mb-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-colors"
+                placeholder="Your password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full px-6 py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-slate-500">or</span>
+            </div>
           </div>
 
           {/* Social Sign In Buttons */}
@@ -104,12 +181,20 @@ export default function SignInPage() {
           </div>
 
           {/* Back to Home */}
-          <Link
-            href="/"
-            className="block text-center text-sm text-slate-600 hover:text-emerald-600 transition-colors"
-          >
-            Continue without signing in
-          </Link>
+          <div className="mt-6 text-center space-y-3">
+            <p className="text-sm text-slate-600">
+              Don't have an account?{' '}
+              <Link href="/auth/signup" className="text-emerald-600 hover:text-emerald-700 font-medium">
+                Sign up
+              </Link>
+            </p>
+            <Link
+              href="/"
+              className="block text-sm text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              Continue without signing in
+            </Link>
+          </div>
         </div>
 
         {/* Footer Note */}
