@@ -5,7 +5,7 @@
 **项目名称：** ClarityPath  
 **定位：** 帮助35+人群在不确定时代，用东方智慧+现代心理学，做出更好的选择，构建内心秩序  
 **目标市场：** 欧美市场（英文界面）  
-**技术栈：** Next.js + Tailwind CSS + Supabase + Vercel
+**技术栈：** Next.js + Tailwind CSS + Supabase PostgreSQL + Better Auth + Vercel
 
 ---
 
@@ -189,9 +189,36 @@
 
 ### 后端
 - **数据库：** Supabase (PostgreSQL)
-- **认证：** Supabase Auth
+- **认证：** Better Auth
 - **存储：** Supabase Storage
 - **支付：** Stripe
+
+### 认证与数据隔离策略（2026-03-12 更新）
+
+- **认证方案正式定版：** Better Auth
+- **认证存储：** Supabase PostgreSQL
+- **表命名策略：** ClarityPath 全部认证核心表使用 `cp_` 前缀
+- **原因：** 未来计划在同一个 Supabase 项目中承载多个站点，需要在数据库层清晰隔离
+
+#### ClarityPath 认证表命名约定
+
+- `cp_users`
+- `cp_sessions`
+- `cp_accounts`
+- `cp_verification_tokens`
+
+#### 多站点规则
+
+- ClarityPath 使用自己的 `cp_` 表命名空间
+- 其他网站应使用独立前缀或独立 PostgreSQL schema
+- 默认**不共享 auth tables**
+- 只有在明确要做跨站统一账号体系时，才讨论共享用户系统
+
+#### 实施原则
+
+- 新 migration 必须与 `lib/auth.ts` 一致
+- 仓库中的旧 Supabase Auth / NextAuth 风格脚本视为历史遗留，不再作为主实现依据
+- 优先选择“保留 `cp_` 前缀 + 使用 Better Auth 兼容字段”的方案，降低多项目混表风险
 
 ### 算法
 - **测评评分：** 随机抽取题目（4版本×4维度=16题库，每次抽12题）+ 加权算法
@@ -232,6 +259,65 @@
 
 ---
 
+## 附录：AI 协作上下文 (MUSK.md)
+
+> 供 AI 助手快速理解项目，有实质变化时更新。
+
+### 项目速览
+
+| 字段 | 内容 |
+|------|------|
+| **项目名称** | ClarityPath |
+| **域名** | https://www.dreamcatcherai.us/ |
+| **核心功能** | 老黄历（日常能量）+ 梅花易数（决策辅助） |
+| **文案价值观** | 积极友好、不伤人、去宗教化、西方化 |
+
+### 技术栈（已更新）
+
+| 层级 | 技术 | 版本 |
+|------|------|------|
+| 框架 | Next.js (App Router) | 16.1.6 |
+| 样式 | Tailwind CSS | v4 |
+| 动画 | Framer Motion | 12.x |
+| 数据库 | PostgreSQL + Supabase | — |
+| ORM | Drizzle ORM | 0.45.x |
+| 认证 | Better Auth | 1.5.x |
+| 认证表策略 | `cp_` 前缀隔离 | — |
+
+### 关键文件位置
+
+| 用途 | 路径 |
+|------|------|
+| 文案配置中心 | `src/lib/content-config.ts` |
+| 老黄历翻译 | `src/lib/almanac-translator.ts` |
+| 梅花易数数据 | `src/lib/hexagram64.ts` |
+| 数据库表 | `src/db/schema.ts` |
+
+### 能量等级对照
+
+| 等级 | 成功率 | 老黄历表达 | 梅花易数表达 |
+|------|--------|-----------|-------------|
+| 5 | 85-100% | Optimal Energy | Highly Favorable |
+| 4 | 70-84% | Favorable Energy | Favorable |
+| 3 | 55-69% | Balanced Energy | Achievable with Effort |
+| 2 | 35-54% | Challenging Energy | Consider Timing |
+| 1 | 0-34% | Low Energy | Consider Alternatives |
+
+### 主人偏好（晋也小姐姐）
+
+- **技术水平**：AI初学者，需要非技术语言解释
+- **决策风格**：偏好主动性，鼓励"你自己帮自己"
+- **沟通偏好**：直接给结论，再给理由；风格轻松
+- **资源管理**：优先免费/低成本方案
+
+### 与 AI 协作指南
+
+1. **修改文案时**：优先改 `src/lib/content-config.ts`，保持积极友好
+2. **添加功能时**：给出2-3个方案对比，标注难度（⭐/⭐⭐/⭐⭐⭐）
+3. **技术决策时**：用产品语言解释，提前指出可能踩的坑
+
+---
+
 **创建日期：** 2026-03-02  
-**最后更新：** 2026-03-02  
+**最后更新：** 2026-03-12  
 **负责人：** 晋也小姐姐 + Musk + 克总（技术实现）
