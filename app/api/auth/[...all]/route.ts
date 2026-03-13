@@ -12,12 +12,17 @@ const allowedOrigins = [
 function getCorsHeaders(request: Request) {
   const origin = request.headers.get('origin') || '';
   const isAllowed = allowedOrigins.includes(origin);
-  return {
-    'Access-Control-Allow-Origin': isAllowed ? origin : allowedOrigins[0],
+  const headers: Record<string, string> = {
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Credentials': 'true',
   };
+
+  if (isAllowed) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
+
+  return headers;
 }
 
 export async function OPTIONS(request: Request) {
