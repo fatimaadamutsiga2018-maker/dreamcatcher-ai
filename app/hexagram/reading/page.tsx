@@ -20,10 +20,10 @@ export default function ReadingPage() {
 
   // Redirect to sign-in if not authenticated
   useEffect(() => {
-    if (!session) {
-      router.push('/auth/signin?callbackUrl=/hexagram');
+    if (!isPending && !session) {
+      router.replace('/auth/signin?callbackUrl=/hexagram');
     }
-  }, [session, router]);
+  }, [isPending, router, session]);
 
   // Show loading state while checking authentication
   if (isPending) {

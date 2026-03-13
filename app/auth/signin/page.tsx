@@ -1,7 +1,7 @@
 'use client';
 
 import { signIn, useSession } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -12,12 +12,14 @@ export default function SignInPage() {
   const [error, setError] = useState('');
   const { data: session } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackURL = searchParams.get('callbackUrl') || '/dashboard';
 
   useEffect(() => {
     if (session) {
-      router.push('/');
+      router.replace(callbackURL);
     }
-  }, [session, router]);
+  }, [callbackURL, router, session]);
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ export default function SignInPage() {
       await signIn.email({
         email,
         password,
-        callbackURL: '/dashboard',
+        callbackURL,
         fetchOptions: {
           throw: true,
         },
@@ -44,7 +46,7 @@ export default function SignInPage() {
     try {
       await signIn.social({
         provider: 'google',
-        callbackURL: '/',
+        callbackURL,
         fetchOptions: {
           throw: true,
         },
@@ -60,7 +62,7 @@ export default function SignInPage() {
     try {
       await signIn.social({
         provider: 'github',
-        callbackURL: '/',
+        callbackURL,
         fetchOptions: {
           throw: true,
         },

@@ -11,10 +11,10 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!session) {
-      router.push('/auth/signin');
+    if (!isPending && !session) {
+      router.replace('/auth/signin?callbackUrl=/dashboard');
     }
-  }, [session, router]);
+  }, [isPending, router, session]);
 
   if (isPending) {
     return (

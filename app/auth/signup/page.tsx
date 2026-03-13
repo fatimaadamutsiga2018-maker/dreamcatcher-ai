@@ -1,7 +1,7 @@
 'use client';
 
 import { signUp, useSession } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -13,12 +13,14 @@ export default function SignUpPage() {
   const [error, setError] = useState('');
   const { data: session } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackURL = searchParams.get('callbackUrl') || '/dashboard';
 
   useEffect(() => {
     if (session) {
-      router.push('/dashboard');
+      router.replace(callbackURL);
     }
-  }, [session, router]);
+  }, [callbackURL, router, session]);
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ export default function SignUpPage() {
         email,
         password,
         name,
-        callbackURL: '/dashboard',
+        callbackURL,
         fetchOptions: {
           throw: true,
         },
