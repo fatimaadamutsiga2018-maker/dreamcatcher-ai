@@ -29,6 +29,7 @@ export default function SignInPage() {
         email,
         password,
         callbackURL: '/dashboard',
+        throw: true,
       });
     } catch (err: any) {
       setError(err.message || 'Sign in failed. Please check your credentials.');
@@ -39,7 +40,11 @@ export default function SignInPage() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn.social({ provider: 'google', callbackURL: '/' });
+      await signIn.social({
+        provider: 'google',
+        callbackURL: '/',
+        throw: true,
+      });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);
@@ -49,7 +54,11 @@ export default function SignInPage() {
   const handleGitHubSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn.social({ provider: 'github', callbackURL: '/' });
+      await signIn.social({
+        provider: 'github',
+        callbackURL: '/',
+        throw: true,
+      });
     } catch (error) {
       console.error('Sign in error:', error);
       setIsLoading(false);

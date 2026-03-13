@@ -31,6 +31,7 @@ export default function SignUpPage() {
         password,
         name,
         callbackURL: '/dashboard',
+        throw: true,
       });
     } catch (err: any) {
       setError(err.message || 'Sign up failed. Please try again.');
