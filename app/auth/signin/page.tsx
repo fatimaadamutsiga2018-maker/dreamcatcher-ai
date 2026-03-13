@@ -3,9 +3,9 @@
 import { signIn, useSession } from '@/lib/auth-client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
-export default function SignInPage() {
+function SignInPageContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -220,5 +220,19 @@ export default function SignInPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-amber-50/30 to-emerald-50/30">
+          <div className="text-slate-600">Loading...</div>
+        </div>
+      }
+    >
+      <SignInPageContent />
+    </Suspense>
   );
 }

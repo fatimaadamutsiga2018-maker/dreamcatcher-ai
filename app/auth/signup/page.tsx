@@ -3,9 +3,9 @@
 import { signUp, useSession } from '@/lib/auth-client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
-export default function SignUpPage() {
+function SignUpPageContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -133,5 +133,19 @@ export default function SignUpPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-amber-50/30 to-emerald-50/30">
+          <div className="text-slate-600">Loading...</div>
+        </div>
+      }
+    >
+      <SignUpPageContent />
+    </Suspense>
   );
 }
