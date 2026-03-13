@@ -6,12 +6,29 @@ import { headers } from 'next/headers';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const postSlug = searchParams.get('postSlug');
-
-  if (!postSlug) {
-    return NextResponse.json({ error: 'postSlug required' }, { status: 400 });
-  }
+  const latest = searchParams.get('latest');
 
   const supabase = createServiceClient();
+
+  // Fetch latest comments across all posts (for blog listing page)
+  if (latest) {
+    const limit = Math.min(parseInt(latest) || 5, 20);
+    const { data, error } = await supabase
+      .from('cp_blog_comments')
+      .select('*')
+      .eq('status', 'published')
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ comments: data });
+  }
+
+  if (!postSlug) {
+    return NextResponse.json({ error: 'postSlug or latest required' }, { status: 400 });
+  }
 
   const { data, error } = await supabase
     .from('cp_blog_comments')

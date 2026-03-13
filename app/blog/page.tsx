@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
+import RecentComments from '@/components/blog/RecentComments';
 
-const categoryColors: Record<string, string> = {
-  Timing: 'bg-blue-100 text-blue-700',
-  Energy: 'bg-emerald-100 text-emerald-700',
-  Alignment: 'bg-purple-100 text-purple-700',
-  Guidance: 'bg-amber-100 text-amber-700',
-  General: 'bg-gray-100 text-gray-700',
-};
+const pillars = [
+  { key: 'Timing', label: 'Timing', icon: '⏱', color: 'text-blue-700', bg: 'bg-blue-50', accent: 'bg-blue-600', badge: 'bg-blue-100 text-blue-700', description: 'When you act matters more than how hard you try.' },
+  { key: 'Energy', label: 'Energy', icon: '⚡', color: 'text-emerald-700', bg: 'bg-emerald-50', accent: 'bg-emerald-600', badge: 'bg-emerald-100 text-emerald-700', description: 'Understand and manage your daily energy cycles.' },
+  { key: 'Alignment', label: 'Alignment', icon: '🎯', color: 'text-purple-700', bg: 'bg-purple-50', accent: 'bg-purple-600', badge: 'bg-purple-100 text-purple-700', description: 'Match your tasks to your peak states.' },
+  { key: 'Guidance', label: 'Guidance', icon: '🧭', color: 'text-amber-700', bg: 'bg-amber-50', accent: 'bg-amber-600', badge: 'bg-amber-100 text-amber-700', description: "Make decisions you won't regret." },
+];
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -15,65 +15,61 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Insights & Guidance
+              Insights &amp; Guidance
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Explore timing, energy, and alignment — practical ideas to help
               you make better choices at better times.
             </p>
           </div>
 
-          {/* Post Grid */}
-          {posts.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group block bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span
-                        className={`text-xs font-semibold px-2.5 py-1 rounded-full ${categoryColors[post.category] || categoryColors.General}`}
-                      >
-                        {post.category}
-                      </span>
-                      <span className="text-xs text-gray-400">
-                        {post.publishDate}
-                      </span>
-                    </div>
-
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
-                      {post.title}
-                    </h2>
-
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-4">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span>{post.author}</span>
-                    </div>
+          {/* 4 Pillars Grid */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {pillars.map((pillar) => {
+              const pillarPosts = posts.filter((p) => p.category === pillar.key);
+              return (
+                <div key={pillar.key} className={`rounded-2xl ${pillar.bg} p-6 flex flex-col`}>
+                  {/* Pillar Header */}
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-2xl">{pillar.icon}</span>
+                    <h2 className={`text-xl font-bold ${pillar.color}`}>{pillar.label}</h2>
                   </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-gray-300 bg-white/70 p-10 text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Blog content is coming soon
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                We are preparing the first set of articles on timing, energy,
-                and decision-making. Check back soon for new guidance.
-              </p>
-            </div>
-          )}
+                  <p className="text-sm text-gray-500 mb-4">{pillar.description}</p>
+
+                  {/* Articles */}
+                  <div className="flex-1 space-y-3">
+                    {pillarPosts.length > 0 ? (
+                      pillarPosts.map((post) => (
+                        <Link
+                          key={post.slug}
+                          href={`/blog/${post.slug}`}
+                          className="group block bg-white rounded-xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                        >
+                          <h3 className="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2 mb-1">
+                            {post.title}
+                          </h3>
+                          <p className="text-xs text-gray-500 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="bg-white/60 rounded-xl p-4 text-center">
+                        <p className="text-sm text-gray-400 italic">Coming soon</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Recent Comments */}
+          <RecentComments />
 
           {/* Bottom CTA */}
           <div className="mt-16 text-center bg-white rounded-2xl shadow-sm border border-gray-200 p-8">

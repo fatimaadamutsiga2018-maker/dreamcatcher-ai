@@ -2,7 +2,11 @@
 title: "What Is Energy Management? (And Why Your Calendar Is Lying to You)"
 slug: "what-is-energy-management"
 description: "You managed your time perfectly. So why do you still feel drained? The answer isn't in your schedule—it's in your energy."
-keywords: ["energy management", "personal energy", "burnout prevention", "productivity", "energy vs time"]
+excerpt: "You managed your time perfectly. So why do you still feel drained? The answer isn't in your schedule—it's in your energy."
+category: "Energy"
+tags: ["energy management", "personal energy", "burnout prevention", "productivity", "energy vs time"]
+publishDate: "2026-03-07"
+author: "Dreamcatcher Team"
 ---
 
 # What Is Energy Management?
