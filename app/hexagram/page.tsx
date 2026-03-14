@@ -133,7 +133,15 @@ export default function HexagramPage() {
 
     // Consume the reading credit
     try {
-      const res = await fetch('/api/user/consume-reading', { method: 'POST' });
+      const res = await fetch('/api/user/consume-reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          readingType: 'hexagram',
+          question: question.trim() || 'General guidance',
+          inputNumbers: numbers,
+        }),
+      });
       const data = await res.json();
       if (!data.consumed) {
         setShowCreditsModal(true);

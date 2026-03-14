@@ -3,12 +3,25 @@ import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/service';
 
-export async function POST() {
+export async function POST(request: Request) {
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
 
   if (!session?.user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // Parse optional reading metadata from body
+  let readingType = 'hexagram';
+  let question = '';
+  let inputNumbers = '';
+  try {
+    const body = await request.json();
+    readingType = body.readingType || 'hexagram';
+    question = body.question || '';
+    inputNumbers = body.inputNumbers || '';
+  } catch {
+    // Body is optional, defaults are fine
   }
 
   const supabase = createServiceClient();
@@ -23,6 +36,14 @@ export async function POST() {
     .single();
 
   if (membership) {
+    // Record reading history
+    await supabase.from('cp_reading_history').insert({
+      user_id: userId,
+      reading_type: readingType,
+      question,
+      input_numbers: inputNumbers,
+      consumed_source: 'membership',
+    });
     return NextResponse.json({ consumed: true, source: 'membership' });
   }
 
@@ -54,6 +75,15 @@ export async function POST() {
       direction: 'debit',
       amount: 5,
       description: 'Decision Guidance reading',
+    });
+
+    // Record reading history
+    await supabase.from('cp_reading_history').insert({
+      user_id: userId,
+      reading_type: readingType,
+      question,
+      input_numbers: inputNumbers,
+      consumed_source: 'bonus_points',
     });
 
     return NextResponse.json({ consumed: true, source: 'bonus_points', remaining: bonusPoints - 5 });
@@ -93,6 +123,15 @@ export async function POST() {
           updated_at: new Date().toISOString(),
         })
         .eq('user_id', userId);
+
+      // Record reading history
+      await supabase.from('cp_reading_history').insert({
+        user_id: userId,
+        reading_type: readingType,
+        question,
+        input_numbers: inputNumbers,
+        consumed_source: 'purchased_credits',
+      });
 
       return NextResponse.json({ consumed: true, source: 'purchased_credits', remaining: purchasedCredits - 1 });
     }
