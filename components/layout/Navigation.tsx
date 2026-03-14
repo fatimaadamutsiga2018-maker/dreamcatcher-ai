@@ -13,6 +13,7 @@ export function Navigation() {
     { href: '/hexagram', label: 'Decision Guidance' },
     { href: '/almanac', label: 'Daily Energy' },
     { href: '/blog', label: 'Blog' },
+    { href: '/pricing', label: 'Pricing' },
   ];
 
   return (

@@ -1,5 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { Pool } from 'pg';
+import { createServiceClient } from '@/lib/supabase/service';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -78,6 +79,33 @@ export const auth = betterAuth({
     github: {
       clientId: process.env.GITHUB_CLIENT_ID || '',
       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          // Grant 10 signup bonus points
+          try {
+            const supabase = createServiceClient();
+            await supabase.from('cp_user_points_summary').insert({
+              user_id: user.id,
+              bonus_points_balance: 10,
+              purchased_credits_balance: 0,
+            });
+            await supabase.from('cp_points_transactions').insert({
+              user_id: user.id,
+              source_type: 'signup_bonus',
+              direction: 'credit',
+              amount: 10,
+              description: 'Welcome bonus — 10 Bonus Points',
+              expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+            });
+          } catch (err) {
+            console.error('Failed to grant signup bonus:', err);
+          }
+        },
+      },
     },
   },
 });

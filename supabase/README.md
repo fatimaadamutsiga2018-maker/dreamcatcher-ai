@@ -27,6 +27,11 @@ This is the only auth SQL in this directory that matches the current project dec
   Status: current, not yet deployed — run in Supabase SQL Editor when ready
   Depends on: better-auth-tables-cp.sql (cp_users must exist first)
 
+- `payment-rights-cp.sql`
+  Purpose: payment, bonus points, purchased reading credits, check-in, referral, membership, and webhook event tables
+  Status: current, not yet deployed — run in Supabase SQL Editor when payment implementation begins
+  Depends on: better-auth-tables-cp.sql (cp_users must exist first)
+
 - `update-result-labels.sql`
   Purpose: result label updates for domain content
   Status: potentially still useful, non-auth
@@ -63,3 +68,19 @@ If the goal is to set up blog comments:
 1. Ensure `better-auth-tables-cp.sql` has been run first
 2. Run `blog-comments-cp.sql` in Supabase SQL Editor
 3. Tables created: `cp_blog_comments`, `cp_comment_likes`
+
+If the goal is to set up payment and rights:
+
+1. Ensure `better-auth-tables-cp.sql` has been run first
+2. Run `payment-rights-cp.sql` in Supabase SQL Editor
+3. Tables created include:
+   - `cp_user_points_summary`
+   - `cp_points_transactions`
+   - `cp_purchased_credits`
+   - `cp_checkin_streaks`
+   - `cp_referrals`
+   - `cp_referral_rewards`
+   - `cp_payment_orders`
+   - `cp_payment_transactions`
+   - `cp_memberships`
+   - `cp_payment_webhook_events`

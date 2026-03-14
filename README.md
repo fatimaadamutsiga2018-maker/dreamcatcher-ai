@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClarityPath
 
-## Getting Started
+ClarityPath is an English-language web product for the US and European market. It combines Eastern wisdom frameworks with modern psychology to help adults 35+ make better decisions, understand their current energy state, and act with better timing.
 
-First, run the development server:
+## Product Scope
+
+- Energy Assessment: a 12-question assessment that outputs four dimension scores and an overall energy state
+- Daily Energy Guidance: general daily timing and action recommendations
+- Decision Wisdom: a Meihua Yishu inspired decision-support flow built with modern, non-mystical language
+- Membership and points: gated features, history, and future subscription flows
+- Content system: SEO blog content that educates users and leads them into the product journey
+
+## Current Tech Stack
+
+- Framework: Next.js 16 (App Router)
+- Styling: Tailwind CSS v4
+- Animation: Framer Motion
+- Database: Supabase PostgreSQL
+- ORM: Drizzle ORM
+- Authentication: Better Auth
+- Deployment: Vercel
+
+## Authentication Architecture
+
+The project is standardizing on:
+
+- Better Auth for authentication
+- Supabase PostgreSQL as the backing database
+- `cp_` table prefixes for ClarityPath auth and business tables
+
+This is intentional. The long-term plan is to allow one Supabase project to host multiple websites. Each website should keep its own isolated table namespace. For ClarityPath, that namespace is `cp_`.
+
+Examples:
+
+- `cp_users`
+- `cp_sessions`
+- `cp_accounts`
+- `cp_verification_tokens`
+- `cp_profiles`
+- `cp_blog_posts`
+
+This avoids cross-project data mixing and keeps migrations, RLS rules, and maintenance easier to reason about.
+
+## Multi-Site Database Strategy
+
+If more websites are added to the same Supabase project, each site should have its own prefix or its own PostgreSQL schema.
+
+Recommended near-term approach:
+
+- Keep `cp_` for ClarityPath
+- Use another prefix for the next site, such as `mh_` or `site2_`
+- Do not share auth tables across unrelated websites unless cross-site login is a deliberate product requirement
+
+## Important Note
+
+The repository still contains legacy auth traces from older Supabase Auth and NextAuth-style experiments. The active direction is Better Auth. New auth migrations and table definitions should be written to match `lib/auth.ts`, not the older historical SQL files.
+
+## Key Project Docs
+
+- Planning index: `planning/README.md`
+- Product requirements: `planning/PRD.md`
+- Database design: `planning/DATABASE_SCHEMA.md`
+- Brand guide: `planning/Dreamcatcher-Brand-Guide-V1.0.md`
+- Blog and auth planning: `planning/blog-comments-and-email-auth-plan.md`
+
+## Supabase SQL Layout
+
+The SQL structure is now intentionally split:
+
+- `supabase/`
+  Active operational SQL for the running project
+- `supabase/legacy/`
+  Archived SQL from earlier setup phases, NextAuth experiments, and one-off repair scripts
+- `planning/supabase/`
+  Planning/reference-only SQL, not the runtime source of truth
+
+Current auth source of truth:
+
+- `supabase/better-auth-tables-cp.sql`
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open `http://localhost:3000`.

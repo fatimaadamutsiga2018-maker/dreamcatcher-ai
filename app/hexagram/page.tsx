@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useSession } from '@/lib/auth-client';
 import { getHexagram64Reading } from '@/lib/hexagram64';
 
+const HEXAGRAM_DRAFT_STORAGE_KEY = 'hexagramDraft';
+
 export default function HexagramPage() {
   const router = useRouter();
   const { data: session, isPending } = useSession();
@@ -12,34 +14,68 @@ export default function HexagramPage() {
   const [numbers, setNumbers] = useState('');
   const [error, setError] = useState('');
   const [showGuidelines, setShowGuidelines] = useState(false);
+  const [hasRestoredDraft, setHasRestoredDraft] = useState(false);
 
-  // Redirect to sign-in if not authenticated
   useEffect(() => {
-    if (!isPending && !session) {
-      router.replace('/auth/signin?callbackUrl=/hexagram');
+    if (typeof window === 'undefined') {
+      return;
     }
-  }, [isPending, router, session]);
 
-  // Show loading state while checking authentication
-  if (isPending) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-purple-50 to-white">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
+    const savedDraft = window.sessionStorage.getItem(HEXAGRAM_DRAFT_STORAGE_KEY);
+    if (!savedDraft) {
+      setHasRestoredDraft(true);
+      return;
+    }
+
+    try {
+      const parsedDraft = JSON.parse(savedDraft) as {
+        question?: string;
+        numbers?: string;
+      };
+      setQuestion(parsedDraft.question || '');
+      setNumbers(parsedDraft.numbers || '');
+    } catch {
+      window.sessionStorage.removeItem(HEXAGRAM_DRAFT_STORAGE_KEY);
+    } finally {
+      setHasRestoredDraft(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !hasRestoredDraft) {
+      return;
+    }
+
+    window.sessionStorage.setItem(
+      HEXAGRAM_DRAFT_STORAGE_KEY,
+      JSON.stringify({
+        question,
+        numbers,
+      })
     );
-  }
+  }, [hasRestoredDraft, numbers, question]);
 
-  // Don't render the form if not authenticated
-  if (!session) {
-    return null;
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (isPending) {
+      return;
+    }
+
+    if (!session) {
+      if (typeof window !== 'undefined') {
+        window.sessionStorage.setItem(
+          HEXAGRAM_DRAFT_STORAGE_KEY,
+          JSON.stringify({
+            question,
+            numbers,
+          })
+        );
+      }
+      router.push('/auth/signin?callbackUrl=/hexagram');
+      return;
+    }
 
     // Numbers are required, question is optional
     if (numbers.length !== 3 || !/^\d{3}$/.test(numbers)) {
@@ -47,9 +83,25 @@ export default function HexagramPage() {
       return;
     }
 
+    // Consume a reading credit before showing results
+    try {
+      const res = await fetch('/api/user/consume-reading', { method: 'POST' });
+      const data = await res.json();
+      if (!data.consumed) {
+        setError(data.error || 'You need credits to use Decision Guidance.');
+        return;
+      }
+    } catch {
+      setError('Failed to verify credits. Please try again.');
+      return;
+    }
+
     // Use question if provided, otherwise use a default message
     const finalQuestion = question.trim() || 'General guidance';
     const reading = getHexagram64Reading(finalQuestion, numbers);
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem(HEXAGRAM_DRAFT_STORAGE_KEY);
+    }
     localStorage.setItem('hexagramReading', JSON.stringify(reading));
     router.push('/hexagram/reading');
   };
@@ -114,9 +166,10 @@ export default function HexagramPage() {
 
           <button
             type="submit"
+            disabled={isPending}
             className="w-full py-4 bg-emerald-600 text-white rounded-full font-medium text-lg hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg"
           >
-            Receive Guidance
+            {isPending ? 'Checking account...' : 'Receive Guidance'}
           </button>
         </form>
 
