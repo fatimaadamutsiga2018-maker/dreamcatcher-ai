@@ -95,9 +95,12 @@ export async function POST(request: NextRequest) {
   }
 
   // 2. Call Creem API to create checkout session
+  const creemBaseUrl = creemApiKey.startsWith('creem_test_')
+    ? 'https://test-api.creem.io/v1'
+    : 'https://api.creem.io/v1';
   let creemCheckout;
   try {
-    const creemRes = await fetch('https://api.creem.io/v1/checkouts', {
+    const creemRes = await fetch(`${creemBaseUrl}/checkouts`, {
       method: 'POST',
       headers: {
         'x-api-key': creemApiKey,

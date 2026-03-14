@@ -17,6 +17,9 @@ export default function HexagramPage() {
   const [showGuidelines, setShowGuidelines] = useState(false);
   const [hasRestoredDraft, setHasRestoredDraft] = useState(false);
   const [showCreditsModal, setShowCreditsModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmInfo, setConfirmInfo] = useState<{ source: string; cost: string; remaining: string } | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -85,16 +88,58 @@ export default function HexagramPage() {
       return;
     }
 
-    // Consume a reading credit before showing results
+    // Check user rights first, then show confirmation
+    try {
+      const rightsRes = await fetch('/api/user/rights');
+      const rights = await rightsRes.json();
+
+      if (!rights.canRead) {
+        setShowCreditsModal(true);
+        return;
+      }
+
+      // Build confirmation info based on source
+      if (rights.readingSource === 'membership') {
+        setConfirmInfo({
+          source: 'membership',
+          cost: 'Included in your membership',
+          remaining: 'Unlimited',
+        });
+      } else if (rights.readingSource === 'bonus_points') {
+        setConfirmInfo({
+          source: 'bonus_points',
+          cost: '5 Bonus Points',
+          remaining: `${rights.bonusPoints - 5} Bonus Points after this reading`,
+        });
+      } else {
+        setConfirmInfo({
+          source: 'purchased_credits',
+          cost: '1 Reading Credit',
+          remaining: `${rights.purchasedCredits - 1} Reading Credits after this reading`,
+        });
+      }
+      setShowConfirmModal(true);
+    } catch {
+      setError('Failed to check credits. Please try again.');
+    }
+  };
+
+  const handleConfirmReading = async () => {
+    setShowConfirmModal(false);
+    setSubmitting(true);
+
+    // Consume the reading credit
     try {
       const res = await fetch('/api/user/consume-reading', { method: 'POST' });
       const data = await res.json();
       if (!data.consumed) {
         setShowCreditsModal(true);
+        setSubmitting(false);
         return;
       }
     } catch {
-      setError('Failed to verify credits. Please try again.');
+      setError('Failed to process credits. Please try again.');
+      setSubmitting(false);
       return;
     }
 
@@ -105,6 +150,7 @@ export default function HexagramPage() {
       window.sessionStorage.removeItem(HEXAGRAM_DRAFT_STORAGE_KEY);
     }
     localStorage.setItem('hexagramReading', JSON.stringify(reading));
+    setSubmitting(false);
     router.push('/hexagram/reading');
   };
 
@@ -168,10 +214,10 @@ export default function HexagramPage() {
 
           <button
             type="submit"
-            disabled={isPending}
+            disabled={isPending || submitting}
             className="w-full py-4 bg-emerald-600 text-white rounded-full font-medium text-lg hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg"
           >
-            {isPending ? 'Checking account...' : 'Receive Guidance'}
+            {isPending ? 'Checking account...' : submitting ? 'Processing...' : 'Receive Guidance'}
           </button>
         </form>
 
@@ -256,6 +302,42 @@ export default function HexagramPage() {
           </p>
         </div>
       </div>
+
+      {/* Confirm Credits Modal */}
+      {showConfirmModal && confirmInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl">
+            <div className="text-center">
+              <div className="text-4xl mb-3">&#x2728;</div>
+              <h2 className="text-xl font-bold text-slate-900">Confirm Reading</h2>
+            </div>
+            <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Cost</span>
+                <span className="font-medium text-slate-900">{confirmInfo.cost}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">After this reading</span>
+                <span className="font-medium text-slate-900">{confirmInfo.remaining}</span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleConfirmReading}
+                className="py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition"
+              >
+                Confirm &amp; Receive Guidance
+              </button>
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="py-3 border border-slate-300 rounded-xl text-slate-600 font-medium hover:bg-slate-50 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Credits Modal */}
       {showCreditsModal && (
