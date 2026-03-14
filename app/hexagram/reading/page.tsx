@@ -25,6 +25,27 @@ export default function ReadingPage() {
     }
   }, [isPending, router, session]);
 
+  // Load reading from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('hexagramReading');
+    if (stored) {
+      try {
+        const data = JSON.parse(stored);
+        if (data && data.action_1 && data.result_level) {
+          setReading(data);
+        } else {
+          localStorage.removeItem('hexagramReading');
+          router.push('/hexagram');
+        }
+      } catch {
+        localStorage.removeItem('hexagramReading');
+        router.push('/hexagram');
+      }
+    } else {
+      router.push('/hexagram');
+    }
+  }, [router]);
+
   // Show loading state while checking authentication
   if (isPending) {
     return (
@@ -57,28 +78,6 @@ export default function ReadingPage() {
     const config = getNumberEnergyLevel(level as 1 | 2 | 3 | 4 | 5);
     return config?.expandedInsight(situation, movingLine) || `${situation}. Assess carefully and proceed with awareness.`;
   };
-
-  useEffect(() => {
-    const stored = localStorage.getItem('hexagramReading');
-    if (stored) {
-      try {
-        const data = JSON.parse(stored);
-        // Check if data has the correct structure (new format with action_1, action_2, action_3)
-        if (data && data.action_1 && data.result_level) {
-          setReading(data);
-        } else {
-          // Old format or invalid data, redirect to input page
-          localStorage.removeItem('hexagramReading');
-          router.push('/hexagram');
-        }
-      } catch (error) {
-        localStorage.removeItem('hexagramReading');
-        router.push('/hexagram');
-      }
-    } else {
-      router.push('/hexagram');
-    }
-  }, [router]);
 
   if (!reading) {
     return (
