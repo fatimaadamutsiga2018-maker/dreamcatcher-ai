@@ -63,6 +63,8 @@ export default function HexagramPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setShowCreditsModal(false);
+    setShowConfirmModal(false);
 
     if (isPending) {
       return;
@@ -126,6 +128,7 @@ export default function HexagramPage() {
 
   const handleConfirmReading = async () => {
     setShowConfirmModal(false);
+    setError('');
     setSubmitting(true);
 
     // Consume the reading credit
