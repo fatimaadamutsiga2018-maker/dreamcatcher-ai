@@ -4,7 +4,7 @@ import { useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { History, TrendingUp, Calendar } from 'lucide-react';
+import { History, TrendingUp, Calendar, Coins, CreditCard, Crown } from 'lucide-react';
 
 interface RecentItem {
   id: string;
@@ -20,6 +20,9 @@ interface DashboardData {
   totalAssessments: number;
   thisMonth: number;
   recentActivity: RecentItem[];
+  bonusPoints: number;
+  purchasedCredits: number;
+  membership: { plan_code: string; status: string; current_period_end: string } | null;
 }
 
 export default function DashboardPage() {
@@ -58,6 +61,9 @@ export default function DashboardPage() {
   const totalAssessments = dashData?.totalAssessments ?? 0;
   const thisMonth = dashData?.thisMonth ?? 0;
   const recentActivity = dashData?.recentActivity ?? [];
+  const bonusPoints = dashData?.bonusPoints ?? 0;
+  const purchasedCredits = dashData?.purchasedCredits ?? 0;
+  const membership = dashData?.membership;
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -118,6 +124,52 @@ export default function DashboardPage() {
               <div>
                 <p className="text-sm text-slate-600">This Month</p>
                 <p className="text-2xl font-bold text-slate-900">{thisMonth}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Account Assets */}
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl border-2 border-purple-100 p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                <Crown className="w-6 h-6 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Membership</p>
+                <p className="text-lg font-bold text-slate-900">
+                  {membership ? (membership.plan_code === 'member_yearly' ? 'Yearly' : 'Monthly') : 'Free'}
+                </p>
+                {membership?.current_period_end && (
+                  <p className="text-xs text-slate-400">
+                    Expires {new Date(membership.current_period_end).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl border-2 border-orange-100 p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                <Coins className="w-6 h-6 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Bonus Points</p>
+                <p className="text-2xl font-bold text-slate-900">{bonusPoints}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl border-2 border-sky-100 p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
+                <CreditCard className="w-6 h-6 text-sky-600" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Reading Credits</p>
+                <p className="text-2xl font-bold text-slate-900">{purchasedCredits}</p>
               </div>
             </div>
           </div>

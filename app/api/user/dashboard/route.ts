@@ -45,10 +45,28 @@ export async function GET() {
     .order('created_at', { ascending: false })
     .limit(10);
 
+  // User assets: points summary
+  const { data: summary } = await supabase
+    .from('cp_user_points_summary')
+    .select('bonus_points_balance, purchased_credits_balance')
+    .eq('user_id', userId)
+    .single();
+
+  // Active membership
+  const { data: membership } = await supabase
+    .from('cp_memberships')
+    .select('plan_code, status, current_period_end')
+    .eq('user_id', userId)
+    .in('status', ['active', 'trialing'])
+    .single();
+
   return NextResponse.json({
     totalReadings: totalReadings ?? 0,
     totalAssessments: totalAssessments ?? 0,
     thisMonth: thisMonth ?? 0,
     recentActivity: recentActivity ?? [],
+    bonusPoints: summary?.bonus_points_balance ?? 0,
+    purchasedCredits: summary?.purchased_credits_balance ?? 0,
+    membership: membership || null,
   });
 }
