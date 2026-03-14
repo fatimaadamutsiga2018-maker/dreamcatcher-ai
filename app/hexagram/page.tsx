@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useSession } from '@/lib/auth-client';
 import { getHexagram64Reading } from '@/lib/hexagram64';
 
@@ -15,6 +16,7 @@ export default function HexagramPage() {
   const [error, setError] = useState('');
   const [showGuidelines, setShowGuidelines] = useState(false);
   const [hasRestoredDraft, setHasRestoredDraft] = useState(false);
+  const [showCreditsModal, setShowCreditsModal] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -88,7 +90,7 @@ export default function HexagramPage() {
       const res = await fetch('/api/user/consume-reading', { method: 'POST' });
       const data = await res.json();
       if (!data.consumed) {
-        setError(data.error || 'You need credits to use Decision Guidance.');
+        setShowCreditsModal(true);
         return;
       }
     } catch {
@@ -254,6 +256,35 @@ export default function HexagramPage() {
           </p>
         </div>
       </div>
+
+      {/* Credits Modal */}
+      {showCreditsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl">
+            <div className="text-center">
+              <div className="text-4xl mb-3">&#x1F512;</div>
+              <h2 className="text-xl font-bold text-slate-900">Credits Needed</h2>
+              <p className="text-slate-600 mt-2">
+                You don&apos;t have enough credits for a reading. Get credits or upgrade to unlimited membership.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/pricing"
+                className="block text-center py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition"
+              >
+                View Plans &amp; Pricing
+              </Link>
+              <button
+                onClick={() => setShowCreditsModal(false)}
+                className="py-3 border border-slate-300 rounded-xl text-slate-600 font-medium hover:bg-slate-50 transition"
+              >
+                Maybe Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
