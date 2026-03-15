@@ -21,6 +21,18 @@ function buildAppUrl() {
   );
 }
 
+function normalizeCreemCheckoutUrl(checkoutUrl: string) {
+  try {
+    const url = new URL(checkoutUrl);
+    if (url.hostname === 'creem.io') {
+      url.hostname = 'www.creem.io';
+    }
+    return url.toString();
+  } catch {
+    return checkoutUrl;
+  }
+}
+
 export async function POST(request: NextRequest) {
   const headersList = await headers();
   const session = await auth.api.getSession({ headers: headersList });
@@ -159,6 +171,6 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     orderNo,
-    checkoutUrl: creemCheckout.checkout_url,
+    checkoutUrl: normalizeCreemCheckoutUrl(creemCheckout.checkout_url),
   });
 }
