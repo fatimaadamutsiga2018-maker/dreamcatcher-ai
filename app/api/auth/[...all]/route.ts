@@ -1,24 +1,18 @@
 import { auth } from '@/lib/auth';
+import { isTrustedAuthOrigin } from '@/lib/auth-origins';
 import { toNextJsHandler } from 'better-auth/next-js';
 
 const { GET: authGET, POST: authPOST } = toNextJsHandler(auth);
 
-const allowedOrigins = [
-  'https://www.dreamcatcherai.us',
-  'https://dreamcatcherai.us',
-  'https://dreamcatcher-ai-nine.vercel.app',
-];
-
 function getCorsHeaders(request: Request) {
   const origin = request.headers.get('origin') || '';
-  const isAllowed = allowedOrigins.includes(origin);
   const headers: Record<string, string> = {
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Credentials': 'true',
   };
 
-  if (isAllowed) {
+  if (isTrustedAuthOrigin(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
   }
 

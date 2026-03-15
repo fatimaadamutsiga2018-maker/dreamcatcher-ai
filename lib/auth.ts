@@ -1,5 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { Pool } from 'pg';
+import { getAllowedAuthHosts, getTrustedAuthOrigins } from '@/lib/auth-origins';
 import { createServiceClient } from '@/lib/supabase/service';
 
 const pool = new Pool({
@@ -7,12 +8,18 @@ const pool = new Pool({
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
 });
 
+const authBaseURL =
+  process.env.BETTER_AUTH_URL ||
+  process.env.NEXTAUTH_URL ||
+  'https://www.dreamcatcherai.us';
+
 export const auth = betterAuth({
   appName: 'ClarityPath',
-  baseURL:
-    process.env.BETTER_AUTH_URL ||
-    process.env.NEXTAUTH_URL ||
-    'https://www.dreamcatcherai.us',
+  baseURL: {
+    allowedHosts: getAllowedAuthHosts(),
+    fallback: authBaseURL,
+    protocol: 'auto',
+  },
   secret: process.env.NEXTAUTH_SECRET || 'fallback-secret-for-build',
   database: pool,
   user: {
@@ -62,15 +69,7 @@ export const auth = betterAuth({
     minPasswordLength: 8,
     maxPasswordLength: 128,
   },
-  trustedOrigins: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://localhost:3002',
-    'http://127.0.0.1:3002',
-    'https://www.dreamcatcherai.us',
-    'https://dreamcatcherai.us',
-    'https://dreamcatcher-ai-nine.vercel.app',
-  ],
+  trustedOrigins: async (request) => getTrustedAuthOrigins(request),
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID || '',
