@@ -219,6 +219,13 @@ export default function Home() {
           <p className="mt-1">
             You are the final decision-maker.
           </p>
+          <div className="mt-4 flex items-center justify-center gap-4">
+            <a href="/privacy" className="hover:text-slate-700 transition-colors">Privacy Policy</a>
+            <span className="text-slate-300">|</span>
+            <a href="/terms" className="hover:text-slate-700 transition-colors">Terms of Service</a>
+            <span className="text-slate-300">|</span>
+            <a href="mailto:support@dreamcatcherai.us" className="hover:text-slate-700 transition-colors">Contact</a>
+          </div>
         </div>
       </footer>
 
