@@ -9,6 +9,7 @@ import {
   dimensionLabels,
   dimensionReflections,
 } from '@/lib/assessment';
+import { ARCHETYPE_KEY_TO_SLUG } from '@/lib/archetypes';
 import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer,
 } from 'recharts';
@@ -67,10 +68,16 @@ export default function ResultsPage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
           <h2 className="text-lg font-bold text-gray-900 mb-3">About Your Current State</h2>
           <p className="text-gray-700 leading-relaxed mb-4">{info.description}</p>
-          <div className="bg-amber-50 rounded-xl p-4">
+          <div className="bg-amber-50 rounded-xl p-4 mb-4">
             <p className="text-sm font-semibold text-amber-800 mb-1">Suggested Action</p>
             <p className="text-sm text-amber-700">{info.advice}</p>
           </div>
+          <Link
+            href={`/archetype/${ARCHETYPE_KEY_TO_SLUG[result.archetype]}`}
+            className="inline-block text-sm font-medium text-emerald-700 hover:text-emerald-800 underline underline-offset-2"
+          >
+            Learn more about {info.name} →
+          </Link>
         </div>
 
         {/* Radar Chart */}
