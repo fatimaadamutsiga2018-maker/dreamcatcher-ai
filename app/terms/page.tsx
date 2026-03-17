@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { SITE_URL } from '@/lib/seo';
 
 export const metadata = {
-  title: 'Terms of Service | ClarityPath',
+  title: 'Terms of Service',
   description: 'Terms of Service for ClarityPath by DreamCatcher AI',
+  alternates: { canonical: `${SITE_URL}/terms` },
 };
 
 export default function TermsPage() {

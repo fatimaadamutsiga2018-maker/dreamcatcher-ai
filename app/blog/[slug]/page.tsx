@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import BlogComments from '@/components/blog/BlogComments';
+import { SITE_URL, SITE_NAME } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -17,8 +18,24 @@ export async function generateMetadata({
   const post = await getPostBySlug(slug);
   if (!post) return { title: 'Post Not Found' };
   return {
-    title: `${post.title} | Dreamcatcher Blog`,
+    title: post.title,
     description: post.description,
+    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
+    openGraph: {
+      type: 'article' as const,
+      title: post.title,
+      description: post.description,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      publishedTime: post.publishDate,
+      authors: [post.author],
+      section: post.category,
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary' as const,
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 
@@ -39,8 +56,25 @@ export default async function BlogPostPage({
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    author: { '@type': 'Person', name: post.author },
+    publisher: { '@type': 'Organization', name: SITE_NAME },
+    datePublished: post.publishDate,
+    articleSection: post.category,
+    keywords: post.tags,
+    url: `${SITE_URL}/blog/${post.slug}`,
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto">
           {/* Back link */}

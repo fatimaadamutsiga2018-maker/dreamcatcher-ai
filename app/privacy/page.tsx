@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { SITE_URL } from '@/lib/seo';
 
 export const metadata = {
-  title: 'Privacy Policy | ClarityPath',
+  title: 'Privacy Policy',
   description: 'Privacy Policy for ClarityPath by DreamCatcher AI',
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 export default function PrivacyPage() {

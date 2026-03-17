@@ -1,6 +1,21 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
 import RecentComments from '@/components/blog/RecentComments';
+import { SITE_URL } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Blog — Insights on Timing, Energy & Decision-Making',
+  description:
+    'Explore practical ideas on timing, energy management, and better decision-making. Articles organized by four pillars: Timing, Energy, Alignment, and Guidance.',
+  alternates: { canonical: `${SITE_URL}/blog` },
+  openGraph: {
+    title: 'Blog — Insights on Timing, Energy & Decision-Making',
+    description:
+      'Explore practical ideas on timing, energy management, and better decision-making.',
+    url: `${SITE_URL}/blog`,
+  },
+};
 
 const pillars = [
   { key: 'Timing', label: 'Timing', icon: '⏱', color: 'text-blue-700', bg: 'bg-blue-50', accent: 'bg-blue-600', badge: 'bg-blue-100 text-blue-700', description: 'When you act matters more than how hard you try.' },
