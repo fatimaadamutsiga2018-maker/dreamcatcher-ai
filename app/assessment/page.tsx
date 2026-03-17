@@ -3,9 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { selectQuestions, calculateResult, AssessmentQuestion } from '@/lib/assessment';
+import { useSession } from '@/lib/auth-client';
+import { buildAssessmentResultSummary } from '@/lib/reading-history';
 
 export default function AssessmentPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [questions, setQuestions] = useState<AssessmentQuestion[]>([]);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -43,6 +46,18 @@ export default function AssessmentPage() {
       setTimeout(() => {
         const result = calculateResult(newAnswers);
         localStorage.setItem('assessmentResult', JSON.stringify(result));
+        if (session) {
+          void fetch('/api/user/consume-reading', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            keepalive: true,
+            body: JSON.stringify({
+              readingType: 'assessment',
+              question: 'Personal energy snapshot',
+              resultSummary: buildAssessmentResultSummary(result),
+            }),
+          });
+        }
         router.push('/assessment/results');
       }, 2000);
     }

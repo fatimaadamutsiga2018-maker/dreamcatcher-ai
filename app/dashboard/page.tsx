@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { History, TrendingUp, Calendar, Coins, CreditCard, Crown } from 'lucide-react';
+import { getRecentActivityResultPreview, type ReadingResultSummary } from '@/lib/reading-history';
 
 interface RecentItem {
   id: string;
   reading_type: string;
   question: string | null;
   input_numbers: string | null;
+  result_summary: ReadingResultSummary | null;
   consumed_source: string;
   created_at: string;
 }
@@ -74,6 +76,7 @@ export default function DashboardPage() {
     if (source === 'membership') return 'Membership';
     if (source === 'bonus_points') return 'Bonus Points';
     if (source === 'purchased_credits') return 'Credits';
+    if (source === 'free') return 'Free';
     return source;
   };
 
@@ -205,8 +208,8 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-4">
               {recentActivity.map((item) => (
-                <div key={item.id} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
-                  <div className="flex items-center gap-3">
+                <div key={item.id} className="flex items-start justify-between py-3 border-b border-slate-100 last:border-0 gap-4">
+                  <div className="flex items-start gap-3 min-w-0">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       item.reading_type === 'hexagram' ? 'bg-emerald-100' : 'bg-amber-100'
                     }`}>
@@ -214,17 +217,26 @@ export default function DashboardPage() {
                         {item.reading_type === 'hexagram' ? '☰' : '⚡'}
                       </span>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm font-medium text-slate-900">
                         {item.reading_type === 'hexagram' ? 'Decision Guidance' : 'Energy Assessment'}
                       </p>
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs text-slate-500 truncate">
                         {item.question || 'General guidance'}
                         {item.input_numbers ? ` · ${item.input_numbers}` : ''}
                       </p>
+                      {(() => {
+                        const resultPreview = getRecentActivityResultPreview(item);
+                        return (
+                          <p className="text-xs font-medium text-slate-700 truncate">
+                            {resultPreview.primary}
+                            {resultPreview.secondary ? ` · ${resultPreview.secondary}` : ''}
+                          </p>
+                        );
+                      })()}
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className="text-xs text-slate-500">{formatDate(item.created_at)}</p>
                     <p className="text-xs text-slate-400">{sourceLabel(item.consumed_source)}</p>
                   </div>

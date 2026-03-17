@@ -41,8 +41,8 @@ const TRIGRAM_TO_HEXAGRAM: Record<string, number> = {
   '7-0': 23, '7-1': 26, '7-2': 41, '7-3': 22, '7-4': 27, '7-5': 18, '7-6': 4, '7-7': 52,
 };
 
-// Calculate hexagram from 3 numbers
-export function calculateHexagram64(num1: number, num2: number, num3: number): {
+// Calculate hexagram from 3 numbers at a specific timestamp.
+export function calculateHexagram64At(num1: number, num2: number, num3: number, date: Date): {
   upper: number;
   lower: number;
   hexagramNumber: number;
@@ -50,9 +50,8 @@ export function calculateHexagram64(num1: number, num2: number, num3: number): {
   upperTrigram: typeof TRIGRAMS[0];
   lowerTrigram: typeof TRIGRAMS[0];
 } {
-  const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
 
   // Formula from Musk: upper = (A + hour + minute) % 8, lower = (B + hour + minute) % 8
   const upper = (num1 + hour + minute) % 8;
@@ -72,6 +71,18 @@ export function calculateHexagram64(num1: number, num2: number, num3: number): {
     upperTrigram: TRIGRAMS[upper as keyof typeof TRIGRAMS],
     lowerTrigram: TRIGRAMS[lower as keyof typeof TRIGRAMS],
   };
+}
+
+// Calculate hexagram from 3 numbers using the current timestamp.
+export function calculateHexagram64(num1: number, num2: number, num3: number): {
+  upper: number;
+  lower: number;
+  hexagramNumber: number;
+  movingLine: number;
+  upperTrigram: typeof TRIGRAMS[0];
+  lowerTrigram: typeof TRIGRAMS[0];
+} {
+  return calculateHexagram64At(num1, num2, num3, new Date());
 }
 
 // Hexagram names lookup (sequence_number -> name_cn, name_en)
@@ -233,10 +244,11 @@ function getMockHexagram(hexagramNumber: number): Hexagram {
   };
 }
 
-// Get hexagram reading
-export function getHexagram64Reading(
+// Get hexagram reading at a specific timestamp.
+export function getHexagram64ReadingAt(
   question: string,
-  numbers: string
+  numbers: string,
+  dateInput: string | Date
 ): Hexagram & {
   question: string;
   inputNumbers: string;
@@ -245,7 +257,9 @@ export function getHexagram64Reading(
   lowerTrigram: typeof TRIGRAMS[0];
 } {
   const [num1, num2, num3] = numbers.split('').map(Number);
-  const { hexagramNumber, movingLine, upperTrigram, lowerTrigram } = calculateHexagram64(num1, num2, num3);
+  const readingDate = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  const { hexagramNumber, movingLine, upperTrigram, lowerTrigram } =
+    calculateHexagram64At(num1, num2, num3, readingDate);
 
   const hexagram = getMockHexagram(hexagramNumber);
 
@@ -257,6 +271,20 @@ export function getHexagram64Reading(
     upperTrigram,
     lowerTrigram,
   };
+}
+
+// Get hexagram reading using the current timestamp.
+export function getHexagram64Reading(
+  question: string,
+  numbers: string
+): Hexagram & {
+  question: string;
+  inputNumbers: string;
+  movingLine: number;
+  upperTrigram: typeof TRIGRAMS[0];
+  lowerTrigram: typeof TRIGRAMS[0];
+} {
+  return getHexagram64ReadingAt(question, numbers, new Date());
 }
 
 // Level-based conclusion and suggestion mapping (for simplified template)

@@ -40,7 +40,7 @@ export async function GET() {
   // Recent activity (last 10)
   const { data: recentActivity } = await supabase
     .from('cp_reading_history')
-    .select('id, reading_type, question, input_numbers, consumed_source, created_at')
+    .select('id, reading_type, question, input_numbers, result_summary, consumed_source, created_at')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
     .limit(10);

@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/service';
+import {
+  buildHexagramResultSummary,
+  normalizeReadingResultSummary,
+  type ReadingResultSummary,
+} from '@/lib/reading-history';
 
 export async function POST(request: Request) {
   const headersList = await headers();
@@ -15,17 +20,53 @@ export async function POST(request: Request) {
   let readingType = 'hexagram';
   let question = '';
   let inputNumbers = '';
+  let resultSummary: ReadingResultSummary | null = null;
   try {
-    const body = await request.json();
+    const body = await request.json() as {
+      readingType?: string;
+      question?: string;
+      inputNumbers?: string;
+      resultSummary?: ReadingResultSummary | null;
+    };
     readingType = body.readingType || 'hexagram';
     question = body.question || '';
     inputNumbers = body.inputNumbers || '';
+    resultSummary = normalizeReadingResultSummary(body.resultSummary);
   } catch {
     // Body is optional, defaults are fine
   }
 
   const supabase = createServiceClient();
   const userId = session.user.id;
+  const normalizedQuestion = question.trim();
+  const normalizedInputNumbers = inputNumbers.trim();
+  const defaultQuestion = readingType === 'assessment' ? 'Personal energy snapshot' : 'General guidance';
+  const createdAt = new Date().toISOString();
+
+  if (readingType === 'assessment') {
+    await supabase.from('cp_reading_history').insert({
+      user_id: userId,
+      reading_type: 'assessment',
+      question: normalizedQuestion || defaultQuestion,
+      input_numbers: normalizedInputNumbers || null,
+      result_summary: resultSummary ?? {},
+      consumed_source: 'free',
+      created_at: createdAt,
+    });
+
+    return NextResponse.json({ consumed: true, source: 'free' });
+  }
+
+  const finalQuestion = normalizedQuestion || defaultQuestion;
+  const finalResultSummary =
+    resultSummary ??
+    (/^\d{3}$/.test(normalizedInputNumbers)
+      ? buildHexagramResultSummary({
+          question: finalQuestion,
+          inputNumbers: normalizedInputNumbers,
+          createdAt,
+        })
+      : null);
 
   // 1. Check membership first — members don't consume anything
   const { data: membership } = await supabase
@@ -40,9 +81,11 @@ export async function POST(request: Request) {
     await supabase.from('cp_reading_history').insert({
       user_id: userId,
       reading_type: readingType,
-      question,
-      input_numbers: inputNumbers,
+      question: finalQuestion,
+      input_numbers: normalizedInputNumbers || null,
+      result_summary: finalResultSummary ?? {},
       consumed_source: 'membership',
+      created_at: createdAt,
     });
     return NextResponse.json({ consumed: true, source: 'membership' });
   }
@@ -81,9 +124,11 @@ export async function POST(request: Request) {
     await supabase.from('cp_reading_history').insert({
       user_id: userId,
       reading_type: readingType,
-      question,
-      input_numbers: inputNumbers,
+      question: finalQuestion,
+      input_numbers: normalizedInputNumbers || null,
+      result_summary: finalResultSummary ?? {},
       consumed_source: 'bonus_points',
+      created_at: createdAt,
     });
 
     return NextResponse.json({ consumed: true, source: 'bonus_points', remaining: bonusPoints - 5 });
@@ -128,9 +173,11 @@ export async function POST(request: Request) {
       await supabase.from('cp_reading_history').insert({
         user_id: userId,
         reading_type: readingType,
-        question,
-        input_numbers: inputNumbers,
+        question: finalQuestion,
+        input_numbers: normalizedInputNumbers || null,
+        result_summary: finalResultSummary ?? {},
         consumed_source: 'purchased_credits',
+        created_at: createdAt,
       });
 
       return NextResponse.json({ consumed: true, source: 'purchased_credits', remaining: purchasedCredits - 1 });
