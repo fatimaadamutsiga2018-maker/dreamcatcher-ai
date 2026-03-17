@@ -27,11 +27,20 @@ export async function generateMetadata({
       description: archetype.metaDescription,
       url: `${SITE_URL}/archetype/${archetype.slug}`,
       section: 'Energy Archetypes',
+      images: [
+        {
+          url: new URL(`/api/og?type=archetype&icon=${encodeURIComponent(archetype.info.icon)}&title=${encodeURIComponent(archetype.info.name)}&subtitle=${encodeURIComponent(archetype.info.tagline)}`, SITE_URL).toString(),
+          width: 1200,
+          height: 630,
+          alt: archetype.info.name,
+        },
+      ],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: archetype.seoTitle,
       description: archetype.metaDescription,
+      images: [new URL(`/api/og?type=archetype&icon=${encodeURIComponent(archetype.info.icon)}&title=${encodeURIComponent(archetype.info.name)}&subtitle=${encodeURIComponent(archetype.info.tagline)}`, SITE_URL).toString()],
     },
   }
 }

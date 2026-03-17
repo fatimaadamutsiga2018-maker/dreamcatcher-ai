@@ -31,11 +31,20 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "ClarityPath — Better Choices, Elevated Energy, Easier Life",
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/api/og?title=ClarityPath&subtitle=Better+Choices,+Elevated+Energy,+Easier+Life",
+        width: 1200,
+        height: 630,
+        alt: "ClarityPath — Your Energy Elevation Partner",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "ClarityPath — Better Choices, Elevated Energy, Easier Life",
     description: SITE_DESCRIPTION,
+    images: ["/api/og?title=ClarityPath&subtitle=Better+Choices,+Elevated+Energy,+Easier+Life"],
   },
   alternates: {
     canonical: SITE_URL,
