@@ -220,6 +220,10 @@ export default function Home() {
             You are the final decision-maker.
           </p>
           <div className="mt-4 flex items-center justify-center gap-4">
+            <a href="/archetype" className="hover:text-slate-700 transition-colors">Archetypes</a>
+            <span className="text-slate-300">|</span>
+            <a href="/glossary" className="hover:text-slate-700 transition-colors">Glossary</a>
+            <span className="text-slate-300">|</span>
             <a href="/privacy" className="hover:text-slate-700 transition-colors">Privacy Policy</a>
             <span className="text-slate-300">|</span>
             <a href="/terms" className="hover:text-slate-700 transition-colors">Terms of Service</a>
