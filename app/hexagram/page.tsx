@@ -283,21 +283,45 @@ export default function HexagramPage() {
               </div>
 
               <div className="pt-6 border-t border-gray-100">
-                <h3 className="text-base font-semibold text-gray-900 mb-3">Guidelines:</h3>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-emerald-600 mr-2">•</span>
-                    <span>Only consult when facing uncertainty</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-emerald-600 mr-2">•</span>
-                    <span>Trust your first instinct for numbers</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-emerald-600 mr-2">•</span>
-                    <span>Ask once per question</span>
-                  </li>
-                </ul>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">How to Get the Best Reading</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-sm font-semibold text-emerald-700 mb-2">✓ Three Commitments</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      <li className="flex items-start">
+                        <span><strong>Take it seriously</strong> — Spend a moment thinking about your question before you ask. The clearer your intent, the more useful the reading.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span><strong>Stay neutral</strong> — Trust your first instinct for numbers. Don&apos;t overthink or chase a specific outcome.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span><strong>Act on it</strong> — A reading is a starting point, not the finish line. Use what you learn to guide your next step.</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-red-700 mb-2">✗ Four Boundaries</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      <li className="flex items-start">
+                        <span><strong>Wrong intent</strong> — Don&apos;t ask about harming others or gaining at someone&apos;s expense.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span><strong>Unclear question</strong> — Casual curiosity won&apos;t get useful answers. Ask when it truly matters to you.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span><strong>Wrong state</strong> — Avoid asking when emotionally overwhelmed, or about things already decided.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span><strong>Wrong scope</strong> — Don&apos;t ask about other people&apos;s private matters, or questions you&apos;re not ready to hear the answer to.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-50">
+                  <p className="text-xs text-gray-500">
+                    One question, one reading. Repeating the same question hoping for a different answer won&apos;t give you better clarity.
+                  </p>
+                </div>
               </div>
             </div>
           )}

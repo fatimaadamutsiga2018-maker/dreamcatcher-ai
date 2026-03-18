@@ -1,0 +1,116 @@
+[
+  {
+    "name": "visionary_architect",
+    "archetype": "Striver",
+    "tone_keywords": ["balance","protect","purpose"],
+    "snapshot": "Month X · Favorable energy. Clarity and momentum are aligned, but rush can morph into pressure.",
+    "insight": "When direction and energy run together, progress feels natural, yet the urge to keep accelerating can quietly undermine your balance. Rhythm, not relentless speed, sustains the meaningful growth you seek.",
+    "guidance": [
+      "✅ Pause today to revisit why this matters, so each action stays purposeful.",
+      "✅ Build a short reflection window to adjust pace instead of forcing another task.",
+      "⏸️ If hesitant: Ask yourself, 'Am I chasing the goal, or just filling the calendar?'"
+    ],
+    "micro_action": "Spend ten minutes pausing and checking whether your direction still feels right.",
+    "nudge": "Avoid filling every minute with tasks; progress isn't measured by busyness."
+  },
+  {
+    "name": "kinetic_fog",
+    "archetype": "Explorer",
+    "tone_keywords": ["energy","focus","prioritize"],
+    "snapshot": "High energy is present, but the path ahead feels foggy.",
+    "insight": "It's like charging through a rainstorm—the power is there, but visibility is low. The best way out of the fog is to choose one direction and focus your momentum, rather than chasing every new spark.",
+    "guidance": [
+      "✅ Pick one idea and devote one focused block of time to it today.",
+      "✅ Ignore every new distraction for 30 minutes and see what that clarity brings.",
+      "⏸️ If hesitant: Ask, 'Which of these ideas am I still excited enough to stick with?'"
+    ],
+    "micro_action": "Choose one spark and spend 30 focused minutes on it—no multitasking.",
+    "nudge": "Energy without direction exhausts you. Channel it into one line of work before opening the next."
+  },
+  {
+    "name": "rogue_engine",
+    "archetype": "Striver",
+    "tone_keywords": ["lean in","purpose","remind"],
+    "snapshot": "You're pushing hard, but the effort's weight is clear.",
+    "insight": "Ambition fuels you, but when drive loses alignment, the same push becomes pressure. You may accomplish a lot yet feel the impact missing its mark.",
+    "guidance": [
+      "✅ Pause a task and ask, 'Is this high-value or just urgent?'",
+      "✅ Recalibrate your goals with your values so the work stays meaningful.",
+      "⏸️ If hesitant: Ask, 'Am I pressured by the task, or by my identity as a doer?'"
+    ],
+    "micro_action": "Today, say no to one busy-but-empty request so you can focus on your priority.",
+    "nudge": "More effort isn't always the answer—let alignment guide the next move."
+  },
+  {
+    "name": "harmonious_drifter",
+    "archetype": "Reset Seeker",
+    "tone_keywords": ["gentle","rest","reconnect"],
+    "snapshot": "Energy is muted and slow; clarity feels blurry.",
+    "insight": "This quiet phase isn't failure—it's a shift. You've outgrown previous goals but haven't found the next destination yet.",
+    "guidance": [
+      "✅ Give yourself time and pick one meaningful small action to reconnect.",
+      "✅ Tune into supportive relationships; you don't have to decide immediately.",
+      "⏸️ If hesitant: Ask, 'Am I rushing to decide just to escape uncertainty?'"
+    ],
+    "micro_action": "Write down three things that still feel meaningful, then breathe through each one.",
+    "nudge": "Avoid forcing fast decisions; let clarity surface at its own pace."
+  },
+  {
+    "name": "deep_observer",
+    "archetype": "Reset Seeker",
+    "tone_keywords": ["reflective","steady","calm"],
+    "snapshot": "You understand your life, but action lags behind thought.",
+    "insight": "Reflection brings depth but can breed hesitation. The smallest imperfect move often turns insight into progress.",
+    "guidance": [
+      "✅ Choose one idea you've considered and spend 15 minutes on it.",
+      "✅ Treat action as an experiment, not a final answer.",
+      "⏸️ If hesitant: Ask, 'Am I waiting for perfect clarity instead of creating it?'"
+    ],
+    "micro_action": "Act on a planned idea for 15 minutes—progress beats perfection.",
+    "nudge": "Waiting for certainty often creates delay. Launch a tiny test instead."
+  },
+  {
+    "name": "burnedout_sage",
+    "archetype": "Explorer",
+    "tone_keywords": ["steady","grounded","renew"],
+    "snapshot": "You hold clarity, yet your body feels drained.",
+    "insight": "High insight with depleted energy is the burned-out sage. You're wise about what should happen, but the fuel to execute is low. A little renewal keeps clarity from turning into fatigue.",
+    "guidance": [
+      "✅ Schedule a gentle pause rather than forcing another decision.",
+      "✅ Add a small restorative ritual to reclaim energy without breaking your current balance.",
+      "⏸️ If hesitant: Ask, 'Is pushing through worth the energy cost, or is rest the wiser move?'"
+    ],
+    "micro_action": "Take a 10-minute restorative break—walk, breathe, hydrate.",
+    "nudge": "Rest is not defeat; it keeps the clarity you have actionable later."
+  },
+  {
+    "name": "kinetic_fog",
+    "archetype": "Explorer",
+    "tone_keywords": ["energy","focus","prioritize"],
+    "snapshot": "Your vitality is strong but the direction is scattered.",
+    "insight": "It's like powering through a storm—your engine works, but visibility is poor. Focus the surge on one direction; without it, you spread energy thin and feel frustrated.",
+    "guidance": [
+      "✅ Commit to one idea for a short focus session.",
+      "✅ Create a 'today's focus' window so attention sticks.",
+      "⏸️ If hesitant: Ask, 'Which idea keeps pulling me back even when distractions arrive?'
+"
+    ],
+    "micro_action": "Pick one high-energy idea and devote 30 distraction-free minutes to it.",
+    "nudge": "Avoid chasing every spark—direction amplifies momentum more than constant restarts."
+  },
+  {
+    "name": "hibernator",
+    "archetype": "Reset Seeker",
+    "tone_keywords": ["rest","care","permission"],
+    "snapshot": "Energy is low; the system requests downtime.",
+    "insight": "Fatigue isn't weakness—it's a signal to restore. Move gently; recovery brings clarity back naturally.",
+    "guidance": [
+      "✅ Allow today to be restorative, even if it feels unproductive.",
+      "✅ Let go of a task list and focus on simple nourishment.",
+      "⏸️ If hesitant: Ask, 'Am I forcing productivity out of guilt, or honoring my need to rest?'
+"
+    ],
+    "micro_action": "Give yourself 20 minutes of true rest—no screens, no tasks.",
+    "nudge": "Rest is strategic; when energy returns, action will feel lighter."
+  }
+]

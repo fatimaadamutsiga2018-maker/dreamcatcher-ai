@@ -1,0 +1,21 @@
+{
+  "event_summary": "string (<=30 chars EN / <=15 chars ZH)",
+  "event_type": "enum: career, relationship, finance, health, creative, learning, migration, general",
+  "user_stance": "enum: decided, hesitant",
+  "core_concern": "string",
+  "depth_level": "enum: standard, deep",
+  "date": "YYYY-MM-DD",
+  "language": "zh/en/other",
+  "tier": "integer 1-5",
+  "tier_label": "Highly Favorable/Favorable/Moderate/Challenging/Unfavorable",
+  "almanac_panel": "string",
+  "timing_cue": "enum: NOW, ADJUST, WAIT",
+  "lighting": "enum: green, yellow, orange, red",
+  "archetype": "enum: Explorer, Striver, Reset Seeker",
+  "sub_template": "enum: visionary_architect, kinetic_fog, rogue_engine, deep_observer, burnedout_sage, harmonious_drifter, hibernator, explorer",
+  "tone_keywords": "array of strings",
+  "allowed_metaphors": "array of strings",
+  "micro_action_limit": "integer minutes",
+  "preferred_media": "optional card reference",
+  "followup_allowed": "boolean"
+}

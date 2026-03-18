@@ -6,6 +6,7 @@ import { useSession } from '@/lib/auth-client';
 import Link from 'next/link';
 import { Hexagram } from '@/lib/hexagram64';
 import { getNumberEnergyLevel } from '@/lib/content-config';
+import { cn } from '@/lib/utils';
 
 export default function ReadingPage() {
   const router = useRouter();
@@ -97,6 +98,81 @@ export default function ReadingPage() {
   };
   const config = levelConfig[reading.result_level as keyof typeof levelConfig] || levelConfig[1];
 
+  const [conversation, setConversation] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
+  const [insightStarted, setInsightStarted] = useState(false);
+  const [roundsUsed, setRoundsUsed] = useState(0);
+  const [inputText, setInputText] = useState('');
+  const [loadingInsight, setLoadingInsight] = useState(false);
+  const [insightError, setInsightError] = useState<string | null>(null);
+
+  const roundsRemaining = Math.max(0, 3 - roundsUsed);
+  const canAsk = insightStarted && roundsUsed < 3;
+
+  const buildReadingPayload = () => ({
+    reading: {
+      question: reading.question || 'General guidance',
+      result_label: reading.result_label,
+      situation: reading.situation,
+      action_1: reading.action_1,
+      action_2: reading.action_2,
+      action_3: reading.action_3,
+      insight: reading.insight,
+      hexagram_number: reading.sequence_number,
+      hexagram_name_cn: reading.name_cn,
+      hexagram_name_en: reading.name_en,
+      upper_trigram: reading.upper_trigram?.name || '',
+      lower_trigram: reading.lower_trigram?.name || '',
+      moving_line: reading.movingLine,
+    },
+    messages: [],
+    language: reading.language || 'zh',
+  });
+
+  const handleInsightRequest = async (messageOverride?: string) => {
+    setInsightError(null);
+    setLoadingInsight(true);
+    try {
+      const payload = buildReadingPayload();
+      if (messageOverride) {
+        const updatedMessages = [...conversation, { role: 'user', content: messageOverride }];
+        payload.messages = updatedMessages;
+      } else {
+        payload.messages = conversation;
+      }
+      const response = await fetch('/api/reading/interpret', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error?.error ?? 'Request failed');
+      }
+
+      const data = await response.json();
+      setInsightStarted(true);
+      setRoundsUsed((prev) => Math.min(3, prev + 1));
+      setConversation((prev) => [
+        ...prev,
+        ...(messageOverride ? [{ role: 'user', content: messageOverride }] : []),
+        { role: 'assistant', content: data.message },
+      ]);
+      setInputText('');
+    } catch (err: any) {
+      setInsightError(err.message || 'Unable to fetch insight');
+    } finally {
+      setLoadingInsight(false);
+    }
+  };
+
+  const handleAskQuestion = async () => {
+    if (!inputText.trim() || !canAsk) {
+      return;
+    }
+    await handleInsightRequest(inputText.trim());
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white py-12 px-4">
       <div className="max-w-3xl mx-auto">
@@ -172,6 +248,78 @@ export default function ReadingPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* AI Conversation */}
+        <div className="mt-10 space-y-4">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-semibold text-gray-800">Deeper Insight</h2>
+            {!insightStarted && (
+              <span className="text-sm text-gray-500">3 questions remaining</span>
+            )}
+          </div>
+          {!insightStarted ? (
+            <button
+              onClick={() => handleInsightRequest()}
+              disabled={loadingInsight}
+              className="w-full px-6 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition-colors"
+            >
+              {loadingInsight ? 'Thinking…' : 'Get Deeper Insight'}
+            </button>
+          ) : (
+            <div
+              className={cn(
+                'p-4 border rounded-2xl space-y-3 bg-white shadow-sm',
+                loadingInsight && 'opacity-70'
+              )}
+            >
+              {conversation.map((msg, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    'rounded-xl p-3 text-sm leading-relaxed',
+                    msg.role === 'assistant' ? 'bg-indigo-50 text-gray-900' : 'bg-gray-100 text-gray-800'
+                  )}
+                >
+                  {msg.content}
+                </div>
+              ))}
+              {insightError && (
+                <div className="text-sm text-red-600">{insightError}</div>
+              )}
+              <div className="text-xs text-gray-500">
+                {roundsRemaining > 0
+                  ? `${roundsRemaining} question${roundsRemaining > 1 ? 's' : ''} remaining`
+                  : "You've explored this reading fully."}
+              </div>
+            </div>
+          )}
+          {insightStarted && (
+            <div className="flex flex-col gap-2">
+              <textarea
+                rows={1}
+                value={inputText}
+                onChange={(event) => setInputText(event.target.value)}
+                disabled={!canAsk || loadingInsight}
+                className="w-full px-4 py-3 border rounded-2xl resize-none focus:outline-none focus:ring focus:border-indigo-300 text-sm"
+                placeholder={canAsk ? 'Ask a follow-up question...' : "You've reached the limit for this reading."}
+              />
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={handleAskQuestion}
+                  disabled={!canAsk || loadingInsight || !inputText.trim()}
+                  className="px-5 py-2 bg-emerald-600 text-white rounded-full text-sm font-medium disabled:opacity-50"
+                >
+                  {loadingInsight ? 'Thinking…' : 'Send Question'}
+                </button>
+                {!canAsk && (
+                  <p className="text-xs text-gray-500">
+                    Limit reached — try another reading later.
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Actions */}
