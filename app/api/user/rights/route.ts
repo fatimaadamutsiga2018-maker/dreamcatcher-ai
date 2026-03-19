@@ -24,7 +24,7 @@ export async function GET() {
   // Fetch active membership
   const { data: membership } = await supabase
     .from('cp_memberships')
-    .select('plan_code, status, current_period_end')
+    .select('plan_code, status, current_period_end, deeper_insight_total, deeper_insight_remaining')
     .eq('user_id', userId)
     .in('status', ['active', 'trialing'])
     .single();
@@ -51,6 +51,8 @@ export async function GET() {
   return NextResponse.json({
     bonusPoints,
     purchasedCredits,
+    deeperInsightTotal: membership?.deeper_insight_total ?? 0,
+    deeperInsightRemaining: membership?.deeper_insight_remaining ?? 0,
     membership: membership || null,
     canRead,
     readingSource,

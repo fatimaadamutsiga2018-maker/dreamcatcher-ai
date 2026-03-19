@@ -55,7 +55,7 @@ export async function GET() {
   // Active membership
   const { data: membership } = await supabase
     .from('cp_memberships')
-    .select('plan_code, status, current_period_end')
+    .select('plan_code, status, current_period_end, deeper_insight_total, deeper_insight_remaining')
     .eq('user_id', userId)
     .in('status', ['active', 'trialing'])
     .single();
@@ -68,5 +68,7 @@ export async function GET() {
     bonusPoints: summary?.bonus_points_balance ?? 0,
     purchasedCredits: summary?.purchased_credits_balance ?? 0,
     membership: membership || null,
+    deeperInsightTotal: membership?.deeper_insight_total ?? 0,
+    deeperInsightRemaining: membership?.deeper_insight_remaining ?? 0,
   });
 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as crypto from 'crypto';
 import { createServiceClient } from '@/lib/supabase/service';
 import { getPaymentProductConfig, isPaymentSku } from '@/lib/payment-config';
+import { getPlanDeeperAllowance } from '@/lib/deeper-insight';
 
 type JsonRecord = Record<string, unknown>;
 type SupabaseClient = ReturnType<typeof createServiceClient>;
@@ -626,6 +627,18 @@ async function upsertMembership(
   };
 
   if (params.providerSubscriptionId) {
+    const planAllowance = getPlanDeeperAllowance(params.planCode);
+    const { data: existingBySub } = await supabase
+      .from('cp_memberships')
+      .select('id')
+      .eq('provider_subscription_id', params.providerSubscriptionId)
+      .maybeSingle();
+
+    if (!existingBySub && planAllowance > 0) {
+      payload.deeper_insight_total = planAllowance;
+      payload.deeper_insight_remaining = planAllowance;
+    }
+
     const { error } = await supabase
       .from('cp_memberships')
       .upsert(payload, { onConflict: 'provider_subscription_id' });
@@ -661,6 +674,12 @@ async function upsertMembership(
     }
 
     return;
+  }
+
+  const planAllowance = getPlanDeeperAllowance(params.planCode);
+  if (!existing && planAllowance > 0) {
+    payload.deeper_insight_total = planAllowance;
+    payload.deeper_insight_remaining = planAllowance;
   }
 
   const { error } = await supabase.from('cp_memberships').insert(payload);
