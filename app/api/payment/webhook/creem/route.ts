@@ -635,8 +635,8 @@ async function upsertMembership(
       .maybeSingle();
 
     if (!existingBySub && planAllowance > 0) {
-      payload.deeper_insight_total = planAllowance;
-      payload.deeper_insight_remaining = planAllowance;
+      (payload as Record<string, unknown>).deeper_insight_total = planAllowance;
+      (payload as Record<string, unknown>).deeper_insight_remaining = planAllowance;
     }
 
     const { error } = await supabase
@@ -678,8 +678,8 @@ async function upsertMembership(
 
   const planAllowance = getPlanDeeperAllowance(params.planCode);
   if (!existing && planAllowance > 0) {
-    payload.deeper_insight_total = planAllowance;
-    payload.deeper_insight_remaining = planAllowance;
+    (payload as Record<string, unknown>).deeper_insight_total = planAllowance;
+    (payload as Record<string, unknown>).deeper_insight_remaining = planAllowance;
   }
 
   const { error } = await supabase.from('cp_memberships').insert(payload);

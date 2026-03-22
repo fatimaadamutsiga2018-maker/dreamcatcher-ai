@@ -10,6 +10,7 @@ const creditPacks = [
     credits: 5,
     perReading: '$1.00',
     description: 'Try it out',
+    deeperNote: '2 readings = 1 deeper insight',
   },
   {
     sku: 'explorer_12',
@@ -19,6 +20,7 @@ const creditPacks = [
     perReading: '$0.83',
     description: 'Most popular',
     popular: true,
+    deeperNote: '2 readings = 1 deeper insight',
   },
   {
     sku: 'deep_dive_30',
@@ -27,6 +29,7 @@ const creditPacks = [
     credits: 30,
     perReading: '$0.67',
     description: 'Best value',
+    deeperNote: '2 readings = 1 deeper insight',
   },
 ];
 
@@ -42,6 +45,7 @@ const membershipPlans = [
       'Personalized energy-fit recommendations',
       'Priority access to new features',
       'Cancel anytime',
+      'Includes 3 Deeper Insight unlocks per month',
     ],
   },
   {
@@ -56,6 +60,7 @@ const membershipPlans = [
       'Personalized energy-fit recommendations',
       'Priority access to new features',
       'Save 58% vs monthly',
+      'Includes 5 Deeper Insight unlocks per year',
     ],
     popular: true,
   },
@@ -71,8 +76,12 @@ const comparisonFeatures = [
     credits: 'Buy as you go',
     member: 'Unlimited',
   },
-  { name: 'Detailed Insights', free: '—', credits: '—', member: '✓' },
-  { name: 'Energy Adaptation', free: '—', credits: '—', member: '✓' },
+  {
+    name: 'Detailed Insights',
+    free: '—',
+    credits: '2 readings = 1 deeper insight',
+    member: 'Bonus sessions: 3 per month / 5 per year',
+  },
 ];
 
 const faqItems = [
@@ -82,11 +91,15 @@ const faqItems = [
   },
   {
     q: "What's the difference between Credits and Membership?",
-    a: 'Reading Credits are one-time purchases — buy a pack and use them at your own pace. Membership gives you unlimited Decision Guidance readings plus exclusive features like Detailed Insights and Energy Adaptation.',
+    a: 'Reading Credits are one-time purchases — buy a pack and use them at your own pace. Two credits unlock one deeper insight. Membership includes unlimited Decision Guidance readings plus the deeper insight allotment (3 per month or 5 per year) without using credits.',
   },
   {
     q: 'Do credits expire?',
     a: 'Yes, Reading Credits are valid for 90 days from purchase. Bonus Points do not expire.',
+  },
+  {
+    q: 'How do Deeper Insights work?',
+    a: 'Deeper Insights are unlocked via readings. Members receive 3 (monthly) or 5 (yearly) free deeper insights; once those are used, two Reading Credits unlock one deeper insight. Bonus Points are not accepted.',
   },
   {
     q: 'Can I upgrade from Credits to Membership later?',
@@ -109,8 +122,8 @@ export default function PricingContent() {
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 text-center">
             What&apos;s Included
           </h1>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-sm">
               <thead>
                 <tr>
                   <th className="text-left py-2 px-3 font-medium text-slate-500">
@@ -148,9 +161,12 @@ export default function PricingContent() {
                   </tr>
                 ))}
               </tbody>
-            </table>
-          </div>
-        </div>
+      </table>
+    </div>
+    <div className="text-xs text-gray-500 mt-3 text-center">
+      Reading Credits expire after 90 days. Two credits unlock one Deeper Insight unlock; Bonus Points cannot be used for deeper insights.
+    </div>
+  </div>
 
         {/* Reading Credits */}
         <div className="mb-10">
@@ -183,6 +199,11 @@ export default function PricingContent() {
                     <p className="text-xs text-slate-500">
                       {pack.description}
                     </p>
+                    {pack.deeperNote && (
+                      <p className="text-[10px] text-slate-400 italic mt-1">
+                        {pack.deeperNote}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <span className="text-2xl font-bold text-slate-900">
@@ -194,10 +215,9 @@ export default function PricingContent() {
                     <p>{pack.perReading} per reading</p>
                   </div>
                   <button
-                    disabled
-                    className="w-full py-3 rounded-xl font-medium bg-slate-300 text-slate-500 cursor-not-allowed"
+                    className="w-full py-3 rounded-xl font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition"
                   >
-                    Coming Soon
+                    Buy now
                   </button>
                 </div>
               </div>
@@ -259,10 +279,9 @@ export default function PricingContent() {
                     ))}
                   </ul>
                   <button
-                    disabled
-                    className="w-full py-3 rounded-xl font-medium bg-slate-300 text-slate-500 cursor-not-allowed"
+                    className="w-full py-3 rounded-xl font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition"
                   >
-                    Coming Soon
+                    Subscribe now
                   </button>
                 </div>
               </div>

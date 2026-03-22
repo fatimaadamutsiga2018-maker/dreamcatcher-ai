@@ -1,4 +1,6 @@
-import { type SupabaseClient } from '@/lib/supabase/service';
+import { createServiceClient } from '@/lib/supabase/service';
+
+type SupabaseClient = ReturnType<typeof createServiceClient>;
 
 const PLAN_ALLOWANCE: Record<'member_monthly' | 'member_yearly', number> = {
   member_monthly: 3,
